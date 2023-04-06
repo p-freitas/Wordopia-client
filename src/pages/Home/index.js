@@ -12,7 +12,7 @@ const socket = io(process.env.REACT_APP_SOCKET_URL, {
 socket.on('connect', () => console.log('[SOCKET] [DISPLAY] => New Connection'))
 
 const Home = () => {
-  const [timer, setTimer] = useState(0)
+  const [timer, setTimer] = useState()
   const [activeLetter, setActiveLetter] = useState(null) // state to keep track of the active letter
   const [textLost, setTextLost] = useState(false) // state to keep track of the active letter
   const audioRef = useRef(null)
@@ -90,9 +90,14 @@ const Home = () => {
     }
   }
 
+  const handleResetGame = () => {
+    socket.emit('resetGame')
+    audioRef.current.pause()
+  }
+
   return (
     <S.PageContainer>
-      {/* <button onClick={handleResetGame}>resetar</button> */}
+      <S.ResetButton onClick={handleResetGame}>Resetar</S.ResetButton>
       <audio ref={audioRef} src={timeSound} />
       <audio ref={audioStopRef} src={timeSoundStop} />
       {textLost && <S.TextLost>Se Fodeu</S.TextLost>}

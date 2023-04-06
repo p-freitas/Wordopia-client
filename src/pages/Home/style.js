@@ -83,3 +83,19 @@ export const TextLost = styled.h1`
   font-size: 179px;
   color: red;
 `
+
+export const ResetButton = styled.button`
+  width: 150px;
+  height: 40px;
+  border-radius: 7%;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: black 0px 0px 2px 0px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`
