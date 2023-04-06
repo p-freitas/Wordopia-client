@@ -8,7 +8,7 @@ export const AlphabetContainer = styled.div`
   padding: 20px;
   position: relative;
   width: 100%;
-  max-width: 60%;
+  max-width: 75%;
   margin: 0 auto;
 `
 
@@ -21,14 +21,13 @@ export const Letter = styled.div`
   justify-content: center;
   font-size: 30px;
   font-weight: bold;
-  cursor: pointer;
+  cursor: ${({ cursor }) => cursor ? 'default' : 'pointer'};
   color: white;
   margin: 20px;
-  background-color: ${({ background }) =>
-    background}; // change the background color based on the isActive prop
+  background-color: ${({ background }) => background};
 
   &:hover {
-    background-color: rgb(48 142 217);
+    background-color: ${({ backgroundHover }) => backgroundHover};
   }
 `
 
@@ -38,8 +37,25 @@ export const PageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+`
+
+export const TabletopContainer = styled.div`
+  background-color: #2563eb;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   justify-content: space-evenly;
+  width: 85%;
+`
+
+export const ScoreBoardContainer = styled.div`
+  background-color: #2563eb;
+  display: flex;
+  width: 20%;
 `
 
 export const Button = styled.button`
@@ -63,12 +79,6 @@ export const Button = styled.button`
 export const ButtonContainer = styled.div`
   width: 30%;
   text-align: center;
-`
-
-export const Title = styled.h1`
-  text-align: center;
-  color: white;
-  font-size: 60px;
 `
 
 export const TimerText = styled.h1`
@@ -98,4 +108,10 @@ export const ResetButton = styled.button`
   &:hover {
     opacity: 0.8;
   }
+`
+
+export const Title = styled.h1`
+  text-align: center;
+  color: white;
+  font-size: 60px;
 `

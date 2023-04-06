@@ -68,6 +68,8 @@ export const ModalHeaderContent = styled.div`
   align-items: center;
   align-content: center;
   height: inherit;
+  height: auto;
+  flex-direction: column;
 `
 
 export const ModalBodyContent = styled.div`
@@ -80,6 +82,11 @@ export const TitleContainer = styled.div`
   justify-content: center;
   color: black;
   font-size: 30px;
+`
+
+export const TextWarning = styled.p`
+  color: red;
+  margin-top: 10px;
 `
 
 export const Button = styled.button`
@@ -171,9 +178,9 @@ export const ResetTextContainer = styled.div`
   display: flex;
 `
 
-export const ResetInput = styled.input`
-  border: unset;
-  border-bottom: 1px solid;
-  font-size: 16px;
-  width: 70px;
+export const NameInput = styled.input`
+  border: 1px solid;
+  font-size: 18px;
+  width: 200px;
+  padding: 10px;
 `

@@ -1,23 +1,31 @@
 import React from 'react'
 import * as S from './styles'
 
-const Modal = ({ open, setOpen }) => {
+const WinnerModal = ({
+  open,
+  winner,
+  handleResetGame,
+}) => {
   if (open) {
     return (
       <S.Container data-testid='modal-testid'>
         <S.ModalContent>
           <S.ModalHeaderContent>
-            <S.TitleContainer>Tempo esgotado</S.TitleContainer>
+            <S.TitleContainer>Corno vencedor da rodada: </S.TitleContainer>
+          </S.ModalHeaderContent>
+
+          <S.ModalHeaderContent>
+            <S.TitleContainer>{winner} </S.TitleContainer>
           </S.ModalHeaderContent>
 
           <S.ModalBodyContent>
-            <S.ButtonCancel
+            <S.Button
               onClick={() => {
-                setOpen(false)
+                handleResetGame()
               }}
             >
-              Fechar
-            </S.ButtonCancel>
+              Próxima rodada
+            </S.Button>
           </S.ModalBodyContent>
         </S.ModalContent>
       </S.Container>
@@ -27,4 +35,4 @@ const Modal = ({ open, setOpen }) => {
   }
 }
 
-export default Modal
+export default WinnerModal
