@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import timeSound from '../../assets/timeSound.mp3'
-import timeSoundStop from '../../assets/gemidao.mp3'
+import timeSoundStop from '../../assets/darkcloudio.mp3'
 import * as S from './style'
 
 import io from 'socket.io-client'
@@ -21,7 +21,7 @@ const Home = () => {
   const letters = [...Array(26)].map((_, index) =>
     String.fromCharCode(65 + index)
   )
-  const excludedLetters = new Set(['X', 'Y', 'Ç', 'K', 'Q', 'W', 'J'])
+  const excludedLetters = new Set(['X', 'Y', 'Ç', 'K', 'Q', 'W'])
   const filteredLetters = letters.filter(letter => !excludedLetters.has(letter))
 
   const handleClick = letter => {
@@ -92,6 +92,7 @@ const Home = () => {
 
   return (
     <S.PageContainer>
+      {/* <button onClick={handleResetGame}>resetar</button> */}
       <audio ref={audioRef} src={timeSound} />
       <audio ref={audioStopRef} src={timeSoundStop} />
       {textLost && <S.TextLost>Se Fodeu</S.TextLost>}
