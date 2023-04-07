@@ -9,6 +9,7 @@ import ModalPlayerName from '../../components/ModalPlayerName'
 import PlayersList from '../../components/PlayersList'
 import WinnerModal from '../../components/WinnerModal'
 import MuteButton from '../../components/MuteButton'
+import ModalReset from '../../components/ModalReset'
 
 const socket = io(process.env.REACT_APP_SOCKET_URL, {
   transports: ['websocket'],
@@ -30,6 +31,7 @@ const Home = () => {
   const [Winner, setWinner] = useState()
   const [isMuted, setIsMuted] = useState(false)
   const [currentWord, setCurrentWord] = useState('')
+  const [ResetOpenModal, setResetOpenModal] = useState('')
   const [isMyTurn, setIsMyTurn] = useState(false)
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
@@ -162,6 +164,15 @@ const Home = () => {
     setWinnerModalOpen(false)
   }
 
+  const handleResetClick = () => {
+    setResetOpenModal(true);
+  }
+
+  const handleResetAllGame = () => {
+    socket.emit('resetGameAll')
+    setResetOpenModal(false);
+  }
+
   return (
     <S.PageContainer>
       <S.TabletopContainer>
@@ -219,7 +230,7 @@ const Home = () => {
           players={players}
           setPlayers={setPlayers}
         />
-        <S.ResetButton onClick={() => handleResetGame()}>
+        <S.ResetButton onClick={() => handleResetClick()}>
           Resetar
         </S.ResetButton>
       </S.ScoreBoardContainer>
@@ -230,6 +241,7 @@ const Home = () => {
         handleResetGame={handleResetGame}
       />
       <MuteButton setIsMuted={setIsMuted} isMuted={isMuted} />
+      <ModalReset handleResetAllGame={handleResetAllGame} open={ResetOpenModal} setOpen={setResetOpenModal}/>
     </S.PageContainer>
   )
 }
