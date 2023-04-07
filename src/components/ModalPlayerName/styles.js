@@ -21,7 +21,7 @@ export const ModalContent = styled.div`
   height: 400px;
 
   @media only screen and (max-device-width: 767px) {
-    margin: ;
+    max-width: 90%;
   }
 
   width: ${({ fullScreen, width }) => (fullScreen ? '100%' : width)};
@@ -118,6 +118,11 @@ export const Button = styled.button`
       background-color: #cccccc;
     }
   }
+
+  @media only screen and (max-device-width: 767px) {
+    width: 150px;
+    font-size: 18px;
+  }
 `
 
 export const ButtonCancel = styled.button`
@@ -137,6 +142,11 @@ export const ButtonCancel = styled.button`
 
   &:hover {
     background-color: var(--red-strong);
+  }
+
+  @media only screen and (max-device-width: 767px) {
+    width: 150px;
+    font-size: 18px;
   }
 `
 

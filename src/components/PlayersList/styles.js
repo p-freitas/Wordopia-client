@@ -11,6 +11,10 @@ export const ScoreboardContainer = styled.div`
   border: 2px solid white;
   color: white;
   font-family: 'MyFont', sans-serif;
+
+  @media only screen and (max-device-width: 767px) {
+    margin: 30px 0;
+  }
 `
 
 export const ScoreboardTitle = styled.h2`
