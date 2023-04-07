@@ -166,9 +166,7 @@ const Home = () => {
     <S.PageContainer>
       <S.TabletopContainer>
         <S.Title>Trava Letras</S.Title>
-        {/* <S.ResetButton onClick={handleResetActiveLetters}>
-          Resetar
-        </S.ResetButton> */}
+
         <audio ref={audioRef} src={timeSound} muted={isMuted} />
         <audio ref={audioStopRef} src={timeSoundStop} muted={isMuted} />
         <audio
@@ -221,6 +219,9 @@ const Home = () => {
           players={players}
           setPlayers={setPlayers}
         />
+        <S.ResetButton onClick={() => handleResetGame()}>
+          Resetar
+        </S.ResetButton>
       </S.ScoreBoardContainer>
       <WinnerModal
         open={WinnerModalOpen}

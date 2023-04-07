@@ -1,40 +1,16 @@
 import React from 'react'
-import styled from 'styled-components'
+import * as S from './styles'
 
 const MuteButton = ({ setIsMuted, isMuted }) => {
-  const Button = styled.button`
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background-color: ${isMuted ? 'red' : 'green'};
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    &:focus {
-      outline: none;
-    }
-  `
-
-  const Icon = styled.i`
-    font-size: 20px;
-    color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  `
-
-  const MuteIcon = <Icon className='fas fa-volume-mute'></Icon>
-  const UnmuteIcon = <Icon className='fas fa-volume-up'></Icon>
+    const MuteIcon = <S.Icon className='fas fa-volume-mute'></S.Icon>
+  const UnmuteIcon = <S.Icon className='fas fa-volume-up'></S.Icon>
 
   const handleClick = () => {
     setIsMuted(!isMuted)
   }
 
   return (
-    <Button onClick={handleClick}>{isMuted ? MuteIcon : UnmuteIcon}</Button>
+    <S.Button onClick={handleClick} isMuted={isMuted} aria-label='Mute audio' aria-pressed='false' type='button'>{isMuted ? MuteIcon : UnmuteIcon}</S.Button>
   )
 }
 

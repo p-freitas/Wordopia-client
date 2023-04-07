@@ -73,6 +73,16 @@ export const WordButtonContainer = styled.div`
   justify-content: center;
 `
 
+export const ResetButtonContainer = styled.div`
+  background-color: rgb(37, 99, 235);
+  display: flex;
+  height: 40%;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+`
+
 export const Word = styled.p`
   color: white;
   margin-bottom: 20px;
@@ -144,6 +154,12 @@ export const ResetButton = styled.button`
   font-weight: bold;
   cursor: pointer;
   box-shadow: black 0px 0px 2px 0px;
+  margin-top: 200px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
 
   &:hover {
     opacity: 0.8;
