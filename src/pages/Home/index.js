@@ -83,6 +83,16 @@ const Home = () => {
       console.log(error)
     }
 
+    try {
+      socket.emit('getWord')
+
+      socket.on('sendWord', data => {
+        setCurrentWord(data)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+
     setPlayerModalOpen(true)
   }, [])
 
@@ -165,12 +175,12 @@ const Home = () => {
   }
 
   const handleResetClick = () => {
-    setResetOpenModal(true);
+    setResetOpenModal(true)
   }
 
   const handleResetAllGame = () => {
     socket.emit('resetGameAll')
-    setResetOpenModal(false);
+    setResetOpenModal(false)
   }
 
   return (
@@ -241,7 +251,11 @@ const Home = () => {
         handleResetGame={handleResetGame}
       />
       <MuteButton setIsMuted={setIsMuted} isMuted={isMuted} />
-      <ModalReset handleResetAllGame={handleResetAllGame} open={ResetOpenModal} setOpen={setResetOpenModal}/>
+      <ModalReset
+        handleResetAllGame={handleResetAllGame}
+        open={ResetOpenModal}
+        setOpen={setResetOpenModal}
+      />
     </S.PageContainer>
   )
 }
