@@ -29,6 +29,7 @@ const Home = () => {
   const [currentLetter, setCurrentLetter] = useState()
   const [Winner, setWinner] = useState()
   const [isMuted, setIsMuted] = useState(false)
+  const [currentWord, setCurrentWord] = useState('')
   const [isMyTurn, setIsMyTurn] = useState(false)
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
@@ -58,6 +59,15 @@ const Home = () => {
     socket.emit('playerName', playerName)
     setPlayerName('')
     setPlayerModalOpen(false)
+  }
+
+  const handleClickWordButton = () => {
+    socket.emit('wordsButtonClick')
+
+    socket.on('wordGenerated', data => {
+      setCurrentWord(data)
+    })
+    // setCurrentWord(words.words[randomIndex]);
   }
 
   useEffect(() => {
@@ -152,8 +162,6 @@ const Home = () => {
     setWinnerModalOpen(false)
   }
 
-
-
   return (
     <S.PageContainer>
       <S.TabletopContainer>
@@ -161,9 +169,13 @@ const Home = () => {
         {/* <S.ResetButton onClick={handleResetActiveLetters}>
           Resetar
         </S.ResetButton> */}
-        <audio ref={audioRef} src={timeSound} muted={isMuted}/>
-        <audio ref={audioStopRef} src={timeSoundStop} muted={isMuted}/>
-        <audio ref={audioPlayerTurnSoundRef} src={playerTurnSound} muted={isMuted}/>
+        <audio ref={audioRef} src={timeSound} muted={isMuted} />
+        <audio ref={audioStopRef} src={timeSoundStop} muted={isMuted} />
+        <audio
+          ref={audioPlayerTurnSoundRef}
+          src={playerTurnSound}
+          muted={isMuted}
+        />
         {textLost && <S.TextLost>Se Fodeu</S.TextLost>}
         <S.AlphabetContainer>
           {filteredLetters.map(letter => (
@@ -195,6 +207,12 @@ const Home = () => {
         />
       </S.TabletopContainer>
       <S.ScoreBoardContainer>
+        <S.WordButtonContainer>
+          <S.Word>{currentWord}</S.Word>
+          <S.WordButton onClick={handleClickWordButton}>
+            Gerar novo tema
+          </S.WordButton>
+        </S.WordButtonContainer>
         <PlayersList
           currentTurn={currentTurn}
           playersOut={playersOut}
@@ -210,7 +228,7 @@ const Home = () => {
         winner={Winner}
         handleResetGame={handleResetGame}
       />
-      <MuteButton setIsMuted={setIsMuted} isMuted={isMuted}/>
+      <MuteButton setIsMuted={setIsMuted} isMuted={isMuted} />
     </S.PageContainer>
   )
 }

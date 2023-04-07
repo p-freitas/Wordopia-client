@@ -1,4 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
+import MyFont from '../assets/fonts/MyFont.ttf'
+
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -34,6 +36,11 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+  }
+
+  @font-face {
+    font-family: 'MyFont';
+    src: url(${MyFont}) format('truetype');
   }
 `
 

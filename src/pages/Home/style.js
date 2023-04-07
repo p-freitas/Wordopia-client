@@ -21,10 +21,11 @@ export const Letter = styled.div`
   justify-content: center;
   font-size: 30px;
   font-weight: bold;
-  cursor: ${({ cursor }) => cursor ? 'default' : 'pointer'};
+  cursor: ${({ cursor }) => (cursor ? 'default' : 'pointer')};
   color: white;
   margin: 20px;
   background-color: ${({ background }) => background};
+  font-family: 'MyFont', sans-serif;
 
   &:hover {
     background-color: ${({ backgroundHover }) => backgroundHover};
@@ -53,9 +54,48 @@ export const TabletopContainer = styled.div`
 `
 
 export const ScoreBoardContainer = styled.div`
-  background-color: #2563eb;
+  background-color: rgb(37, 99, 235);
   display: flex;
   width: 20%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+`
+
+export const WordButtonContainer = styled.div`
+  background-color: rgb(37, 99, 235);
+  display: flex;
+  height: 40%;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+`
+
+export const Word = styled.p`
+  color: white;
+  margin-bottom: 20px;
+  font-size: 30px;
+  text-align: center;
+  font-family: 'MyFont', sans-serif;
+`
+
+export const WordButton = styled.button`
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: rgb(0, 142, 255);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 2px solid black;
+  font-family: 'MyFont', sans-serif;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `
 
 export const Button = styled.button`
@@ -114,4 +154,5 @@ export const Title = styled.h1`
   text-align: center;
   color: white;
   font-size: 60px;
+  font-family: 'MyFont', sans-serif;
 `

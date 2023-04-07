@@ -12,6 +12,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 10000;
+  font-family: 'MyFont', sans-serif;
 `
 
 export const ModalContent = styled.div`
@@ -103,6 +104,7 @@ export const Button = styled.button`
   margin: 10px;
   font-size: 25px;
   border: 1px solid black;
+  font-family: 'MyFont', sans-serif;
 
   &:hover {
     background-color: var(--green-strong);
@@ -121,7 +123,7 @@ export const Button = styled.button`
 export const ButtonCancel = styled.button`
   border-radius: 5px;
   text-transform: uppercase;
-
+  font-family: 'MyFont', sans-serif;
   padding: 0 10px;
   color: var(--white);
   height: 40px;

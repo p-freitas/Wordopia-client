@@ -10,6 +10,7 @@ export const ScoreboardContainer = styled.div`
   align-items: center;
   border: 2px solid white;
   color: white;
+  font-family: 'MyFont', sans-serif;
 `
 
 export const ScoreboardTitle = styled.h2`

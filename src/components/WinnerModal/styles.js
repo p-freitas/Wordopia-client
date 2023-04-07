@@ -12,6 +12,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 10000;
+  font-family: 'MyFont', sans-serif;
 `
 
 export const ModalContent = styled.div`
