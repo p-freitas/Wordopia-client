@@ -8,6 +8,7 @@ import io from 'socket.io-client'
 import ModalPlayerName from '../../components/ModalPlayerName'
 import PlayersList from '../../components/PlayersList'
 import WinnerModal from '../../components/WinnerModal'
+import MuteButton from '../../components/MuteButton'
 
 const socket = io(process.env.REACT_APP_SOCKET_URL, {
   transports: ['websocket'],
@@ -27,6 +28,7 @@ const Home = () => {
   const [playersOut, setPlayersOut] = useState()
   const [currentLetter, setCurrentLetter] = useState()
   const [Winner, setWinner] = useState()
+  const [isMuted, setIsMuted] = useState(false)
   const [isMyTurn, setIsMyTurn] = useState(false)
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
@@ -39,7 +41,7 @@ const Home = () => {
   const filteredLetters = letters.filter(letter => !excludedLetters.has(letter))
 
   const handleClick = letter => {
-    if (!activeLetter.includes(letter)) {
+    if (!activeLetter?.includes(letter)) {
       setActiveLetter(letter)
       socket.emit('letter', letter) // emit the letter to the server
     }
@@ -159,9 +161,9 @@ const Home = () => {
         {/* <S.ResetButton onClick={handleResetActiveLetters}>
           Resetar
         </S.ResetButton> */}
-        <audio ref={audioRef} src={timeSound} />
-        <audio ref={audioStopRef} src={timeSoundStop} />
-        <audio ref={audioPlayerTurnSoundRef} src={playerTurnSound} />
+        <audio ref={audioRef} src={timeSound} muted={isMuted}/>
+        <audio ref={audioStopRef} src={timeSoundStop} muted={isMuted}/>
+        <audio ref={audioPlayerTurnSoundRef} src={playerTurnSound} muted={isMuted}/>
         {textLost && <S.TextLost>Se Fodeu</S.TextLost>}
         <S.AlphabetContainer>
           {filteredLetters.map(letter => (
@@ -208,6 +210,7 @@ const Home = () => {
         winner={Winner}
         handleResetGame={handleResetGame}
       />
+      <MuteButton setIsMuted={setIsMuted} isMuted={isMuted}/>
     </S.PageContainer>
   )
 }
