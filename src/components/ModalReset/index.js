@@ -8,8 +8,6 @@ const ModalReset = ({ open, setOpen, handleResetAllGame }) => {
       setPassword(event.target.value)
     }
 
-    console.log(Password);
-
     return (
       <S.Container data-testid='modal-testid'>
         <S.ModalContent>

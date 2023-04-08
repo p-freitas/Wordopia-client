@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
+import io from 'socket.io-client'
 import timeSound from '../../assets/timeSound.mp3'
 import timeSoundStop from '../../assets/darkcloudio.mp3'
 import playerTurnSound from '../../assets/playerTurnSound.mp3'
-import * as S from './style'
-
-import io from 'socket.io-client'
 import ModalPlayerName from '../../components/ModalPlayerName'
 import PlayersList from '../../components/PlayersList'
 import WinnerModal from '../../components/WinnerModal'
 import MuteButton from '../../components/MuteButton'
 import ModalReset from '../../components/ModalReset'
+import * as S from './style'
+import ModalRemovePlayer from '../../components/ModalRemovePlayer'
 
 const socket = io(process.env.REACT_APP_SOCKET_URL, {
   transports: ['websocket'],
@@ -30,9 +30,11 @@ const Home = () => {
   const [currentLetter, setCurrentLetter] = useState()
   const [Winner, setWinner] = useState()
   const [isMuted, setIsMuted] = useState(false)
-  const [currentWord, setCurrentWord] = useState('')
-  const [ResetOpenModal, setResetOpenModal] = useState('')
-  const [isMyTurn, setIsMyTurn] = useState(false)
+  const [currentWord, setCurrentWord] = useState()
+  const [ResetOpenModal, setResetOpenModal] = useState()
+  const [RemovePlayerOpenModal, setRemovePlayerOpenModal] = useState()
+  const [paused, setPaused] = useState(false)
+
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
   const audioPlayerTurnSoundRef = useRef(null)
@@ -43,34 +45,7 @@ const Home = () => {
   const excludedLetters = new Set(['X', 'Y', 'Ç', 'K', 'Q', 'W'])
   const filteredLetters = letters.filter(letter => !excludedLetters.has(letter))
 
-  const handleClick = letter => {
-    if (!activeLetter?.includes(letter)) {
-      setActiveLetter(letter)
-      socket.emit('letter', letter) // emit the letter to the server
-    }
-  }
-
-  const handlePlayerNameChange = event => {
-    if (event.target.value.length <= 12) {
-      setPlayerName(event.target.value)
-    }
-  }
-
-  const handlePlayerNameSubmit = event => {
-    // event.preventDefault()
-    socket.emit('playerName', playerName)
-    setPlayerName('')
-    setPlayerModalOpen(false)
-  }
-
-  const handleClickWordButton = () => {
-    socket.emit('wordsButtonClick')
-
-    socket.on('wordGenerated', data => {
-      setCurrentWord(data)
-    })
-    // setCurrentWord(words.words[randomIndex]);
-  }
+  console.log(currentWord)
 
   useEffect(() => {
     try {
@@ -100,7 +75,6 @@ const Home = () => {
     socket.on('turn', data => {
       setCurrentTurn(data)
       audioPlayerTurnSoundRef.current.play()
-      // setIsMyTurn(data === playerName)
     })
   }, [])
 
@@ -136,14 +110,47 @@ const Home = () => {
     setCurrentLetter(currentLetter)
   })
 
+  socket.on('wordGenerated', data => {
+    setCurrentWord(data)
+  })
+
   socket.on('winner', winner => {
     setWinnerModalOpen(true)
     setWinner(winner)
   })
 
-  socket.on('gameReseted', winner => {
+  socket.on('gameReseted', () => {
     setWinnerModalOpen(false)
   })
+
+  socket.on('gameAllReseted', () => {
+    localStorage.removeItem('playerName')
+  })
+
+  const handleClick = letter => {
+    if (!activeLetter?.includes(letter)) {
+      setActiveLetter(letter)
+      socket.emit('letter', letter) // emit the letter to the server
+    }
+  }
+
+  const handlePlayerNameChange = event => {
+    if (event.target.value.length <= 12) {
+      setPlayerName(event.target.value)
+    }
+  }
+
+  const handlePlayerNameSubmit = () => {
+    localStorage.setItem('playerName', playerName)
+    socket.emit('playerName', playerName)
+    setPlayerName('')
+    setPlayerModalOpen(false)
+  }
+
+  const handleClickWordButton = () => {
+    socket.emit('wordsButtonClick')
+    socket.emit('getWord')
+  }
 
   const handleStartTimer = () => {
     if (!timer) {
@@ -178,16 +185,26 @@ const Home = () => {
     setResetOpenModal(true)
   }
 
+  const handleRemovePlayerClick = () => {
+    setRemovePlayerOpenModal(true)
+  }
+
   const handleResetAllGame = () => {
     socket.emit('resetGameAll')
     setResetOpenModal(false)
+  }
+
+  const handlePause = () => {
+    setPaused(!paused) // toggle the paused state
+
+    // Emit a pauseTimer event to the server
+    socket.emit('pauseTimer', timer)
   }
 
   return (
     <S.PageContainer>
       <S.TabletopContainer>
         <S.Title>Trava Letras</S.Title>
-
         <audio ref={audioRef} src={timeSound} muted={isMuted} />
         <audio ref={audioStopRef} src={timeSoundStop} muted={isMuted} />
         <audio
@@ -216,19 +233,24 @@ const Home = () => {
         <S.ButtonContainer>
           <S.Button onClick={handleStartTimer} />
         </S.ButtonContainer>
+        <S.PauseButton onClick={handlePause}>
+          {paused ? 'Continuar' : 'Pausar'}
+        </S.PauseButton>
 
-        <ModalPlayerName
-          handlePlayerNameSubmit={handlePlayerNameSubmit}
-          handlePlayerNameChange={handlePlayerNameChange}
-          playerName={playerName}
-          open={playerModalOpen}
-          setOpen={setPlayerModalOpen}
-        />
+        {localStorage.getItem('playerName') === null && (
+          <ModalPlayerName
+            handlePlayerNameSubmit={handlePlayerNameSubmit}
+            handlePlayerNameChange={handlePlayerNameChange}
+            playerName={playerName}
+            open={playerModalOpen}
+            setOpen={setPlayerModalOpen}
+          />
+        )}
       </S.TabletopContainer>
       <S.ScoreBoardContainer>
         <S.WordButtonContainer>
           <S.Word>{currentWord}</S.Word>
-          <S.WordButton onClick={handleClickWordButton}>
+          <S.WordButton onClick={() => handleClickWordButton()}>
             Gerar novo tema
           </S.WordButton>
         </S.WordButtonContainer>
@@ -240,6 +262,9 @@ const Home = () => {
           players={players}
           setPlayers={setPlayers}
         />
+        <S.RemovePlayerButton onClick={() => handleRemovePlayerClick()}>
+          Eliminar jogador
+        </S.RemovePlayerButton>
         <S.ResetButton onClick={() => handleResetClick()}>
           Resetar
         </S.ResetButton>
@@ -256,6 +281,7 @@ const Home = () => {
         open={ResetOpenModal}
         setOpen={setResetOpenModal}
       />
+      <ModalRemovePlayer open={RemovePlayerOpenModal} setOpen={setRemovePlayerOpenModal} players={players} socket={socket}/>
     </S.PageContainer>
   )
 }

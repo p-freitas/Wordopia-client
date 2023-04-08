@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
+import io from 'socket.io-client'
 import timeSound from '../../../assets/timeSound.mp3'
 import timeSoundStop from '../../../assets/darkcloudio.mp3'
 import playerTurnSound from '../../../assets/playerTurnSound.mp3'
-import * as S from './style'
-
-import io from 'socket.io-client'
 import ModalPlayerName from '../../../components/ModalPlayerName'
 import PlayersList from '../../../components/PlayersList'
 import WinnerModal from '../../../components/WinnerModal'
 import MuteButton from '../../../components/MuteButton'
 import ModalReset from '../../../components/ModalReset'
+import * as S from './style'
 
 const socket = io(process.env.REACT_APP_SOCKET_URL, {
   transports: ['websocket'],
@@ -32,7 +31,7 @@ const HomeMobile = () => {
   const [isMuted, setIsMuted] = useState(false)
   const [currentWord, setCurrentWord] = useState('')
   const [ResetOpenModal, setResetOpenModal] = useState('')
-  const [isMyTurn, setIsMyTurn] = useState(false)
+
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
   const audioPlayerTurnSoundRef = useRef(null)
@@ -42,35 +41,6 @@ const HomeMobile = () => {
   )
   const excludedLetters = new Set(['X', 'Y', 'Ç', 'K', 'Q', 'W'])
   const filteredLetters = letters.filter(letter => !excludedLetters.has(letter))
-
-  const handleClick = letter => {
-    if (!activeLetter?.includes(letter)) {
-      setActiveLetter(letter)
-      socket.emit('letter', letter) // emit the letter to the server
-    }
-  }
-
-  const handlePlayerNameChange = event => {
-    if (event.target.value.length <= 12) {
-      setPlayerName(event.target.value)
-    }
-  }
-
-  const handlePlayerNameSubmit = event => {
-    // event.preventDefault()
-    socket.emit('playerName', playerName)
-    setPlayerName('')
-    setPlayerModalOpen(false)
-  }
-
-  const handleClickWordButton = () => {
-    socket.emit('wordsButtonClick')
-
-    socket.on('wordGenerated', data => {
-      setCurrentWord(data)
-    })
-    // setCurrentWord(words.words[randomIndex]);
-  }
 
   useEffect(() => {
     try {
@@ -100,7 +70,6 @@ const HomeMobile = () => {
     socket.on('turn', data => {
       setCurrentTurn(data)
       audioPlayerTurnSoundRef.current.play()
-      // setIsMyTurn(data === playerName)
     })
   }, [])
 
@@ -124,6 +93,12 @@ const HomeMobile = () => {
     }, 5000)
   }, [])
 
+  useEffect(() => {
+    socket.on('gameAllReseted', () => {
+      localStorage.removeItem('playerName')
+    })
+  }, [])
+
   socket.on('timer', time => {
     setTimer(time)
   })
@@ -136,14 +111,47 @@ const HomeMobile = () => {
     setCurrentLetter(currentLetter)
   })
 
+  socket.on('wordGenerated', data => {
+    setCurrentWord(data)
+  })
+
   socket.on('winner', winner => {
     setWinnerModalOpen(true)
     setWinner(winner)
   })
 
-  socket.on('gameReseted', winner => {
+  socket.on('gameReseted', () => {
     setWinnerModalOpen(false)
   })
+
+  socket.on('gameAllReseted', () => {
+    localStorage.removeItem('playerName')
+  })
+
+  const handleClick = letter => {
+    if (!activeLetter?.includes(letter)) {
+      setActiveLetter(letter)
+      socket.emit('letter', letter) // emit the letter to the server
+    }
+  }
+
+  const handlePlayerNameChange = event => {
+    if (event.target.value.length <= 12) {
+      setPlayerName(event.target.value)
+    }
+  }
+
+  const handlePlayerNameSubmit = () => {
+    localStorage.setItem('playerName', playerName)
+    socket.emit('playerName', playerName)
+    setPlayerName('')
+    setPlayerModalOpen(false)
+  }
+
+  const handleClickWordButton = () => {
+    socket.emit('wordsButtonClick')
+    socket.emit('getWord')
+  }
 
   const handleStartTimer = () => {
     if (!timer) {
@@ -187,7 +195,6 @@ const HomeMobile = () => {
     <S.PageContainer>
       <S.TabletopContainer>
         <S.Title>Trava Letras</S.Title>
-
         <audio ref={audioRef} src={timeSound} muted={isMuted} />
         <audio ref={audioStopRef} src={timeSoundStop} muted={isMuted} />
         <audio
@@ -231,13 +238,15 @@ const HomeMobile = () => {
           ))}
         </S.AlphabetContainer>
 
-        <ModalPlayerName
-          handlePlayerNameSubmit={handlePlayerNameSubmit}
-          handlePlayerNameChange={handlePlayerNameChange}
-          playerName={playerName}
-          open={playerModalOpen}
-          setOpen={setPlayerModalOpen}
-        />
+        {localStorage.getItem('playerName') === null && (
+          <ModalPlayerName
+            handlePlayerNameSubmit={handlePlayerNameSubmit}
+            handlePlayerNameChange={handlePlayerNameChange}
+            playerName={playerName}
+            open={playerModalOpen}
+            setOpen={setPlayerModalOpen}
+          />
+        )}
         <S.ResetButton onClick={() => handleResetClick()}>
           Resetar
         </S.ResetButton>

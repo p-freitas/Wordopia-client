@@ -31,10 +31,13 @@ const ModalPlayerName = ({
               Fechar
             </S.ButtonCancel>
             <S.Button
+              disabled={!playerName}
               onClick={() => {
                 handlePlayerNameSubmit(playerName)
               }}
-            >Confirmar</S.Button>
+            >
+              Confirmar
+            </S.Button>
           </S.ModalBodyContent>
         </S.ModalContent>
       </S.Container>

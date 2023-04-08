@@ -165,6 +165,43 @@ export const ResetButton = styled.button`
     opacity: 0.8;
   }
 `
+export const PauseButton = styled.button`
+  width: 150px;
+  height: 40px;
+  border-radius: 7%;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: black 0px 0px 2px 0px;
+  margin-top: 200px;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`
+
+export const RemovePlayerButton = styled.button`
+  width: 200px;
+  height: 40px;
+  border-radius: 7%;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: black 0px 0px 2px 0px;
+  margin-top: 200px;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`
 
 export const Title = styled.h1`
   text-align: center;
