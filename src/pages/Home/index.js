@@ -204,7 +204,7 @@ const Home = () => {
   return (
     <S.PageContainer>
       <S.TabletopContainer>
-        <S.Title>Trava Letras</S.Title>
+        <S.Title>Sururu</S.Title>
         <audio ref={audioRef} src={timeSound} muted={isMuted} />
         <audio ref={audioStopRef} src={timeSoundStop} muted={isMuted} />
         <audio

@@ -8,6 +8,7 @@ import PlayersList from '../../../components/PlayersList'
 import WinnerModal from '../../../components/WinnerModal'
 import MuteButton from '../../../components/MuteButton'
 import ModalReset from '../../../components/ModalReset'
+import ModalRemovePlayer from '../../../components/ModalRemovePlayer'
 import * as S from './style'
 
 const socket = io(process.env.REACT_APP_SOCKET_URL, {
@@ -29,8 +30,10 @@ const HomeMobile = () => {
   const [currentLetter, setCurrentLetter] = useState()
   const [Winner, setWinner] = useState()
   const [isMuted, setIsMuted] = useState(false)
-  const [currentWord, setCurrentWord] = useState('')
-  const [ResetOpenModal, setResetOpenModal] = useState('')
+  const [currentWord, setCurrentWord] = useState()
+  const [ResetOpenModal, setResetOpenModal] = useState()
+  const [RemovePlayerOpenModal, setRemovePlayerOpenModal] = useState()
+  const [paused, setPaused] = useState(false)
 
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
@@ -171,6 +174,10 @@ const HomeMobile = () => {
     socket.emit('changeTurnPlayer')
   }
 
+  const handleRemovePlayerClick = () => {
+    setRemovePlayerOpenModal(true)
+  }
+
   const handleResetActiveLetters = () => {
     socket.emit('resetActiveLetters')
     audioRef.current.pause()
@@ -191,6 +198,13 @@ const HomeMobile = () => {
     setResetOpenModal(false)
   }
 
+  const handlePause = () => {
+    setPaused(!paused) // toggle the paused state
+
+    // Emit a pauseTimer event to the server
+    socket.emit('pauseTimer', timer)
+  }
+
   return (
     <S.PageContainer>
       <S.TabletopContainer>
@@ -205,7 +219,7 @@ const HomeMobile = () => {
         {textLost && <S.TextLost>Se Fodeu</S.TextLost>}
         <S.WordButtonContainer>
           <S.Word>{currentWord}</S.Word>
-          <S.WordButton onClick={handleClickWordButton}>
+          <S.WordButton onClick={() => handleClickWordButton()}>
             Gerar novo tema
           </S.WordButton>
         </S.WordButtonContainer>
@@ -217,10 +231,16 @@ const HomeMobile = () => {
           players={players}
           setPlayers={setPlayers}
         />
+        <S.RemovePlayerButton onClick={() => handleRemovePlayerClick()}>
+          Eliminar jogador
+        </S.RemovePlayerButton>
         <S.TimerText>{timer}</S.TimerText>
         <S.ButtonContainer>
           <S.Button onClick={handleStartTimer} />
         </S.ButtonContainer>
+        <S.PauseButton onClick={handlePause}>
+          {paused ? 'Continuar' : 'Pausar'}
+        </S.PauseButton>
         <S.AlphabetContainer>
           {filteredLetters.map(letter => (
             <S.Letter
@@ -263,6 +283,12 @@ const HomeMobile = () => {
         handleResetAllGame={handleResetAllGame}
         open={ResetOpenModal}
         setOpen={setResetOpenModal}
+      />
+      <ModalRemovePlayer
+        open={RemovePlayerOpenModal}
+        setOpen={setRemovePlayerOpenModal}
+        players={players}
+        socket={socket}
       />
     </S.PageContainer>
   )
