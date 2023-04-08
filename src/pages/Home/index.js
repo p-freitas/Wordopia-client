@@ -153,21 +153,23 @@ const Home = () => {
   }
 
   const handleStartTimer = () => {
-    if (!timer) {
-      socket.emit('startTimer')
-      if (audioRef.current) {
-        audioRef.current.play()
-      }
-    } else {
-      socket.emit('resetTimer')
-      socket.emit('cleanCurrentLetter')
+    if (!paused) {
+      if (!timer) {
+        socket.emit('startTimer')
+        if (audioRef.current) {
+          audioRef.current.play()
+        }
+      } else {
+        socket.emit('resetTimer')
+        socket.emit('cleanCurrentLetter')
 
-      if (activeLetter.length === filteredLetters.length) {
-        handleResetActiveLetters()
+        if (activeLetter.length === filteredLetters.length) {
+          handleResetActiveLetters()
+        }
       }
+
+      socket.emit('changeTurnPlayer')
     }
-
-    socket.emit('changeTurnPlayer')
   }
 
   const handleResetActiveLetters = () => {
@@ -281,7 +283,12 @@ const Home = () => {
         open={ResetOpenModal}
         setOpen={setResetOpenModal}
       />
-      <ModalRemovePlayer open={RemovePlayerOpenModal} setOpen={setRemovePlayerOpenModal} players={players} socket={socket}/>
+      <ModalRemovePlayer
+        open={RemovePlayerOpenModal}
+        setOpen={setRemovePlayerOpenModal}
+        players={players}
+        socket={socket}
+      />
     </S.PageContainer>
   )
 }
