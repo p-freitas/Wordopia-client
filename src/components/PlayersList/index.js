@@ -40,7 +40,7 @@ const PlayersList = ({
     } catch (error) {
       console.log(error)
     }
-  }, [])
+  }, [setPlayers, setPlayersOut])
 
   return (
     <S.ScoreboardContainer>
