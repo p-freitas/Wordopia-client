@@ -156,6 +156,7 @@ const Home = () => {
     if (!paused) {
       if (!timer) {
         socket.emit('startTimer')
+        socket.emit('cleanCurrentLetter')
         if (audioRef.current) {
           audioRef.current.play()
         }
