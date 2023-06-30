@@ -22,10 +22,11 @@ const GlobalStyles = createGlobalStyle`
   }
   
   body{
-    background-color: white;
+    background-color: #2563eb;
     color: black;
     font-family: var(--font-small);
     font-size: 0.95em;
+    font-family: 'MyFont', sans-serif;
   }
 
   span{

@@ -3,10 +3,10 @@ import styled from 'styled-components'
 export const Button = styled.button`
   position: fixed;
   top: 20px;
-  right: 55px;
+  left: 40px;
   width: 40px;
   height: 40px;
-  background-color: ${({ isMuted }) => (isMuted ? 'red' : 'green')};
+  background-color: red;
   border: none;
   border-radius: 50%;
   cursor: pointer;

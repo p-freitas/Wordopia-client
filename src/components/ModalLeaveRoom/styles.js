@@ -18,7 +18,7 @@ export const Container = styled.div`
 export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: 250px;
 
   @media only screen and (max-device-width: 767px) {
     margin: ;
@@ -34,29 +34,7 @@ export const ModalContent = styled.div`
   align-items: center;
   max-width: 600px;
   padding: 20px;
-  justify-content: space-between;
-
-  #select {
-    width: 300px;
-    color: black;
-    margin-bottom: 80px;
-  }
-`
-
-export const ArrowBtn = styled.button`
-  cursor: pointer;
-  background-color: transparent;
-  border: 0px;
-`
-
-export const CloseBtn = styled.button`
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
-  cursor: pointer;
-  align-items: center;
-  background-color: transparent;
-  border: 0px;
+  justify-content: space-evenly;
 `
 
 export const ModalHeaderContent = styled.div`
@@ -81,15 +59,10 @@ export const TitleContainer = styled.div`
   font-size: 30px;
 `
 
-export const TextWarning = styled.p`
-  color: red;
-  margin-top: 10px;
-`
-
 export const Button = styled.button`
   border-radius: 5px;
   text-transform: uppercase;
-  font-family: 'MyFont', sans-serif;
+
   padding: 0 10px;
   color: var(--white);
   height: 40px;
@@ -98,8 +71,12 @@ export const Button = styled.button`
   transition: 0.5s;
   cursor: pointer;
   margin: 10px;
-  font-size: 15px;
+  font-size: 25px;
   border: 1px solid black;
+  font-family: 'MyFont', sans-serif;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 
   &:hover {
     background-color: var(--green-strong);
@@ -113,71 +90,37 @@ export const Button = styled.button`
       background-color: #cccccc;
     }
   }
+
+  @media only screen and (max-device-width: 767px) {
+    width: 150px;
+    font-size: 18px;
+  }
 `
 
 export const ButtonCancel = styled.button`
   border-radius: 5px;
   text-transform: uppercase;
-
+  font-family: 'MyFont', sans-serif;
   padding: 0 10px;
   color: var(--white);
   height: 40px;
   width: 200px;
-  background-color: #ccc;
+  background-color: #e70000;
   transition: 0.5s;
   cursor: pointer;
   margin: 10px;
   font-size: 25px;
   border: 1px solid black;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 
   &:hover {
-    background-color: var(--red-strong);
+    background-color: rgb(165 7 7);
   }
-`
 
-export const CurrentPassword = styled.p`
-  font-size: 40px;
-  color: ${({ color }) => color};
-  border: 1px solid;
-  margin: 5px;
-  padding: 5px;
-`
-
-export const SubText = styled.p`
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--red-high);
-  margin: 5px;
-  padding: 5px;
-  text-align: center;
-  margin: 20px;
-`
-
-export const SelectText = styled.p`
-  font-size: 18px;
-  font-weight: 400;
-  color: black;
-  margin: 5px;
-  padding: 5px;
-  text-align: center;
-`
-
-export const SelectTextBold = styled.p`
-  font-size: 18px;
-  font-weight: bold;
-  color: black;
-  margin: 5px 0;
-  padding: 5px 0;
-  text-align: center;
-`
-
-export const ResetTextContainer = styled.div`
-  display: flex;
-`
-
-export const NameInput = styled.input`
-  border: 1px solid;
-  font-size: 18px;
-  width: 200px;
-  padding: 10px;
+  @media only screen and (max-device-width: 767px) {
+    width: 150px;
+    font-size: 18px;
+  }
 `

@@ -59,10 +59,6 @@ export const CloseBtn = styled.button`
   border: 0px;
 `
 
-// export const CloseIcon = styled(Icon)`
-//   font-size: 1em;
-// `
-
 export const ModalHeaderContent = styled.div`
   display: flex;
   padding: 10px;

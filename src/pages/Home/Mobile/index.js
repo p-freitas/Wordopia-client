@@ -15,8 +15,6 @@ const socket = io(process.env.REACT_APP_SOCKET_URL, {
   transports: ['websocket'],
 })
 
-socket.on('connect', () => console.log('[SOCKET] [DISPLAY] => New Connection'))
-
 const HomeMobile = () => {
   const [timer, setTimer] = useState()
   const [activeLetter, setActiveLetter] = useState(null) // state to keep track of the active letter

@@ -1,29 +1,22 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/index'
-import HomeMobile from './pages/Home/Mobile/index'
+// import HomeMobile from './pages/Home/Mobile/index'
+import Lobby from './pages/Lobby'
 import GlobalStyles from './styles/global'
-import Sidebar from './components/Sidebar'
 
 function App() {
-  const location = useLocation()
-  const windowWidth = window.innerWidth;
-
-  console.log(windowWidth)
+  // const windowWidth = window.innerWidth
   return (
     <div className='App' id='outer-container'>
-      {location.pathname !== '/password' && location.pathname !== '/' && (
-        <Sidebar
-          pageWrapId={'page-wrap'}
-          outerContainerId={'outer-container'}
-        />
-      )}
       <GlobalStyles />
       <Routes>
-        {windowWidth < 768 ? (
-          <Route path='/' element={<HomeMobile />} />
-        ) : (
-          <Route path='/' element={<Home />} />
-        )}
+        <Route path='/' element={<Lobby />} />
+        {/* {windowWidth < 768 ? ( */}
+          {/* <Route path='/room/*' element={<HomeMobile />} /> */}
+        {/* ) : ( */}
+          <Route path='/room/*' element={<Home />} />
+        {/* )} */}
       </Routes>
     </div>
   )

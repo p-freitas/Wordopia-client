@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import Select from 'react-select'
 import * as S from './styles'
 
-const ModalRemovePlayer = ({ open, setOpen, players, socket }) => {
+const ModalRemovePlayer = ({ open, setOpen, players, socket, roomId }) => {
   const [SelectValue, setSelectValue] = useState()
 
-  const playersList = players.map(el => {
+  const playersList = players?.map(el => {
     return {
-      value: el,
-      label: el,
+      value: el.id,
+      label: el.name,
     }
   })
 
@@ -42,7 +42,7 @@ const ModalRemovePlayer = ({ open, setOpen, players, socket }) => {
               disabled={!SelectValue}
               onClick={() => {
                 setSelectValue('')
-                socket.emit('removePlayer', SelectValue.value)
+                socket.emit('removePlayer', {id: SelectValue.value, playerName: SelectValue.label}, roomId)
                 setOpen(false)
               }}
             >

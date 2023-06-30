@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react'
-import io from 'socket.io-client'
 import * as S from './styles'
-
-const socket = io(process.env.REACT_APP_SOCKET_URL, {
-  transports: ['websocket'],
-})
 
 const PlayersList = ({
   currentTurn,
@@ -12,17 +7,17 @@ const PlayersList = ({
   setPlayersOut,
   currentLetter,
   players,
-  setPlayers
+  setPlayers,
+  roomId,
+  socket,
 }) => {
-  
-
   useEffect(() => {
     socket.on('players', data => {
       setPlayers(data)
     })
 
     try {
-      socket.emit('getPlayersName')
+      socket.emit('getPlayersName', roomId)
 
       socket.on('allPlayersNames', data => {
         setPlayers(data)
@@ -30,36 +25,43 @@ const PlayersList = ({
     } catch (error) {
       console.log(error)
     }
-
-    try {
-      socket.emit('getPlayersOut')
-
-      socket.on('sendPlayersOut', data => {
-        setPlayersOut(data)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }, [setPlayers, setPlayersOut])
+  }, [roomId, setPlayers, socket])
 
   return (
     <S.ScoreboardContainer>
       <S.ScoreboardTitle>Players</S.ScoreboardTitle>
+      {players.length !== 0 && <S.ScoreText>Pontos</S.ScoreText>}
+
       <S.ScoreboardList>
-        {players?.map((player, index) => (
-          <S.PlayerNameContainer>
-            <S.ScoreboardListItem
-              key={index}
-              color={currentTurn === player}
-              colorLost={playersOut?.includes(player)}
-            >
-              {player}
-            </S.ScoreboardListItem>
-            {currentTurn === player && currentLetter && (
-              <S.CurrentLetterContainer>{currentLetter}</S.CurrentLetterContainer>
-            )}
-          </S.PlayerNameContainer>
-        ))}
+        {players &&
+          players?.map((player, index) => {
+            return (
+              <S.PlayerNameContainer key={player?.id}>
+                <S.PlayerNameDiv>
+                  <S.ScoreboardListItem
+                    key={index}
+                    color={currentTurn?.id === player?.id}
+                    colorLost={
+                      (playersOut?.length > 0 || playersOut === undefined) &&
+                      playersOut?.some(obj => {
+                        return obj?.id === player?.id
+                      })
+                    }
+                  >
+                    {player.name}
+                  </S.ScoreboardListItem>
+                  {currentTurn?.id === player?.id && currentLetter && (
+                    <S.CurrentLetterContainer>
+                      {currentLetter}
+                    </S.CurrentLetterContainer>
+                  )}
+                </S.PlayerNameDiv>
+                <S.ScoreboardListItemScore>
+                  {player?.score}
+                </S.ScoreboardListItemScore>
+              </S.PlayerNameContainer>
+            )
+          })}
       </S.ScoreboardList>
     </S.ScoreboardContainer>
   )

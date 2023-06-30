@@ -33,7 +33,6 @@ export const Letter = styled.div`
 `
 
 export const PageContainer = styled.div`
-  background-color: #2563eb;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -43,7 +42,6 @@ export const PageContainer = styled.div`
 `
 
 export const TabletopContainer = styled.div`
-  background-color: #2563eb;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -122,7 +120,12 @@ export const Button = styled.button`
   box-shadow: black 0 0 10px 0px;
 
   &:hover {
-    opacity: 0.8;
+    opacity: 0.9;
+  }
+
+  &:active {
+    opacity: 0.82;
+    transform: scale(0.95);
   }
 `
 

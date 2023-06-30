@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import io from 'socket.io-client'
+import { useLocation } from 'react-router-dom'
+import socket from '../../socket'
 import timeSound from '../../assets/timeSound.mp3'
 import timeSoundStop from '../../assets/darkcloudio.mp3'
 import playerTurnSound from '../../assets/playerTurnSound.mp3'
@@ -7,33 +8,37 @@ import ModalPlayerName from '../../components/ModalPlayerName'
 import PlayersList from '../../components/PlayersList'
 import WinnerModal from '../../components/WinnerModal'
 import MuteButton from '../../components/MuteButton'
+import LeaveRoomButtom from '../../components/LeaveRoomButtom'
 import ModalReset from '../../components/ModalReset'
-import * as S from './style'
 import ModalRemovePlayer from '../../components/ModalRemovePlayer'
-
-const socket = io(process.env.REACT_APP_SOCKET_URL, {
-  transports: ['websocket'],
-})
+import ModalLeaveRoom from '../../components/ModalLeaveRoom'
+import { useNavigate } from 'react-router-dom'
+import * as S from './style'
 
 socket.on('connect', () => console.log('[SOCKET] [DISPLAY] => New Connection'))
 
 const Home = () => {
+  const location = useLocation()
+  const navigate = useNavigate()
+
   const [timer, setTimer] = useState()
-  const [activeLetter, setActiveLetter] = useState(null) // state to keep track of the active letter
+  const [activeLetter, setActiveLetter] = useState(null)
   const [textLost, setTextLost] = useState(false)
   const [playerModalOpen, setPlayerModalOpen] = useState(false)
   const [WinnerModalOpen, setWinnerModalOpen] = useState(false)
-  const [playerName, setPlayerName] = useState('')
+  const [playerName, setPlayerName] = useState()
   const [currentTurn, setCurrentTurn] = useState('')
   const [players, setPlayers] = useState([])
   const [playersOut, setPlayersOut] = useState()
   const [currentLetter, setCurrentLetter] = useState()
   const [Winner, setWinner] = useState()
+  const [gameWinner, setGameWinner] = useState()
   const [isMuted, setIsMuted] = useState(false)
   const [currentWord, setCurrentWord] = useState()
   const [ResetOpenModal, setResetOpenModal] = useState()
   const [RemovePlayerOpenModal, setRemovePlayerOpenModal] = useState()
-  const [paused, setPaused] = useState(false)
+  const [roomId, setRoomId] = useState('')
+  const [openModalLeaveRoom, setOpenModalLeaveRoom] = useState(false)
 
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
@@ -45,11 +50,27 @@ const Home = () => {
   const excludedLetters = new Set(['X', 'Y', 'Ç', 'K', 'Q', 'W'])
   const filteredLetters = letters.filter(letter => !excludedLetters.has(letter))
 
-  console.log(currentWord)
+  useEffect(() => {
+    const ssPlayerJson = localStorage.getItem(roomId)
+    const ssPlayerDataJson = JSON.parse(ssPlayerJson)
+
+    if (ssPlayerJson) {
+      socket.emit('changePlayerSocketId', roomId, ssPlayerDataJson.playerId)
+    }
+  }, [roomId])
+
+  useEffect(() => {
+    setRoomId(location.pathname.split('/')[2])
+  }, [location.pathname])
+
+  useEffect(() => {
+    const room = location.pathname.split('/')[2]
+    socket.emit('joinRoom', room)
+  }, [location.pathname])
 
   useEffect(() => {
     try {
-      socket.emit('getAll')
+      socket.emit('getAll', roomId)
 
       socket.on('sendAll', data => {
         setActiveLetter(data)
@@ -59,7 +80,7 @@ const Home = () => {
     }
 
     try {
-      socket.emit('getWord')
+      socket.emit('getWord', roomId)
 
       socket.on('sendWord', data => {
         setCurrentWord(data)
@@ -69,7 +90,7 @@ const Home = () => {
     }
 
     setPlayerModalOpen(true)
-  }, [])
+  }, [roomId])
 
   useEffect(() => {
     socket.on('turn', data => {
@@ -78,9 +99,11 @@ const Home = () => {
     })
   }, [])
 
-  socket.on('playersOut', data => {
-    setPlayersOut(data)
-  })
+  useEffect(() => {
+    socket.on('playersOut', data => {
+      setPlayersOut(data)
+    })
+  }, [])
 
   useEffect(() => {
     socket.on('timerFinished', () => {
@@ -97,6 +120,24 @@ const Home = () => {
       setTextLost(false)
     }, 5000)
   }, [])
+
+  useEffect(() => {
+    socket.emit('getPlayersOut', roomId)
+
+    socket.on('sendPlayersOut', data => {
+      setPlayersOut(data)
+    })
+  }, [roomId])
+
+  useEffect(() => {
+    socket.emit('getCurrentLetter', roomId)
+
+    socket.emit('getCurrentTurnPlayer', roomId)
+
+    socket.on('sendCurrentTurnPlayer', data => {
+      setCurrentTurn(data)
+    })
+  }, [roomId])
 
   socket.on('timer', time => {
     setTimer(time)
@@ -119,6 +160,11 @@ const Home = () => {
     setWinner(winner)
   })
 
+  socket.on('gameWinner', winner => {
+    setWinnerModalOpen(true)
+    setGameWinner(winner)
+  })
+
   socket.on('gameReseted', () => {
     setWinnerModalOpen(false)
   })
@@ -129,8 +175,7 @@ const Home = () => {
 
   const handleClick = letter => {
     if (!activeLetter?.includes(letter)) {
-      setActiveLetter(letter)
-      socket.emit('letter', letter) // emit the letter to the server
+      socket.emit('letter', { roomId, letter })
     }
   }
 
@@ -140,52 +185,56 @@ const Home = () => {
     }
   }
 
-  const handlePlayerNameSubmit = () => {
-    localStorage.setItem('playerName', playerName)
-    socket.emit('playerName', playerName)
-    setPlayerName('')
+  const handlePlayerNameSubmit = playerData => {
+    socket.emit('playerName', playerData, roomId)
+    const playerDataJson = {
+      playerName: playerData.playerName,
+      playerId: playerData.id,
+    }
+    localStorage.setItem(roomId, JSON.stringify(playerDataJson))
+    setPlayerName(undefined)
     setPlayerModalOpen(false)
   }
 
   const handleClickWordButton = () => {
-    socket.emit('wordsButtonClick')
-    socket.emit('getWord')
+    socket.emit('wordsButtonClick', roomId)
+    socket.emit('getWord', roomId)
   }
 
   const handleStartTimer = () => {
-    if (!paused) {
-      if (!timer) {
-        socket.emit('startTimer')
-        socket.emit('cleanCurrentLetter')
-        if (audioRef.current) {
-          audioRef.current.play()
-        }
-      } else {
-        socket.emit('resetTimer')
-        socket.emit('cleanCurrentLetter')
-
-        if (activeLetter.length === filteredLetters.length) {
-          handleResetActiveLetters()
-        }
+    if (timer === undefined) {
+      socket.emit('startTimer', roomId)
+      socket.emit('cleanCurrentLetter', roomId)
+      if (audioRef.current) {
+        audioRef.current.play()
       }
+      socket.emit('changeTurnPlayer', roomId)
+    } else {
+      socket.emit('changeTurnPlayer', roomId)
+      socket.emit('cleanCurrentLetter', roomId)
 
-      socket.emit('changeTurnPlayer')
+      if (activeLetter?.length === filteredLetters?.length) {
+        handleResetActiveLetters()
+      }
     }
   }
 
   const handleResetActiveLetters = () => {
-    socket.emit('resetActiveLetters')
+    socket.emit('resetActiveLetters', roomId)
     audioRef.current.pause()
   }
 
   const handleResetGame = () => {
-    socket.emit('resetGame')
+    socket.emit('resetGame', roomId)
     audioRef.current.pause()
     setWinnerModalOpen(false)
   }
 
-  const handleResetClick = () => {
-    setResetOpenModal(true)
+  const handleResetGameFinished = () => {
+    socket.emit('gameFinished', roomId)
+    audioRef.current.pause()
+    setWinnerModalOpen(false)
+    setGameWinner()
   }
 
   const handleRemovePlayerClick = () => {
@@ -197,11 +246,10 @@ const Home = () => {
     setResetOpenModal(false)
   }
 
-  const handlePause = () => {
-    setPaused(!paused) // toggle the paused state
-
-    // Emit a pauseTimer event to the server
-    socket.emit('pauseTimer', timer)
+  const LeaveRoom = playerData => {
+    socket.emit('leaveRoom', roomId, JSON.parse(playerData))
+    localStorage.removeItem(roomId)
+    navigate(`/`)
   }
 
   return (
@@ -236,11 +284,8 @@ const Home = () => {
         <S.ButtonContainer>
           <S.Button onClick={handleStartTimer} />
         </S.ButtonContainer>
-        <S.PauseButton onClick={handlePause}>
-          {paused ? 'Continuar' : 'Pausar'}
-        </S.PauseButton>
 
-        {localStorage.getItem('playerName') === null && (
+        {localStorage.getItem(roomId) === null && (
           <ModalPlayerName
             handlePlayerNameSubmit={handlePlayerNameSubmit}
             handlePlayerNameChange={handlePlayerNameChange}
@@ -264,21 +309,23 @@ const Home = () => {
           currentLetter={currentLetter}
           players={players}
           setPlayers={setPlayers}
+          roomId={roomId}
+          socket={socket}
         />
         <S.RemovePlayerButton onClick={() => handleRemovePlayerClick()}>
           Eliminar jogador
         </S.RemovePlayerButton>
-        <S.ResetButton onClick={() => handleResetClick()}>
-          Resetar
-        </S.ResetButton>
       </S.ScoreBoardContainer>
       <WinnerModal
         open={WinnerModalOpen}
         setOpen={setWinnerModalOpen}
         winner={Winner}
         handleResetGame={handleResetGame}
+        gameWinner={gameWinner}
+        handleResetGameFinished={handleResetGameFinished}
       />
       <MuteButton setIsMuted={setIsMuted} isMuted={isMuted} />
+      <LeaveRoomButtom setOpenModalLeaveRoom={setOpenModalLeaveRoom} />
       <ModalReset
         handleResetAllGame={handleResetAllGame}
         open={ResetOpenModal}
@@ -289,6 +336,13 @@ const Home = () => {
         setOpen={setRemovePlayerOpenModal}
         players={players}
         socket={socket}
+        roomId={roomId}
+      />
+      <ModalLeaveRoom
+        setOpenModalLeaveRoom={setOpenModalLeaveRoom}
+        open={openModalLeaveRoom}
+        LeaveRoom={LeaveRoom}
+        playerData={localStorage.getItem(roomId)}
       />
     </S.PageContainer>
   )

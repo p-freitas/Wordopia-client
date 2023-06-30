@@ -59,10 +59,6 @@ export const CloseBtn = styled.button`
   border: 0px;
 `
 
-// export const CloseIcon = styled(Icon)`
-//   font-size: 1em;
-// `
-
 export const ModalHeaderContent = styled.div`
   display: flex;
   padding: 10px;
@@ -105,6 +101,9 @@ export const Button = styled.button`
   font-size: 25px;
   border: 1px solid black;
   font-family: 'MyFont', sans-serif;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 
   &:hover {
     background-color: var(--green-strong);
@@ -139,6 +138,9 @@ export const ButtonCancel = styled.button`
   margin: 10px;
   font-size: 25px;
   border: 1px solid black;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 
   &:hover {
     background-color: var(--red-strong);

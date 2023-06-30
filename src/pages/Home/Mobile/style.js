@@ -151,7 +151,6 @@ export const ResetButton = styled.button`
   cursor: pointer;
   box-shadow: black 0px 0px 2px 0px;
   margin-top: 200px;
-  // position: fixed;
   bottom: 0;
   left: 0;
   margin: 5rem 0;

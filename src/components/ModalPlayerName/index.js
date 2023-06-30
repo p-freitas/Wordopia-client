@@ -1,4 +1,5 @@
 import React from 'react'
+import { v4 as uuid } from 'uuid'
 import * as S from './styles'
 
 const ModalPlayerName = ({
@@ -33,7 +34,8 @@ const ModalPlayerName = ({
             <S.Button
               disabled={!playerName}
               onClick={() => {
-                handlePlayerNameSubmit(playerName)
+                const newUuid = uuid()
+                handlePlayerNameSubmit({ playerName: playerName, id: newUuid })
               }}
             >
               Confirmar
