@@ -8,6 +8,10 @@ const Lobby = () => {
   const socketRef = useRef(null)
   const [room, setRoom] = useState('') // Store the room identifier
 
+  const handleJoinRoomButton = roomId => {
+    navigate(`/room/${roomId}`)
+  }
+
   useEffect(() => {
     socketRef.current = io(process.env.REACT_APP_SOCKET_URL, {
       transports: ['websocket'],
@@ -21,14 +25,11 @@ const Lobby = () => {
     socketRef.current.on('roomCreated', roomId => {
       handleJoinRoomButton(roomId)
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate])
 
   const handleCreateRoomButton = () => {
     socketRef.current.emit('createRoom')
-  }
-
-  const handleJoinRoomButton = roomId => {
-    navigate(`/room/${roomId}`)
   }
 
   return (
