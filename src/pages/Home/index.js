@@ -27,7 +27,6 @@ const Home = () => {
 
   const [timer, setTimer] = useState()
   const [activeLetter, setActiveLetter] = useState(null)
-  const [textLost, setTextLost] = useState(false)
   const [playerModalOpen, setPlayerModalOpen] = useState(false)
   const [WinnerModalOpen, setWinnerModalOpen] = useState(false)
   const [playerName, setPlayerName] = useState()
@@ -125,7 +124,6 @@ const Home = () => {
 
   useEffect(() => {
     socket.on('timerFinished', playerData => {
-      console.log('playerData>>', playerData)
       if (audioStopRef.current && audioRef.current) {
         audioRef.current.pause()
         audioStopRef.current.play()
@@ -135,12 +133,6 @@ const Home = () => {
       setIsTimerStarted(true)
     })
   }, [])
-
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setTextLost(false)
-  //   }, 5000)
-  // }, [])
 
   useEffect(() => {
     socket.emit('getPlayersOut', roomId)
@@ -320,7 +312,6 @@ const Home = () => {
           src={playerTurnSound}
           muted={isMuted}
         />
-        {textLost && <S.TextLost>Se Fodeu</S.TextLost>}
         <S.AlphabetContainer>
           {filteredLetters.map(letter => (
             <S.Letter
