@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { v4 as uuid } from 'uuid'
 import * as S from './styles'
 
@@ -9,6 +9,21 @@ const ModalPlayerName = ({
   handlePlayerNameChange,
   playerName,
 }) => {
+  const handleSubmitPlayer = useCallback(() => {
+    const newUuid = uuid()
+    handlePlayerNameSubmit({ playerName: playerName, id: newUuid })
+  }, [handlePlayerNameSubmit, playerName])
+  useEffect(() => {
+    const listener = event => {
+      if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+        handleSubmitPlayer()
+      }
+    }
+    document.addEventListener('keydown', listener)
+    return () => {
+      document.removeEventListener('keydown', listener)
+    }
+  }, [handleSubmitPlayer])
   if (open) {
     return (
       <S.Container data-testid='modal-testid'>
@@ -33,10 +48,7 @@ const ModalPlayerName = ({
             </S.ButtonCancel>
             <S.Button
               disabled={!playerName}
-              onClick={() => {
-                const newUuid = uuid()
-                handlePlayerNameSubmit({ playerName: playerName, id: newUuid })
-              }}
+              onClick={() => handleSubmitPlayer()}
             >
               Confirmar
             </S.Button>

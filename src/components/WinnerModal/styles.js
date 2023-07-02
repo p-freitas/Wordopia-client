@@ -41,6 +41,10 @@ export const ModalContent = styled.div`
     color: black;
     margin-bottom: 80px;
   }
+  @media (max-width: 768px) {
+    width: 90%;
+    text-align: center;
+  }
 `
 
 export const ArrowBtn = styled.button`
@@ -71,6 +75,8 @@ export const ModalHeaderContent = styled.div`
 
 export const ModalBodyContent = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 export const TitleContainer = styled.div`
@@ -81,9 +87,21 @@ export const TitleContainer = styled.div`
   font-size: 30px;
 `
 
-export const TextWarning = styled.p`
+export const WinnerContainer = styled.div`
+  display: flex;
+  color: #0a6cff;
+  font-size: 30px;
+  border: 1px solid;
+  padding: 5px 5px 0;
+`
+
+export const WordContainer = styled.div`
   color: red;
-  margin-top: 10px;
+  margin: 10px 0;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  font-size: 30px;
 `
 
 export const Button = styled.button`

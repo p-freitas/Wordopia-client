@@ -35,6 +35,12 @@ export const ModalContent = styled.div`
   max-width: 600px;
   padding: 20px;
   justify-content: space-evenly;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    height: auto;
+    text-align: center;
+  }
 `
 
 export const ModalHeaderContent = styled.div`
@@ -49,6 +55,10 @@ export const ModalHeaderContent = styled.div`
 
 export const ModalBodyContent = styled.div`
   display: flex;
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
 `
 
 export const TitleContainer = styled.div`

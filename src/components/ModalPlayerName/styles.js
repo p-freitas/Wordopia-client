@@ -41,6 +41,10 @@ export const ModalContent = styled.div`
     color: black;
     margin-bottom: 80px;
   }
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `
 
 export const ArrowBtn = styled.button`
@@ -71,6 +75,10 @@ export const ModalHeaderContent = styled.div`
 
 export const ModalBodyContent = styled.div`
   display: flex;
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
 `
 
 export const TitleContainer = styled.div`

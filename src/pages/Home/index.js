@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
 import socket from '../../socket'
 import timeSound from '../../assets/timeSound.mp3'
@@ -8,10 +8,14 @@ import ModalPlayerName from '../../components/ModalPlayerName'
 import PlayersList from '../../components/PlayersList'
 import WinnerModal from '../../components/WinnerModal'
 import MuteButton from '../../components/MuteButton'
+import HelpButton from '../../components/HelpButton'
 import LeaveRoomButtom from '../../components/LeaveRoomButtom'
 import ModalReset from '../../components/ModalReset'
 import ModalRemovePlayer from '../../components/ModalRemovePlayer'
 import ModalLeaveRoom from '../../components/ModalLeaveRoom'
+import ModalFriendsLink from '../../components/ModalFriendsLink'
+import ModalPlayerEliminated from '../../components/ModalPlayerEliminated'
+import ModalTutorial from '../../components/ModalTutorial'
 import { useNavigate } from 'react-router-dom'
 import * as S from './style'
 
@@ -39,6 +43,12 @@ const Home = () => {
   const [RemovePlayerOpenModal, setRemovePlayerOpenModal] = useState()
   const [roomId, setRoomId] = useState('')
   const [openModalLeaveRoom, setOpenModalLeaveRoom] = useState(false)
+  const [openFriendsLink, setOpenFriendsLink] = useState(false)
+  const [openPlayerEliminatedModal, setOpenPlayerEliminatedModal] =
+    useState(false)
+  const [playerEliminated, setPlayerEliminated] = useState(false)
+  const [isTimerStarted, setIsTimerStarted] = useState(false)
+  const [openModalTutorial, setOpenModalTutorial] = useState(false)
 
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
@@ -100,26 +110,37 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
+    socket.emit('getWord', roomId)
+
+    socket.on('sendWord', data => {
+      setCurrentWord(data)
+    })
+  }, [roomId])
+
+  useEffect(() => {
     socket.on('playersOut', data => {
       setPlayersOut(data)
     })
   }, [])
 
   useEffect(() => {
-    socket.on('timerFinished', () => {
+    socket.on('timerFinished', playerData => {
+      console.log('playerData>>', playerData)
       if (audioStopRef.current && audioRef.current) {
         audioRef.current.pause()
         audioStopRef.current.play()
       }
-      setTextLost(true)
+      setPlayerEliminated(playerData)
+      setOpenPlayerEliminatedModal(true)
+      setIsTimerStarted(true)
     })
   }, [])
 
-  useEffect(() => {
-    setInterval(() => {
-      setTextLost(false)
-    }, 5000)
-  }, [])
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setTextLost(false)
+  //   }, 5000)
+  // }, [])
 
   useEffect(() => {
     socket.emit('getPlayersOut', roomId)
@@ -138,6 +159,20 @@ const Home = () => {
       setCurrentTurn(data)
     })
   }, [roomId])
+
+  useEffect(() => {
+    socket.on('sendLinkForFriends', () => {
+      setOpenFriendsLink(true)
+    })
+  }, [])
+
+  useEffect(() => {
+    console.log(localStorage.getItem('firstTime'))
+    if (localStorage.getItem('firstTime') === null) {
+      setOpenModalTutorial(true)
+      localStorage.setItem('firstTime', true)
+    }
+  }, [])
 
   socket.on('timer', time => {
     setTimer(time)
@@ -201,7 +236,13 @@ const Home = () => {
     socket.emit('getWord', roomId)
   }
 
-  const handleStartTimer = () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleResetActiveLetters = useCallback(() => {
+    socket.emit('resetActiveLetters', roomId)
+    audioRef.current.pause()
+  })
+
+  const handleStartTimer = useCallback(() => {
     if (timer === undefined) {
       socket.emit('startTimer', roomId)
       socket.emit('cleanCurrentLetter', roomId)
@@ -217,12 +258,28 @@ const Home = () => {
         handleResetActiveLetters()
       }
     }
-  }
+  }, [
+    activeLetter?.length,
+    filteredLetters?.length,
+    handleResetActiveLetters,
+    roomId,
+    timer,
+  ])
 
-  const handleResetActiveLetters = () => {
-    socket.emit('resetActiveLetters', roomId)
-    audioRef.current.pause()
-  }
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.key === 'Space' || event.keyCode === 32) {
+        event.preventDefault()
+        handleStartTimer()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [handleStartTimer])
 
   const handleResetGame = () => {
     socket.emit('resetGame', roomId)
@@ -323,9 +380,15 @@ const Home = () => {
         handleResetGame={handleResetGame}
         gameWinner={gameWinner}
         handleResetGameFinished={handleResetGameFinished}
+        handleClickWordButton={handleClickWordButton}
+        currentWord={currentWord}
       />
       <MuteButton setIsMuted={setIsMuted} isMuted={isMuted} />
-      <LeaveRoomButtom setOpenModalLeaveRoom={setOpenModalLeaveRoom} />
+      <HelpButton setOpen={setOpenModalTutorial} open={openModalTutorial} />
+      <LeaveRoomButtom
+        setOpenModalLeaveRoom={setOpenModalLeaveRoom}
+        setOpenFriendsLink={setOpenFriendsLink}
+      />
       <ModalReset
         handleResetAllGame={handleResetAllGame}
         open={ResetOpenModal}
@@ -344,6 +407,17 @@ const Home = () => {
         LeaveRoom={LeaveRoom}
         playerData={localStorage.getItem(roomId)}
       />
+      <ModalFriendsLink setOpen={setOpenFriendsLink} open={openFriendsLink} />
+      <ModalPlayerEliminated
+        setOpen={setOpenPlayerEliminatedModal}
+        open={openPlayerEliminatedModal}
+        playerEliminated={playerEliminated}
+        setPlayerEliminated={setPlayerEliminated}
+        isTimerStarted={isTimerStarted}
+        setIsTimerStarted={setIsTimerStarted}
+        handleStartTimer={handleStartTimer}
+      />
+      <ModalTutorial setOpen={setOpenModalTutorial} open={openModalTutorial} />
     </S.PageContainer>
   )
 }

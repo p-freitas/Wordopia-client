@@ -1,6 +1,6 @@
 import React from 'react'
-import * as S from './styles'
 import { Tooltip } from 'react-tooltip'
+import * as S from './styles'
 
 const MuteButton = ({ setIsMuted, isMuted }) => {
   const MuteIcon = <S.Icon className='fas fa-volume-mute'></S.Icon>

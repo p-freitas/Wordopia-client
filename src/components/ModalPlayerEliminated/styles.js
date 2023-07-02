@@ -34,7 +34,7 @@ export const ModalContent = styled.div`
   align-items: center;
   max-width: 600px;
   padding: 20px;
-  justify-content: space-between;
+  justify-content: space-evenly;
 
   #select {
     width: 300px;
@@ -77,10 +77,7 @@ export const ModalHeaderContent = styled.div`
 
 export const ModalBodyContent = styled.div`
   display: flex;
-
-  @media (max-width: 768px) {
-    flex-direction: column-reverse;
-  }
+  flex-direction: column;
 `
 
 export const TitleContainer = styled.div`
@@ -88,6 +85,22 @@ export const TitleContainer = styled.div`
   flex: 1;
   justify-content: center;
   color: black;
+  font-size: 30px;
+`
+
+export const CounterContainer = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  color: red;
+  font-size: 50px;
+`
+
+export const PlayerNameContainer = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  color: red;
   font-size: 30px;
 `
 
@@ -99,7 +112,7 @@ export const TextWarning = styled.p`
 export const Button = styled.button`
   border-radius: 5px;
   text-transform: uppercase;
-
+  font-family: 'MyFont', sans-serif;
   padding: 0 10px;
   color: var(--white);
   height: 40px;
@@ -108,9 +121,8 @@ export const Button = styled.button`
   transition: 0.5s;
   cursor: pointer;
   margin: 10px;
-  font-size: 25px;
+  font-size: 15px;
   border: 1px solid black;
-  font-family: 'MyFont', sans-serif;
 
   &:hover {
     background-color: var(--green-strong);
@@ -129,7 +141,7 @@ export const Button = styled.button`
 export const ButtonCancel = styled.button`
   border-radius: 5px;
   text-transform: uppercase;
-  font-family: 'MyFont', sans-serif;
+
   padding: 0 10px;
   color: var(--white);
   height: 40px;

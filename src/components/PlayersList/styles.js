@@ -11,6 +11,8 @@ export const ScoreboardContainer = styled.div`
   border: 2px solid white;
   color: white;
   font-family: 'MyFont', sans-serif;
+  max-height: 600px;
+  overflow-x: hidden;
 
   @media only screen and (max-device-width: 767px) {
     margin: 30px 0;
@@ -42,6 +44,7 @@ export const ScoreboardListItem = styled.p`
   color: ${({ color }) => (color ? '#00f7ec' : 'white')};
   color: ${({ colorLost }) => colorLost && 'red!important'};
   border-bottom: ${({ color }) => (color ? '1px solid #00f7ec' : 'unset')};
+  text-decoration: ${({ colorLost }) => colorLost && 'line-through'};;
   overflow-wrap: break-word;
 `
 
