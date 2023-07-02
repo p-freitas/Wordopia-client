@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import MyFont from '../assets/fonts/MyFont.ttf'
 
-
 const GlobalStyles = createGlobalStyle`
   :root {
     // Colors
@@ -26,7 +25,7 @@ const GlobalStyles = createGlobalStyle`
     color: black;
     font-family: var(--font-small);
     font-size: 0.95em;
-    font-family: 'MyFont', sans-serif;
+    font-family: 'MyFont', cursive;
   }
 
   span{
@@ -37,6 +36,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'MyFont', cursive;
   }
 
   @font-face {

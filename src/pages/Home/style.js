@@ -274,7 +274,7 @@ export const PauseButton = styled.button`
 
 export const RemovePlayerButton = styled.button`
   width: 200px;
-  height: 40px;
+  height: 70px;
   border-radius: 7%;
   background-color: red;
   color: white;
