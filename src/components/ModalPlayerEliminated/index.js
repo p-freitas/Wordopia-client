@@ -34,7 +34,7 @@ const ModalPlayerEliminated = ({
       handleStartTimer()
   }, [
     handleStartTimer,
-    playerEliminated.id,
+    playerEliminated?.id,
     roomId,
     setIsTimerStarted,
     setOpen,

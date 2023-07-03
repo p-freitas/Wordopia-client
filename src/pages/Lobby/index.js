@@ -11,7 +11,6 @@ const Lobby = () => {
   const [openModalTutorial, setOpenModalTutorial] = useState(false)
 
   useEffect(() => {
-    console.log(localStorage.getItem('firstTime'))
     if (localStorage.getItem('firstTime') === null) {
       setOpenModalTutorial(true)
       localStorage.setItem('firstTime', true)

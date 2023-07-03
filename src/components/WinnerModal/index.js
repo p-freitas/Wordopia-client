@@ -10,6 +10,8 @@ const WinnerModal = ({
   handleResetGameFinished,
   handleClickWordButton,
   currentWord,
+  players,
+  roomId
 }) => {
   useEffect(() => {
     if (open) {
@@ -21,7 +23,9 @@ const WinnerModal = ({
   if (open) {
     return (
       <S.Container data-testid='modal-testid'>
-        {gameWinner && <Confetti width={window.innerWidth} height={window.innerHeight} />}
+        {gameWinner && (
+          <Confetti width={window.innerWidth} height={window.innerHeight} />
+        )}
         <S.ModalContent>
           <S.ModalHeaderContent>
             <S.TitleContainer>
@@ -43,13 +47,19 @@ const WinnerModal = ({
               </>
             )}
 
-            <S.Button
-              onClick={() => {
-                gameWinner ? handleResetGameFinished() : handleResetGame()
-              }}
-            >
-              {gameWinner ? 'Próxima partida' : 'Próxima rodada'}
-            </S.Button>
+            {players?.map(player => {
+              return (
+                player?.leader && player?.id === JSON.parse(localStorage.getItem(roomId)).playerId && (
+                  <S.Button
+                    onClick={() => {
+                      gameWinner ? handleResetGameFinished() : handleResetGame()
+                    }}
+                  >
+                    {gameWinner ? 'Próxima partida' : 'Próxima rodada'}
+                  </S.Button>
+                )
+              )
+            })}
           </S.ModalBodyContent>
         </S.ModalContent>
       </S.Container>

@@ -4,6 +4,7 @@ import socket from '../../socket'
 import timeSound from '../../assets/timeSound.mp3'
 import timeSoundStop from '../../assets/darkcloudio.mp3'
 import playerTurnSound from '../../assets/playerTurnSound.mp3'
+import winnerRoundSound from '../../assets/winnerRound.mp3'
 import ModalPlayerName from '../../components/ModalPlayerName'
 import PlayersList from '../../components/PlayersList'
 import WinnerModal from '../../components/WinnerModal'
@@ -52,6 +53,7 @@ const Home = () => {
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
   const audioPlayerTurnSoundRef = useRef(null)
+  const audiowinnerRoundRef = useRef(null)
 
   const letters = [...Array(26)].map((_, index) =>
     String.fromCharCode(65 + index)
@@ -102,11 +104,17 @@ const Home = () => {
   }, [roomId])
 
   useEffect(() => {
-    socket.on('turn', data => {
+    socket.on('turn', (data, isGameFinished) => {
       setCurrentTurn(data)
-      audioPlayerTurnSoundRef.current.play()
+
+      if (JSON.parse(localStorage.getItem(roomId))?.playerId === data?.id && !isGameFinished) {
+        audioPlayerTurnSoundRef?.current?.play()
+        audioRef?.current?.play()
+      } else {
+        audioRef?.current?.pause()
+      }
     })
-  }, [])
+  }, [roomId])
 
   useEffect(() => {
     socket.emit('getWord', roomId)
@@ -159,14 +167,13 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
-    console.log(localStorage.getItem('firstTime'))
     if (localStorage.getItem('firstTime') === null) {
       setOpenModalTutorial(true)
       localStorage.setItem('firstTime', true)
     }
   }, [])
 
-  socket.on('timer', time => {
+   socket.on('timer', time => {
     setTimer(time)
   })
 
@@ -185,11 +192,15 @@ const Home = () => {
   socket.on('winner', winner => {
     setWinnerModalOpen(true)
     setWinner(winner)
+    audioRef?.current?.pause()
+    audiowinnerRoundRef?.current?.play()
   })
 
   socket.on('gameWinner', winner => {
     setWinnerModalOpen(true)
     setGameWinner(winner)
+    audioRef?.current?.pause()
+    audiowinnerRoundRef?.current?.play()
   })
 
   socket.on('gameReseted', () => {
@@ -198,6 +209,10 @@ const Home = () => {
 
   socket.on('gameAllReseted', () => {
     localStorage.removeItem('playerName')
+  })
+
+  socket.on('resetGameWinner', winner => {
+    setGameWinner(winner)
   })
 
   const handleClick = letter => {
@@ -242,9 +257,6 @@ const Home = () => {
       if (timer === undefined) {
         socket.emit('startTimer', roomId)
         socket.emit('cleanCurrentLetter', roomId)
-        if (audioRef.current) {
-          audioRef.current.play()
-        }
         socket.emit('changeTurnPlayer', roomId)
       } else {
         socket.emit('changeTurnPlayer', roomId)
@@ -319,6 +331,11 @@ const Home = () => {
           src={playerTurnSound}
           muted={isMuted}
         />
+        <audio
+          ref={audiowinnerRoundRef}
+          src={winnerRoundSound}
+          muted={isMuted}
+        />
         <S.AlphabetContainer>
           {filteredLetters.map(letter => (
             <S.Letter
@@ -380,6 +397,8 @@ const Home = () => {
         handleResetGameFinished={handleResetGameFinished}
         handleClickWordButton={handleClickWordButton}
         currentWord={currentWord}
+        players={players}
+        roomId={roomId}
       />
       <MuteButton setIsMuted={setIsMuted} isMuted={isMuted} />
       <HelpButton setOpen={setOpenModalTutorial} open={openModalTutorial} />

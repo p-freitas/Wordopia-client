@@ -30,7 +30,7 @@ const PlayersList = ({
   return (
     <S.ScoreboardContainer>
       <S.ScoreboardTitle>Players</S.ScoreboardTitle>
-      {players.length !== 0 && <S.ScoreText>Pontos</S.ScoreText>}
+      {players?.length !== 0 && <S.ScoreText>Pontos</S.ScoreText>}
 
       <S.ScoreboardList>
         {players &&
