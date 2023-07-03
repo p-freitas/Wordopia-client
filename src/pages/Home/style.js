@@ -131,7 +131,7 @@ export const ScoreBoardContainer = styled.div`
 export const WordButtonContainer = styled.div`
   background-color: rgb(37, 99, 235);
   display: flex;
-  height: 40%;
+  height: 25%;
   -webkit-box-align: center;
   align-items: center;
   flex-direction: column;

@@ -42,7 +42,7 @@ const ModalRemovePlayer = ({ open, setOpen, players, socket, roomId }) => {
               disabled={!SelectValue}
               onClick={() => {
                 setSelectValue('')
-                socket.emit('removePlayer', {id: SelectValue.value, playerName: SelectValue.label}, roomId)
+                socket.emit('removePlayer', {id: SelectValue.value, playerName: SelectValue.label}, roomId, true)
                 setOpen(false)
               }}
             >

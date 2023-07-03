@@ -8,6 +8,7 @@ const ModalPlayerEliminated = ({
   handleStartTimer,
   setIsTimerStarted,
   isTimerStarted,
+  roomId,
 }) => {
   const [count, setCount] = useState(5)
   const timerRef = useRef(null)
@@ -29,8 +30,15 @@ const ModalPlayerEliminated = ({
     setCount(5)
     clearInterval(timerRef.current)
     setIsTimerStarted(false)
-    handleStartTimer()
-  }, [handleStartTimer, setIsTimerStarted, setOpen])
+    JSON.parse(localStorage.getItem(roomId))?.playerId === playerEliminated?.id &&
+      handleStartTimer()
+  }, [
+    handleStartTimer,
+    playerEliminated.id,
+    roomId,
+    setIsTimerStarted,
+    setOpen,
+  ])
 
   useEffect(() => {
     if (count === 0) {
@@ -47,7 +55,9 @@ const ModalPlayerEliminated = ({
           </S.ModalHeaderContent>
 
           <S.ModalHeaderContent>
-            <S.PlayerNameContainer>{playerEliminated?.name}</S.PlayerNameContainer>
+            <S.PlayerNameContainer>
+              {playerEliminated?.name}
+            </S.PlayerNameContainer>
           </S.ModalHeaderContent>
 
           <S.ModalBodyContent>

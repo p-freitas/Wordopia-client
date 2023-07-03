@@ -201,7 +201,7 @@ const Home = () => {
   })
 
   const handleClick = letter => {
-    if (!activeLetter?.includes(letter)) {
+    if (!activeLetter?.includes(letter) && players?.length > 1) {
       socket.emit('letter', { roomId, letter })
     }
   }
@@ -235,25 +235,32 @@ const Home = () => {
   })
 
   const handleStartTimer = useCallback(() => {
-    if (timer === undefined) {
-      socket.emit('startTimer', roomId)
-      socket.emit('cleanCurrentLetter', roomId)
-      if (audioRef.current) {
-        audioRef.current.play()
-      }
-      socket.emit('changeTurnPlayer', roomId)
-    } else {
-      socket.emit('changeTurnPlayer', roomId)
-      socket.emit('cleanCurrentLetter', roomId)
+    if (
+      currentTurn?.id === JSON.parse(localStorage.getItem(roomId)).playerId &&
+      players?.length > 1
+    ) {
+      if (timer === undefined) {
+        socket.emit('startTimer', roomId)
+        socket.emit('cleanCurrentLetter', roomId)
+        if (audioRef.current) {
+          audioRef.current.play()
+        }
+        socket.emit('changeTurnPlayer', roomId)
+      } else {
+        socket.emit('changeTurnPlayer', roomId)
+        socket.emit('cleanCurrentLetter', roomId)
 
-      if (activeLetter?.length === filteredLetters?.length) {
-        handleResetActiveLetters()
+        if (activeLetter?.length === filteredLetters?.length) {
+          handleResetActiveLetters()
+        }
       }
     }
   }, [
     activeLetter?.length,
+    currentTurn?.id,
     filteredLetters?.length,
     handleResetActiveLetters,
+    players?.length,
     roomId,
     timer,
   ])
@@ -283,7 +290,7 @@ const Home = () => {
     socket.emit('gameFinished', roomId)
     audioRef.current.pause()
     setWinnerModalOpen(false)
-    setGameWinner()
+    setGameWinner(undefined)
   }
 
   const handleRemovePlayerClick = () => {
@@ -407,6 +414,7 @@ const Home = () => {
         isTimerStarted={isTimerStarted}
         setIsTimerStarted={setIsTimerStarted}
         handleStartTimer={handleStartTimer}
+        roomId={roomId}
       />
       <ModalTutorial setOpen={setOpenModalTutorial} open={openModalTutorial} />
     </S.PageContainer>

@@ -37,6 +37,27 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'MyFont', cursive;
+
+    ::-webkit-scrollbar-track {
+      background: rgba(141, 153, 174, 0.5);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(141, 153, 174, 0.7);
+    }
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      padding: 5px 0;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
   }
 
   @font-face {

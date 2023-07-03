@@ -130,8 +130,7 @@ const ModalTutorial = ({
                 Se todas as letras forem selecionadas pelos jogadores e o
                 vencedor da rodada não estiver definido, o sistema irá resetar
                 as letras selecionadas e começará as rodadas extras, onde os
-                jogadores terão que falar duas palavras relacionada ao tema,
-                escolhendo letras diferentes.
+                jogadores agora terão que falar duas palavras para a mesma letra.
               </S.ParagraphText>
             </S.ParagraphContainer>
             <S.ParagraphContainer>

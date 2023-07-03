@@ -11,7 +11,7 @@ export const ScoreboardContainer = styled.div`
   border: 2px solid white;
   color: white;
   font-family: 'MyFont', sans-serif;
-  max-height: 600px;
+  max-height: 700px;
   overflow-x: hidden;
 
   @media only screen and (max-device-width: 767px) {
