@@ -142,7 +142,7 @@ export const ScoreBoardContainer = styled.div`
 
 export const WordButtonContainer = styled.div`
   display: flex;
-  height: 25%;
+  height: 28%;
   -webkit-box-align: center;
   align-items: center;
   flex-direction: column;
@@ -161,7 +161,7 @@ export const ResetButtonContainer = styled.div`
 export const Word = styled.p`
   color: white;
   margin-bottom: 20px;
-  font-size: 30px;
+  font-size: 26px;
   text-align: center;
   font-family: 'MyFont', sans-serif;
 `
