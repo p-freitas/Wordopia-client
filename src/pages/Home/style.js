@@ -87,7 +87,6 @@ export const PageContainer = styled.div`
   justify-content: space-evenly;
 
   @media (max-width: 768px) {
-    background-color: rgb(37, 99, 235);
     min-height: 100vh;
     display: flex;
     -webkit-box-align: center;
@@ -129,7 +128,6 @@ export const TabletopContainer = styled.div`
 `
 
 export const ScoreBoardContainer = styled.div`
-  background-color: rgb(37, 99, 235);
   display: flex;
   width: 20%;
   flex-direction: column;
@@ -143,7 +141,6 @@ export const ScoreBoardContainer = styled.div`
 `
 
 export const WordButtonContainer = styled.div`
-  background-color: rgb(37, 99, 235);
   display: flex;
   height: 25%;
   -webkit-box-align: center;
@@ -153,7 +150,6 @@ export const WordButtonContainer = styled.div`
 `
 
 export const ResetButtonContainer = styled.div`
-  background-color: rgb(37, 99, 235);
   display: flex;
   height: 40%;
   -webkit-box-align: center;

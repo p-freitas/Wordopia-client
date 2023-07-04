@@ -21,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
   }
   
   body{
-    background-color: #2563eb;
+    background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
     color: black;
     font-family: var(--font-small);
     font-size: 0.95em;
