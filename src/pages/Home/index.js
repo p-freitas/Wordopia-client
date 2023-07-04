@@ -11,7 +11,6 @@ import WinnerModal from '../../components/WinnerModal'
 import MuteButton from '../../components/MuteButton'
 import HelpButton from '../../components/HelpButton'
 import LeaveRoomButtom from '../../components/LeaveRoomButtom'
-import ModalReset from '../../components/ModalReset'
 import ModalRemovePlayer from '../../components/ModalRemovePlayer'
 import ModalLeaveRoom from '../../components/ModalLeaveRoom'
 import ModalFriendsLink from '../../components/ModalFriendsLink'
@@ -405,11 +404,6 @@ const Home = () => {
       <LeaveRoomButtom
         setOpenModalLeaveRoom={setOpenModalLeaveRoom}
         setOpenFriendsLink={setOpenFriendsLink}
-      />
-      <ModalReset
-        handleResetAllGame={handleResetAllGame}
-        open={ResetOpenModal}
-        setOpen={setResetOpenModal}
       />
       <ModalRemovePlayer
         open={RemovePlayerOpenModal}
