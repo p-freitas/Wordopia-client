@@ -41,7 +41,6 @@ const Home = () => {
   const [gameWinner, setGameWinner] = useState()
   const [isMuted, setIsMuted] = useState(false)
   const [currentWord, setCurrentWord] = useState()
-  const [ResetOpenModal, setResetOpenModal] = useState()
   const [RemovePlayerOpenModal, setRemovePlayerOpenModal] = useState()
   const [roomId, setRoomId] = useState('')
   const [openModalLeaveRoom, setOpenModalLeaveRoom] = useState(false)
@@ -341,11 +340,6 @@ const Home = () => {
 
   const handleRemovePlayerClick = () => {
     setRemovePlayerOpenModal(true)
-  }
-
-  const handleResetAllGame = () => {
-    socket.emit('resetGameAll')
-    setResetOpenModal(false)
   }
 
   const LeaveRoom = playerData => {
