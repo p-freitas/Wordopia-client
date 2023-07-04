@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
 import * as S from './styles'
 
-const ModalRemovePlayer = ({
+const ModalChangePlayerTurn = ({
   open,
   setOpen,
   players,
   socket,
   roomId,
   playersOut,
-  currentTurn,
-  winner
 }) => {
   const [SelectValue, setSelectValue] = useState()
   const [playersFiltered, setPlayersFiltered] = useState()
@@ -35,7 +33,7 @@ const ModalRemovePlayer = ({
         <S.ModalContent>
           <S.ModalHeaderContent>
             <S.TitleContainer>
-              Selecione o jogador que será eliminado:{' '}
+              Selecione para qual jogador será o turno:
             </S.TitleContainer>
           </S.ModalHeaderContent>
 
@@ -59,13 +57,7 @@ const ModalRemovePlayer = ({
               disabled={!SelectValue}
               onClick={() => {
                 setSelectValue('')
-                socket.emit(
-                  'removePlayer',
-                  { id: SelectValue.value, playerName: SelectValue.label },
-                  roomId,
-                  true
-                )
-                currentTurn?.id === SelectValue?.value && socket.emit('changeTurnPlayer', roomId, SelectValue.value)
+                socket.emit('changeTurnPlayer', roomId, SelectValue.value, true)
                 socket.emit('cleanCurrentLetter', roomId)
                 setOpen(false)
               }}
@@ -81,4 +73,4 @@ const ModalRemovePlayer = ({
   }
 }
 
-export default ModalRemovePlayer
+export default ModalChangePlayerTurn

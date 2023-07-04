@@ -2,17 +2,19 @@ import styled from 'styled-components'
 
 export const ScoreboardContainer = styled.div`
   padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  width: 350px;
+  border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px 6px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid white;
+  border: 4px solid #00000085;
   color: white;
   font-family: 'MyFont', sans-serif;
-  max-height: 700px;
+  max-height: 500px;
   overflow-x: hidden;
+  background: rgb(255 255 255 / 10%);
+  margin-right: 10px;
 
   @media only screen and (max-device-width: 767px) {
     margin: 30px 0;
@@ -33,7 +35,7 @@ export const ScoreboardList = styled.ul`
   display: flex;
   flex-direction: column;
   -webkit-box-align: center;
-  width: 270px;
+  width: 100%;
 `
 
 export const ScoreboardListItem = styled.p`
@@ -44,7 +46,7 @@ export const ScoreboardListItem = styled.p`
   color: ${({ color }) => (color ? '#00f7ec' : 'white')};
   color: ${({ colorLost }) => colorLost && 'red!important'};
   border-bottom: ${({ color }) => (color ? '1px solid #00f7ec' : 'unset')};
-  text-decoration: ${({ colorLost }) => colorLost && 'line-through'};;
+  text-decoration: ${({ colorLost }) => colorLost && 'line-through'};
   overflow-wrap: break-word;
 `
 

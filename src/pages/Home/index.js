@@ -12,11 +12,14 @@ import MuteButton from '../../components/MuteButton'
 import HelpButton from '../../components/HelpButton'
 import LeaveRoomButtom from '../../components/LeaveRoomButtom'
 import ModalRemovePlayer from '../../components/ModalRemovePlayer'
+import ModalChangePlayerTurn from '../../components/ModalChangePlayerTurn'
 import ModalLeaveRoom from '../../components/ModalLeaveRoom'
 import ModalFriendsLink from '../../components/ModalFriendsLink'
 import ModalPlayerEliminated from '../../components/ModalPlayerEliminated'
 import ModalTutorial from '../../components/ModalTutorial'
+import ModalRoomNotFound from '../../components/ModalRoomNotFound'
 import { useNavigate } from 'react-router-dom'
+import '../../styles/styles.css'
 import * as S from './style'
 
 socket.on('connect', () => console.log('[SOCKET] [DISPLAY] => New Connection'))
@@ -48,6 +51,13 @@ const Home = () => {
   const [playerEliminated, setPlayerEliminated] = useState(false)
   const [isTimerStarted, setIsTimerStarted] = useState(false)
   const [openModalTutorial, setOpenModalTutorial] = useState(false)
+  const [openModalChangeTurnPlayer, setOpenModalChangeTurnPlayer] =
+    useState(false)
+  const [showChangeTurnPlayerButton, setShowChangeTurnPlayerButton] =
+    useState(true)
+  const [roomLeader, setRoomLeader] = useState()
+  const [openModalRoomNotFound, setOpenModalRoomNotFound] = useState(false)
+  const [isButtonClicked, setIsButtonClicked] = useState(false)
 
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
@@ -106,7 +116,10 @@ const Home = () => {
     socket.on('turn', (data, isGameFinished) => {
       setCurrentTurn(data)
 
-      if (JSON.parse(localStorage.getItem(roomId))?.playerId === data?.id && !isGameFinished) {
+      if (
+        JSON.parse(localStorage.getItem(roomId))?.playerId === data?.id &&
+        !isGameFinished
+      ) {
         audioPlayerTurnSoundRef?.current?.play()
         audioRef?.current?.play()
       } else {
@@ -172,7 +185,25 @@ const Home = () => {
     }
   }, [])
 
-   socket.on('timer', time => {
+  useEffect(() => {
+    // eslint-disable-next-line array-callback-return
+    players?.map(player => {
+      if (
+        player?.leader &&
+        player?.id === JSON.parse(localStorage.getItem(roomId))?.playerId
+      ) {
+        setRoomLeader(player)
+      }
+    })
+  }, [players, roomId])
+
+  useEffect(() => {
+    socket.on('roomNotFound', () => {
+      setOpenModalRoomNotFound(true)
+    })
+  }, [])
+
+  socket.on('timer', time => {
     setTimer(time)
   })
 
@@ -204,14 +235,15 @@ const Home = () => {
 
   socket.on('gameReseted', () => {
     setWinnerModalOpen(false)
-  })
-
-  socket.on('gameAllReseted', () => {
-    localStorage.removeItem('playerName')
+    setShowChangeTurnPlayerButton(true)
   })
 
   socket.on('resetGameWinner', winner => {
     setGameWinner(winner)
+  })
+
+  socket.on('gameGoingOn', isGameGoingOn => {
+    isGameGoingOn && setShowChangeTurnPlayerButton(false)
   })
 
   const handleClick = letter => {
@@ -257,9 +289,11 @@ const Home = () => {
         socket.emit('startTimer', roomId)
         socket.emit('cleanCurrentLetter', roomId)
         socket.emit('changeTurnPlayer', roomId)
+        socket.emit('setGameGoingOn', roomId)
       } else {
         socket.emit('changeTurnPlayer', roomId)
         socket.emit('cleanCurrentLetter', roomId)
+        socket.emit('setGameGoingOn', roomId)
 
         if (activeLetter?.length === filteredLetters?.length) {
           handleResetActiveLetters()
@@ -295,6 +329,7 @@ const Home = () => {
     socket.emit('resetGame', roomId)
     audioRef.current.pause()
     setWinnerModalOpen(false)
+    setWinner(undefined)
   }
 
   const handleResetGameFinished = () => {
@@ -319,6 +354,14 @@ const Home = () => {
     navigate(`/`)
   }
 
+  const handleMouseDown = () => {
+    setIsButtonClicked(true)
+  }
+
+  const handleMouseUp = () => {
+    setIsButtonClicked(false)
+  }
+
   return (
     <S.PageContainer>
       <S.TabletopContainer>
@@ -338,10 +381,7 @@ const Home = () => {
         <S.AlphabetContainer>
           {filteredLetters.map(letter => (
             <S.Letter
-              background={activeLetter?.includes(letter) ? 'red' : 'unset'}
-              backgroundHover={
-                activeLetter?.includes(letter) ? '#bb0505' : 'rgb(57, 167, 255)'
-              }
+              background={activeLetter?.includes(letter) ? '0.2' : '1'}
               key={letter}
               onClick={() => handleClick(letter)}
               isActive={activeLetter === letter}
@@ -351,10 +391,27 @@ const Home = () => {
             </S.Letter>
           ))}
         </S.AlphabetContainer>
-        <S.TimerText>{timer}</S.TimerText>
-        <S.ButtonContainer>
-          <S.Button onClick={handleStartTimer} />
-        </S.ButtonContainer>
+        <S.TimerContainer>
+          <S.TimerText>{timer}</S.TimerText>
+        </S.TimerContainer>
+
+        {/* <S.Button onClick={handleStartTimer} /> */}
+        <S.RedButton
+          id='button'
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          className={isButtonClicked ? 'pulse-bg' : ''}
+          onClick={handleStartTimer}
+        >
+          <div id='top' className={isButtonClicked ? 'top-click' : ''}></div>
+          <div id='bottom'></div>
+          <div
+            id='body'
+            class='body'
+            className={isButtonClicked ? 'body-click' : ''}
+          ></div>
+          <div id='floor'></div>
+        </S.RedButton>
 
         {localStorage.getItem(roomId) === null && (
           <ModalPlayerName
@@ -386,6 +443,13 @@ const Home = () => {
         <S.RemovePlayerButton onClick={() => handleRemovePlayerClick()}>
           Eliminar jogador
         </S.RemovePlayerButton>
+        {roomLeader?.id ===
+          JSON.parse(localStorage.getItem(roomId))?.playerId &&
+          showChangeTurnPlayerButton && (
+            <S.WordButton onClick={() => setOpenModalChangeTurnPlayer(true)}>
+              Mudar turno atual
+            </S.WordButton>
+          )}
       </S.ScoreBoardContainer>
       <WinnerModal
         open={WinnerModalOpen}
@@ -411,10 +475,27 @@ const Home = () => {
         players={players}
         socket={socket}
         roomId={roomId}
+        playersOut={playersOut}
+        currentTurn={currentTurn}
+        winner={Winner}
+      />
+      <ModalChangePlayerTurn
+        open={openModalChangeTurnPlayer}
+        setOpen={setOpenModalChangeTurnPlayer}
+        players={players}
+        socket={socket}
+        roomId={roomId}
+        playersOut={playersOut}
       />
       <ModalLeaveRoom
         setOpenModalLeaveRoom={setOpenModalLeaveRoom}
         open={openModalLeaveRoom}
+        LeaveRoom={LeaveRoom}
+        playerData={localStorage.getItem(roomId)}
+      />
+      <ModalRoomNotFound
+        setOpenModalLeaveRoom={setOpenModalRoomNotFound}
+        open={openModalRoomNotFound}
         LeaveRoom={LeaveRoom}
         playerData={localStorage.getItem(roomId)}
       />

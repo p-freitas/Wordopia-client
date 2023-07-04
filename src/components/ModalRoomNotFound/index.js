@@ -1,29 +1,28 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import * as S from './styles'
 
-const ModalLeaveRoom = ({ open, setOpenModalLeaveRoom, LeaveRoom, playerData }) => {
+const ModalRoomNotFound = ({ open }) => {
+  const navigate = useNavigate()
   if (open) {
     return (
       <S.Container data-testid='modal-testid'>
         <S.ModalContent>
           <S.ModalHeaderContent>
-            <S.TitleContainer>Desejar realmente sair da sala?</S.TitleContainer>
+            <S.TextWarning>Essa sala não existe!</S.TextWarning>
+            <S.TitleContainer>
+              Verifique se o link está correto ou se o código foi digitado
+              corretamente
+            </S.TitleContainer>
           </S.ModalHeaderContent>
 
           <S.ModalBodyContent>
-            <S.ButtonCancel
-              onClick={() => {
-                setOpenModalLeaveRoom(false)
-              }}
-            >
-              Cancelar
-            </S.ButtonCancel>
             <S.Button
               onClick={() => {
-                LeaveRoom(playerData)
+                navigate(`/`)
               }}
             >
-              Confirmar
+              Voltar para o Lobby
             </S.Button>
           </S.ModalBodyContent>
         </S.ModalContent>
@@ -34,4 +33,4 @@ const ModalLeaveRoom = ({ open, setOpenModalLeaveRoom, LeaveRoom, playerData }) 
   }
 }
 
-export default ModalLeaveRoom
+export default ModalRoomNotFound

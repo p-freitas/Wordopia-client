@@ -36,7 +36,7 @@ const WinnerModal = ({
           </S.ModalHeaderContent>
 
           <S.ModalHeaderContent>
-            <S.WinnerContainer>{winner[0]?.name} </S.WinnerContainer>
+            <S.WinnerContainer key={winner[0]?.id}>{winner[0]?.name} </S.WinnerContainer>
           </S.ModalHeaderContent>
 
           <S.ModalBodyContent>
