@@ -10,22 +10,25 @@ const ModalRemovePlayer = ({
   roomId,
   playersOut,
   currentTurn,
-  winner
+  winner,
 }) => {
   const [SelectValue, setSelectValue] = useState()
   const [playersFiltered, setPlayersFiltered] = useState()
 
   useEffect(() => {
     const filteredArray = players?.filter(
-      item => !playersOut?.some(otherItem => otherItem.id === item.id)
+      item =>
+        !playersOut?.some(
+          otherItem => otherItem !== null && otherItem?.id === item?.id
+        )
     )
     setPlayersFiltered(filteredArray)
   }, [players, playersOut])
 
   const playersList = playersFiltered?.map(el => {
     return {
-      value: el.id,
-      label: el.name,
+      value: el?.id,
+      label: el?.name,
     }
   })
 
@@ -65,7 +68,8 @@ const ModalRemovePlayer = ({
                   roomId,
                   true
                 )
-                currentTurn?.id === SelectValue?.value && socket.emit('changeTurnPlayer', roomId, SelectValue.value)
+                currentTurn?.id === SelectValue?.value &&
+                  socket.emit('changeTurnPlayer', roomId, SelectValue.value)
                 socket.emit('cleanCurrentLetter', roomId)
                 setOpen(false)
               }}

@@ -48,7 +48,7 @@ const PlayersList = ({
                       })
                     }
                   >
-                    {player.name}
+                    {player?.name}
                   </S.ScoreboardListItem>
                   {currentTurn?.id === player?.id && currentLetter && (
                     <S.CurrentLetterContainer>

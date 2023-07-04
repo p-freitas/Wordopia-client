@@ -15,15 +15,15 @@ const ModalChangePlayerTurn = ({
 
   useEffect(() => {
     const filteredArray = players?.filter(
-      item => !playersOut?.some(otherItem => otherItem.id === item.id)
+      item => !playersOut?.some(otherItem => otherItem?.id === item?.id)
     )
     setPlayersFiltered(filteredArray)
   }, [players, playersOut])
 
   const playersList = playersFiltered?.map(el => {
     return {
-      value: el.id,
-      label: el.name,
+      value: el?.id,
+      label: el?.name,
     }
   })
 
