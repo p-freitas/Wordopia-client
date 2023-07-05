@@ -21,12 +21,14 @@ export const AlphabetContainer = styled.div`
   @media only screen and (min-width: 360px) and (max-width: 767px) {
     display: flex;
     flex-wrap: wrap;
+    -webkit-box-pack: center;
     justify-content: center;
-    gap: 10px;
+    gap: 0px;
     position: relative;
     width: 100%;
-    margin: 0 auto;
+    margin: 0px auto;
     max-width: 100%;
+    padding: 0;
   }
 `
 
@@ -51,26 +53,27 @@ export const Letter = styled.div`
   -webkit-text-stroke: 1px rgb(128, 69, 0);
   border: 2px solid black;
   box-shadow: black 0 0 5px 0px;
-  transition: all .5s;
+  transition: all 0.5s;
 
   &:hover {
     background-color: #ffffffd4;
   }
 
   @media (max-width: 767px) {
-    width: 50px;
-    height: 40px;
-    border: 1px solid white;
+    width: 55px;
+    height: 55px;
+    border: 1px px solid white;
     display: flex;
+    -webkit-box-align: center;
     align-items: center;
+    -webkit-box-pack: center;
     justify-content: center;
     font-size: 20px;
     font-weight: bold;
-    cursor: ${({ cursor }) => (cursor ? 'default' : 'pointer')};
+    cursor: pointer;
     color: white;
-    margin: 20px;
-    background-color: ${({ background }) => background};
-    font-family: 'MyFont', sans-serif;
+    margin: 15px;
+    font-family: MyFont, sans-serif;
 
     &:hover {
       background-color: ${({ backgroundHover }) => backgroundHover};
@@ -117,7 +120,6 @@ export const TabletopContainer = styled.div`
   }
 
   @media only screen and (min-width: 360px) and (max-width: 767px) {
-    background-color: #2563eb;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -138,6 +140,10 @@ export const ScoreBoardContainer = styled.div`
   @media only screen and (min-width: 1200px) and (max-width: 1900px) {
     width: 25%;
   }
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    width: 90%;
+  }
 `
 
 export const WordButtonContainer = styled.div`
@@ -147,6 +153,10 @@ export const WordButtonContainer = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    margin: 20px 0;
+  }
 `
 
 export const ResetButtonContainer = styled.div`

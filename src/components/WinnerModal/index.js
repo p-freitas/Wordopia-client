@@ -49,7 +49,7 @@ const WinnerModal = ({
 
             {players?.map(player => {
               return (
-                player?.leader && player?.id === JSON.parse(localStorage.getItem(roomId)).playerId && (
+                localStorage.getItem(roomId) && player?.leader && player?.id === JSON.parse(localStorage.getItem(roomId)).playerId && (
                   <S.Button
                     onClick={() => {
                       gameWinner ? handleResetGameFinished() : handleResetGame()

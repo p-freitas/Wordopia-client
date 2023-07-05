@@ -8,6 +8,7 @@ const ModalPlayerName = ({
   handlePlayerNameSubmit,
   handlePlayerNameChange,
   playerName,
+  openModalGameGoingOn
 }) => {
   const handleSubmitPlayer = useCallback(() => {
     const newUuid = uuid()
@@ -15,7 +16,7 @@ const ModalPlayerName = ({
   }, [handlePlayerNameSubmit, playerName])
   useEffect(() => {
     const listener = event => {
-      if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+      if ((event.code === 'Enter' || event.code === 'NumpadEnter') && !openModalGameGoingOn) {
         handleSubmitPlayer()
       }
     }
@@ -23,7 +24,7 @@ const ModalPlayerName = ({
     return () => {
       document.removeEventListener('keydown', listener)
     }
-  }, [handleSubmitPlayer])
+  }, [handleSubmitPlayer, openModalGameGoingOn])
   if (open) {
     return (
       <S.Container data-testid='modal-testid'>

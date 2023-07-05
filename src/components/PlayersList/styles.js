@@ -40,14 +40,16 @@ export const ScoreboardList = styled.ul`
 
 export const ScoreboardListItem = styled.p`
   width: fit-content;
-  max-width: 300px;
-  font-size: 28px;
+  max-width: 240px;
+  font-size: 22px;
   margin-bottom: 25px;
   color: ${({ color }) => (color ? '#00f7ec' : 'white')};
   color: ${({ colorLost }) => colorLost && 'red!important'};
   border-bottom: ${({ color }) => (color ? '1px solid #00f7ec' : 'unset')};
   text-decoration: ${({ colorLost }) => colorLost && 'line-through'};
-  overflow-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 export const ScoreboardListItemScore = styled.div`
@@ -79,7 +81,7 @@ export const CurrentLetterContainer = styled.p`
   border: 1px solid white;
   font-size: 25px;
   padding: 2px 10px;
-  margin-left: 15px;
+  margin-left: 10px;
 `
 
 export const ScoreText = styled.div`

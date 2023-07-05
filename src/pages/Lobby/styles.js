@@ -25,8 +25,10 @@ export const BodyContainer = styled.div`
 
 export const Title = styled.h1`
   text-align: center;
-  color: white;
-  font-size: 60px;
+  color: #ffbd6f;
+  -webkit-text-stroke: 0.5px rgb(128, 69, 0);
+  text-shadow: black 4px 5px 0px;
+  font-size: 70px;
   font-family: 'MyFont', sans-serif;
 `
 

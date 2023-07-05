@@ -73,6 +73,10 @@ export const ModalHeaderContent = styled.div`
   height: inherit;
   height: auto;
   flex-direction: column;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    width: 90%;
+  }
 `
 
 export const ModalBodyContent = styled.div`
@@ -102,6 +106,10 @@ export const PlayerNameContainer = styled.div`
   justify-content: center;
   color: red;
   font-size: 30px;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    overflow-wrap: anywhere;
+  }
 `
 
 export const TextWarning = styled.p`

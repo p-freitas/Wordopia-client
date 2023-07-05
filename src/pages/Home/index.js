@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useSnackbar } from 'react-simple-snackbar'
 import socket from '../../socket'
 import timeSound from '../../assets/timeSound.mp3'
 import timeSoundStop from '../../assets/darkcloudio.mp3'
@@ -18,15 +19,29 @@ import ModalFriendsLink from '../../components/ModalFriendsLink'
 import ModalPlayerEliminated from '../../components/ModalPlayerEliminated'
 import ModalTutorial from '../../components/ModalTutorial'
 import ModalRoomNotFound from '../../components/ModalRoomNotFound'
-import { useNavigate } from 'react-router-dom'
+import ModalWaitingPlayers from '../../components/ModalWaitingPlayers'
+import ModalGameGoingOn from '../../components/ModalGameGoingOn'
 import '../../styles/styles.css'
 import * as S from './style'
 
 socket.on('connect', () => console.log('[SOCKET] [DISPLAY] => New Connection'))
 
+const options = {
+  position: 'top-center',
+  style: {
+    backgroundColor: 'rgb(72 90 255)',
+    color: 'white',
+    fontFamily: 'MyFont',
+    fontSize: '20px',
+    textAlign: 'center',
+  },
+}
+
 const Home = () => {
   const location = useLocation()
   const navigate = useNavigate()
+  const [openSnackbar] = useSnackbar(options)
+  const screenWidth = window.innerWidth
 
   const [timer, setTimer] = useState()
   const [activeLetter, setActiveLetter] = useState(null)
@@ -56,7 +71,10 @@ const Home = () => {
     useState(true)
   const [roomLeader, setRoomLeader] = useState()
   const [openModalRoomNotFound, setOpenModalRoomNotFound] = useState(false)
+  const [openModalWaitingPlayers, setOpenModalWaitingPlayers] = useState(false)
+  const [openModalGameGoingOn, setOpenModalGameGoingOn] = useState(false)
   const [isButtonClicked, setIsButtonClicked] = useState(false)
+  const [isGameGoingOn, setIsGameGoingOn] = useState(false)
 
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
@@ -70,15 +88,6 @@ const Home = () => {
   const filteredLetters = letters.filter(letter => !excludedLetters.has(letter))
 
   useEffect(() => {
-    const ssPlayerJson = localStorage.getItem(roomId)
-    const ssPlayerDataJson = JSON.parse(ssPlayerJson)
-
-    if (ssPlayerJson) {
-      socket.emit('changePlayerSocketId', roomId, ssPlayerDataJson.playerId)
-    }
-  }, [roomId])
-
-  useEffect(() => {
     setRoomId(location.pathname.split('/')[2])
   }, [location.pathname])
 
@@ -86,6 +95,30 @@ const Home = () => {
     const room = location.pathname.split('/')[2]
     socket.emit('joinRoom', room)
   }, [location.pathname])
+
+  useEffect(() => {
+    // Event handler for beforeunload event
+    const handleBeforeUnload = () => {
+      if (localStorage.getItem(roomId)) {
+        localStorage.removeItem(roomId)
+      }
+    }
+
+    window.addEventListener('beforeunload', handleBeforeUnload)
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, [roomId])
+
+  useEffect(() => {
+    if (players?.length <= 1 && localStorage.getItem(roomId)) {
+      setOpenModalWaitingPlayers(true)
+      socket.emit('clearTimer', roomId)
+    } else {
+      setOpenModalWaitingPlayers(false)
+    }
+  }, [players?.length, roomId])
 
   useEffect(() => {
     try {
@@ -202,6 +235,16 @@ const Home = () => {
     })
   }, [])
 
+  useEffect(() => {
+    socket.emit('getGameGoingOn', roomId)
+
+    if (isGameGoingOn && !localStorage.getItem(roomId)) {
+      setOpenModalGameGoingOn(true)
+    } else {
+      setOpenModalGameGoingOn(false)
+    }
+  }, [isGameGoingOn, roomId])
+
   socket.on('timer', time => {
     setTimer(time)
   })
@@ -241,8 +284,17 @@ const Home = () => {
     setGameWinner(winner)
   })
 
-  socket.on('gameGoingOn', isGameGoingOn => {
-    isGameGoingOn && setShowChangeTurnPlayerButton(false)
+  socket.on('gameGoingOn', status => {
+    status && setShowChangeTurnPlayerButton(false)
+    setIsGameGoingOn(status)
+  })
+
+  socket.on('playerDisconnected', playerData => {
+    openSnackbar(`${playerData?.name} saiu da sala`, 5000)
+  })
+
+  socket.on('playerConnected', playerData => {
+    openSnackbar(`${playerData?.playerName} entrou da sala`, 5000)
   })
 
   const handleClick = letter => {
@@ -288,11 +340,11 @@ const Home = () => {
         socket.emit('startTimer', roomId)
         socket.emit('cleanCurrentLetter', roomId)
         socket.emit('changeTurnPlayer', roomId)
-        socket.emit('setGameGoingOn', roomId)
+        socket.emit('setGameGoingOn', roomId, true)
       } else {
         socket.emit('changeTurnPlayer', roomId)
         socket.emit('cleanCurrentLetter', roomId)
-        socket.emit('setGameGoingOn', roomId)
+        socket.emit('setGameGoingOn', roomId, true)
 
         if (activeLetter?.length === filteredLetters?.length) {
           handleResetActiveLetters()
@@ -329,6 +381,16 @@ const Home = () => {
     audioRef.current.pause()
     setWinnerModalOpen(false)
     setWinner(undefined)
+
+    players?.map(player => {
+      if (
+        localStorage.getItem(roomId) &&
+        player?.leader &&
+        player?.id === JSON.parse(localStorage.getItem(roomId)).playerId
+      ) {
+        socket.emit('setGameGoingOn', roomId, false)
+      }
+    })
   }
 
   const handleResetGameFinished = () => {
@@ -336,6 +398,16 @@ const Home = () => {
     audioRef.current.pause()
     setWinnerModalOpen(false)
     setGameWinner(undefined)
+
+    players?.map(player => {
+      if (
+        localStorage.getItem(roomId) &&
+        player?.leader &&
+        player?.id === JSON.parse(localStorage.getItem(roomId)).playerId
+      ) {
+        socket.emit('setGameGoingOn', roomId, false)
+      }
+    })
   }
 
   const handleRemovePlayerClick = () => {
@@ -372,6 +444,14 @@ const Home = () => {
           src={winnerRoundSound}
           muted={isMuted}
         />
+        {screenWidth < 767 && (
+          <S.WordButtonContainer>
+            <S.Word>{currentWord}</S.Word>
+            <S.WordButton onClick={() => handleClickWordButton()}>
+              Gerar novo tema
+            </S.WordButton>
+          </S.WordButtonContainer>
+        )}
         <S.AlphabetContainer>
           {filteredLetters.map(letter => (
             <S.Letter
@@ -393,7 +473,9 @@ const Home = () => {
         <S.RedButton
           id='button'
           onMouseDown={handleMouseDown}
+          onTouchStart={handleMouseDown}
           onMouseUp={handleMouseUp}
+          onTouchend={handleMouseUp}
           className={isButtonClicked ? 'pulse-bg' : ''}
           onClick={handleStartTimer}
         >
@@ -406,7 +488,7 @@ const Home = () => {
           ></div>
           <div id='floor'></div>
         </S.RedButton>
-
+        <ModalWaitingPlayers open={openModalWaitingPlayers} />
         {localStorage.getItem(roomId) === null && (
           <ModalPlayerName
             handlePlayerNameSubmit={handlePlayerNameSubmit}
@@ -414,16 +496,20 @@ const Home = () => {
             playerName={playerName}
             open={playerModalOpen}
             setOpen={setPlayerModalOpen}
+            openModalGameGoingOn={openModalGameGoingOn}
           />
         )}
       </S.TabletopContainer>
       <S.ScoreBoardContainer>
-        <S.WordButtonContainer>
-          <S.Word>{currentWord}</S.Word>
-          <S.WordButton onClick={() => handleClickWordButton()}>
-            Gerar novo tema
-          </S.WordButton>
-        </S.WordButtonContainer>
+        {screenWidth >= 768 && (
+          <S.WordButtonContainer>
+            <S.Word>{currentWord}</S.Word>
+            <S.WordButton onClick={() => handleClickWordButton()}>
+              Gerar novo tema
+            </S.WordButton>
+          </S.WordButtonContainer>
+        )}
+
         <PlayersList
           currentTurn={currentTurn}
           playersOut={playersOut}
@@ -445,6 +531,7 @@ const Home = () => {
             </S.WordButton>
           )}
       </S.ScoreBoardContainer>
+      <ModalGameGoingOn open={openModalGameGoingOn} />
       <WinnerModal
         open={WinnerModalOpen}
         setOpen={setWinnerModalOpen}

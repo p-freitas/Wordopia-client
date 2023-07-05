@@ -5,9 +5,6 @@ import * as S from './styles'
 const ModalFriendsLink = ({
   open,
   setOpen,
-  handlePlayerNameSubmit,
-  handlePlayerNameChange,
-  playerName,
 }) => {
   const inputRef = useRef(null)
   const options = {
