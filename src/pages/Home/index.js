@@ -382,6 +382,7 @@ const Home = () => {
     setWinnerModalOpen(false)
     setWinner(undefined)
 
+    // eslint-disable-next-line array-callback-return
     players?.map(player => {
       if (
         localStorage.getItem(roomId) &&
@@ -399,6 +400,7 @@ const Home = () => {
     setWinnerModalOpen(false)
     setGameWinner(undefined)
 
+    // eslint-disable-next-line array-callback-return
     players?.map(player => {
       if (
         localStorage.getItem(roomId) &&
