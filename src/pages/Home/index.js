@@ -21,6 +21,7 @@ import ModalTutorial from '../../components/ModalTutorial'
 import ModalRoomNotFound from '../../components/ModalRoomNotFound'
 import ModalWaitingPlayers from '../../components/ModalWaitingPlayers'
 import ModalGameGoingOn from '../../components/ModalGameGoingOn'
+import ModalServerError from '../../components/ModalServerError'
 import '../../styles/styles.css'
 import * as S from './style'
 
@@ -75,6 +76,7 @@ const Home = () => {
   const [openModalGameGoingOn, setOpenModalGameGoingOn] = useState(false)
   const [isButtonClicked, setIsButtonClicked] = useState(false)
   const [isGameGoingOn, setIsGameGoingOn] = useState(false)
+  const [openModalServerError, setOpenModalServerError] = useState(false)
 
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
@@ -158,6 +160,10 @@ const Home = () => {
         audioRef?.current?.pause()
       }
     })
+
+    return () => {
+      socket.off('turn')
+    }
   }, [roomId])
 
   useEffect(() => {
@@ -172,6 +178,10 @@ const Home = () => {
     socket.on('playersOut', data => {
       setPlayersOut(data)
     })
+
+    return () => {
+      socket.off('playersOut')
+    }
   }, [])
 
   useEffect(() => {
@@ -184,6 +194,10 @@ const Home = () => {
       setOpenPlayerEliminatedModal(true)
       setIsTimerStarted(true)
     })
+
+    return () => {
+      socket.off('timerFinished')
+    }
   }, [])
 
   useEffect(() => {
@@ -208,6 +222,10 @@ const Home = () => {
     socket.on('sendLinkForFriends', () => {
       setOpenFriendsLink(true)
     })
+
+    return () => {
+      socket.off('sendLinkForFriends')
+    }
   }, [])
 
   useEffect(() => {
@@ -236,6 +254,16 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
+    socket.on('serverError', () => {
+      setOpenModalServerError(true)
+    })
+
+    return () => {
+      socket.off('serverError')
+    }
+  }, [])
+
+  useEffect(() => {
     socket.emit('getGameGoingOn', roomId)
 
     if (isGameGoingOn && !localStorage.getItem(roomId)) {
@@ -245,57 +273,139 @@ const Home = () => {
     }
   }, [isGameGoingOn, roomId])
 
-  socket.on('timer', time => {
-    setTimer(time)
-  })
+  useEffect(() => {
+    socket.on('timer', time => {
+      setTimer(time)
+    })
 
-  socket.on('lettersArray', data => {
-    setActiveLetter(data)
-  })
+    return () => {
+      socket.off('timer')
+    }
+  }, [])
 
-  socket.on('currentLetter', currentLetter => {
-    setCurrentLetter(currentLetter)
-  })
+  useEffect(() => {
+    socket.on('lettersArray', data => {
+      setActiveLetter(data)
+    })
 
-  socket.on('wordGenerated', data => {
-    setCurrentWord(data)
-  })
+    return () => {
+      socket.off('lettersArray')
+    }
+  }, [])
 
-  socket.on('winner', winner => {
-    setWinnerModalOpen(true)
-    setWinner(winner)
-    audioRef?.current?.pause()
-    audiowinnerRoundRef?.current?.play()
-  })
+  useEffect(() => {
+    socket.on('currentLetter', currentLetter => {
+      setCurrentLetter(currentLetter)
+    })
 
-  socket.on('gameWinner', winner => {
-    setWinnerModalOpen(true)
-    setGameWinner(winner)
-    audioRef?.current?.pause()
-    audiowinnerRoundRef?.current?.play()
-  })
+    return () => {
+      socket.off('currentLetter')
+    }
+  }, [])
 
-  socket.on('gameReseted', () => {
-    setWinnerModalOpen(false)
-    setShowChangeTurnPlayerButton(true)
-  })
+  useEffect(() => {
+    socket.on('wordGenerated', data => {
+      setCurrentWord(data)
+    })
 
-  socket.on('resetGameWinner', winner => {
-    setGameWinner(winner)
-  })
+    return () => {
+      socket.off('wordGenerated')
+    }
+  }, [])
 
-  socket.on('gameGoingOn', status => {
-    status && setShowChangeTurnPlayerButton(false)
-    setIsGameGoingOn(status)
-  })
+  useEffect(() => {
+    socket.on('winner', winner => {
+      setWinnerModalOpen(true)
+      setWinner(winner)
+      audioRef?.current?.pause()
+      audiowinnerRoundRef?.current?.play()
+    })
 
-  socket.on('playerDisconnected', playerData => {
-    openSnackbar(`${playerData?.name} saiu da sala`, 5000)
-  })
+    return () => {
+      socket.off('winner')
+    }
+  }, [])
 
-  socket.on('playerConnected', playerData => {
-    openSnackbar(`${playerData?.playerName} entrou da sala`, 5000)
-  })
+  useEffect(() => {
+    socket.on('gameWinner', winner => {
+      setWinnerModalOpen(true)
+      setGameWinner(winner)
+      audioRef?.current?.pause()
+      audiowinnerRoundRef?.current?.play()
+    })
+
+    return () => {
+      socket.off('gameWinner')
+    }
+  }, [])
+
+  useEffect(() => {
+    socket.on('gameReseted', () => {
+      setWinnerModalOpen(false)
+      setShowChangeTurnPlayerButton(true)
+    })
+
+    return () => {
+      socket.off('gameReseted')
+    }
+  }, [])
+
+  useEffect(() => {
+    socket.on('resetGameWinner', winner => {
+      setGameWinner(winner)
+    })
+
+    return () => {
+      socket.off('resetGameWinner')
+    }
+  }, [])
+
+  useEffect(() => {
+    socket.on('gameGoingOn', status => {
+      status && setShowChangeTurnPlayerButton(false)
+      setIsGameGoingOn(status)
+    })
+
+    return () => {
+      socket.off('gameGoingOn')
+    }
+  }, [openSnackbar])
+
+  useEffect(() => {
+    socket.on('playerDisconnected', playerData => {
+      openSnackbar(
+        `${
+          playerData?.name ? playerData?.name : playerData?.playerName
+        } saiu da sala`,
+        5000
+      )
+    })
+
+    return () => {
+      socket.off('playerDisconnected')
+    }
+  }, [openSnackbar])
+
+  useEffect(() => {
+    socket.on('playerConnected', playerData => {
+      openSnackbar(`${playerData?.playerName} entrou da sala`, 5000)
+    })
+
+    return () => {
+      socket.off('playerConnected')
+    }
+  }, [openSnackbar])
+
+  useEffect(() => {
+    socket.on('resetCounter', resetCounter => {
+      resetCounter !== 0 &&
+        openSnackbar(`Agora são ${resetCounter + 1} palavras!`, 5000)
+    })
+
+    return () => {
+      socket.off('resetCounter')
+    }
+  }, [openSnackbar])
 
   const handleClick = letter => {
     if (!activeLetter?.includes(letter) && players?.length > 1) {
@@ -432,6 +542,10 @@ const Home = () => {
 
   return (
     <S.PageContainer>
+      <ModalServerError
+        open={openModalServerError}
+        setOpen={setOpenModalServerError}
+      />
       <S.TabletopContainer>
         <S.Title>Sururu</S.Title>
         <audio ref={audioRef} src={timeSound} muted={isMuted} />
@@ -522,9 +636,13 @@ const Home = () => {
           roomId={roomId}
           socket={socket}
         />
-        <S.RemovePlayerButton onClick={() => handleRemovePlayerClick()}>
-          Eliminar jogador
-        </S.RemovePlayerButton>
+        {roomLeader?.id ===
+          JSON.parse(localStorage.getItem(roomId))?.playerId && (
+          <S.RemovePlayerButton onClick={() => handleRemovePlayerClick()}>
+            Eliminar jogador
+          </S.RemovePlayerButton>
+        )}
+
         {roomLeader?.id ===
           JSON.parse(localStorage.getItem(roomId))?.playerId &&
           showChangeTurnPlayerButton && (

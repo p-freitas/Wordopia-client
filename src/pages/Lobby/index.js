@@ -9,6 +9,7 @@ const Lobby = () => {
   const socketRef = useRef(null)
   const [room, setRoom] = useState('')
   const [openModalTutorial, setOpenModalTutorial] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (localStorage.getItem('firstTime') === null) {
@@ -17,8 +18,9 @@ const Lobby = () => {
     }
   }, [])
 
-  const handleJoinRoomButton = roomId => {
+  const handleJoinRoomButton = () => {
     navigate(`/room/${room}`)
+    setLoading(true)
   }
 
   const handleJoinRoom = roomId => {
@@ -43,31 +45,46 @@ const Lobby = () => {
 
   const handleCreateRoomButton = () => {
     socketRef.current.emit('createRoom')
+    setLoading(true)
   }
+
+  const handleRoomNameChange = event => {
+    if (event.target.value.length <= 6) {
+      setRoom(event.target.value.toUpperCase())
+    }
+  }
+
+  console.log('loading:', loading);
 
   return (
     <S.PageContainer>
-      <S.HeaderContainer>
-        <S.Title>Sururu</S.Title>
-      </S.HeaderContainer>
-      <S.BodyContainer>
-        <S.CreateRoomButton onClick={() => handleCreateRoomButton()}>
-          CRIAR SALA
-        </S.CreateRoomButton>
-        <S.OrText>ou</S.OrText>
-        <S.JoinButtonContainer>
-          <S.JoinButtonInput
-            type='text'
-            value={room}
-            onChange={e => setRoom(e.target.value)}
-            placeholder='Digite o código da sala'
-          />
-          <S.JoinButton onClick={() => handleJoinRoomButton()}>
-            ENTRAR NA SALA
-          </S.JoinButton>
-        </S.JoinButtonContainer>
-      </S.BodyContainer>
-      <ModalTutorial setOpen={setOpenModalTutorial} open={openModalTutorial} />
+      <S.LoadingOverlay loading={loading}>
+        <S.Spinner loading={loading}/>
+        <S.HeaderContainer>
+          <S.Title>Sururu</S.Title>
+        </S.HeaderContainer>
+        <S.BodyContainer>
+          <S.CreateRoomButton onClick={() => handleCreateRoomButton()}>
+            CRIAR SALA
+          </S.CreateRoomButton>
+          <S.OrText>ou</S.OrText>
+          <S.JoinButtonContainer>
+            <S.JoinButtonInput
+              type='text'
+              value={room}
+              onChange={e => handleRoomNameChange(e)}
+              placeholder='Digite o código da sala'
+            />
+            <S.JoinButton onClick={() => handleJoinRoomButton()}>
+              ENTRAR NA SALA
+            </S.JoinButton>
+          </S.JoinButtonContainer>
+        </S.BodyContainer>
+        <ModalTutorial
+          setOpen={setOpenModalTutorial}
+          open={openModalTutorial}
+        />
+      </S.LoadingOverlay>
     </S.PageContainer>
   )
 }

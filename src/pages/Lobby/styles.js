@@ -92,3 +92,42 @@ export const HeaderContainer = styled.header`
   align-items: center;
   margin-top: 30px;
 `
+
+export const LoadingOverlay = styled.div`
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: ${({ loading }) => (loading ? 'rgba(0, 0, 0, 0.5)' : 'unset')};
+  z-index: 9999;
+  flex-direction: column;
+`
+
+export const Spinner = styled.div`
+  display: ${({ loading }) => (loading ? 'block' : 'none')};
+  border-width: 7px;
+  border-style: solid;
+  border-color: #0bcffe #485bff #485bff;
+  border-image: initial;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  animation: 2s linear 0s infinite normal none running spin;
+  position: absolute;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`

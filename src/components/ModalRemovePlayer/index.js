@@ -23,6 +23,8 @@ const ModalRemovePlayer = ({
         )
     )
     setPlayersFiltered(filteredArray)
+
+
   }, [players, playersOut])
 
   const playersList = playersFiltered?.map(el => {
@@ -48,6 +50,7 @@ const ModalRemovePlayer = ({
             placeholder={'Selecione aqui'}
             options={playersList}
             onChange={el => setSelectValue(el)}
+            maxMenuHeight={170}
           />
 
           <S.ModalBodyContent>
@@ -62,6 +65,9 @@ const ModalRemovePlayer = ({
               disabled={!SelectValue}
               onClick={() => {
                 setSelectValue('')
+                if(playersOut?.some(player => player?.id === SelectValue.value)){
+                  return setOpen(false)
+                }
                 socket.emit(
                   'removePlayer',
                   { id: SelectValue.value, playerName: SelectValue.label },

@@ -16,6 +16,12 @@ const PlayersList = ({
       setPlayers(data)
     })
 
+    return () => {
+      socket.off('players')
+    }
+  }, [setPlayers, socket])
+
+  useEffect(() => {
     try {
       socket.emit('getPlayersName', roomId)
 

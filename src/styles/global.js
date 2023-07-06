@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import MyFont from '../assets/fonts/MyFont.ttf'
+import MyFont from '../assets/fonts/RequestCoffee/OpenType-TT/MyFont.ttf'
 
 const GlobalStyles = createGlobalStyle`
   :root {
