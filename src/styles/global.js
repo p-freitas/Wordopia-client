@@ -1,8 +1,9 @@
 import { createGlobalStyle } from 'styled-components'
 import MyFont from '../assets/fonts/RequestCoffee/OpenType-TT/MyFont.ttf'
+import BackgroungSVG from '../assets/images/background.webp'
 
 const GlobalStyles = createGlobalStyle`
-  :root {
+  #root {
     // Colors
     --white: #ffff;
     --black: #000000;
@@ -18,10 +19,28 @@ const GlobalStyles = createGlobalStyle`
     --font-title: 4em;
     --font-medium: 1.5em;
     --font-small: 'PT Sans', sans-serif;
+
+    background-image: url(${BackgroungSVG});
+    background-position: center center, center center;
+    background-size: 200%;
+    background-repeat: repeat, repeat;
+
+    @media (max-width: 767px) { 
+      background-size: auto;
+    }
+
+    @media only screen and (min-width: 1000px) and (max-width: 1300px) {
+      background-size: 250%;
+    }
+
+    @media only screen and (min-width: 1000px) and (max-width: 1100px) {
+      background-size: 350%;
+    }
   }
   
   body{
     background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+    
     color: black;
     font-family: var(--font-small);
     font-size: 0.95em;

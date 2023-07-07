@@ -4,7 +4,7 @@ export const Button = styled.div`
   position: fixed;
   bottom: 20px;
   left: 30px;
-  background-color: #b64aff;
+  background-color: rgb(72 91 255);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -21,7 +21,7 @@ export const ButtonMobile = styled.button`
   left: 30px;
   width: 40px;
   height: 40px;
-  background-color: #b64aff;
+  background-color: rgb(72 91 255);
   border: none;
   border-radius: 50%;
   cursor: pointer;

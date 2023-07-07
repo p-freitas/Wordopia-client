@@ -13,7 +13,7 @@ export const ScoreboardContainer = styled.div`
   font-family: 'MyFont', sans-serif;
   max-height: 500px;
   overflow-x: hidden;
-  background: rgb(255 255 255 / 10%);
+  background: rgb(87 115 255 / 80%);
   margin-right: 10px;
 
   @media only screen and (max-device-width: 767px) {

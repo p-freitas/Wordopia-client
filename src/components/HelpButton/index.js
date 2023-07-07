@@ -14,7 +14,7 @@ const HelpButton = ({ setOpen, open }) => {
       {width < 767 ? (
         <S.ButtonMobile
           onClick={handleClick}
-          aria-label='Tutorial'
+          aria-label='Tutorial button'
           aria-pressed='false'
           type='button'
           data-tooltip-id='mute-button-tooltip'
@@ -26,8 +26,9 @@ const HelpButton = ({ setOpen, open }) => {
       ) : (
         <S.Button
           onClick={handleClick}
-          aria-label='Tutorial'
+          aria-label='Tutorial button'
           aria-pressed='false'
+          type='button'
         >
           Tutorial
         </S.Button>

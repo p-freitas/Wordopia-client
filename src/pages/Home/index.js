@@ -46,6 +46,7 @@ const Home = () => {
 
   const [timer, setTimer] = useState()
   const [activeLetter, setActiveLetter] = useState(null)
+  const [filteredLetters, setFilteredLetters] = useState()
   const [playerModalOpen, setPlayerModalOpen] = useState(false)
   const [WinnerModalOpen, setWinnerModalOpen] = useState(false)
   const [playerName, setPlayerName] = useState()
@@ -83,12 +84,6 @@ const Home = () => {
   const audioPlayerTurnSoundRef = useRef(null)
   const audiowinnerRoundRef = useRef(null)
 
-  const letters = [...Array(26)].map((_, index) =>
-    String.fromCharCode(65 + index)
-  )
-  const excludedLetters = new Set(['X', 'Y', 'Ç', 'K', 'Q', 'W'])
-  const filteredLetters = letters.filter(letter => !excludedLetters.has(letter))
-
   useEffect(() => {
     setRoomId(location.pathname.split('/')[2])
   }, [location.pathname])
@@ -97,6 +92,14 @@ const Home = () => {
     const room = location.pathname.split('/')[2]
     socket.emit('joinRoom', room)
   }, [location.pathname])
+
+  useEffect(() => {
+    socket.emit('getLetters', roomId)
+
+    socket.on('sendLetters', data => {
+      setFilteredLetters(data)
+    })
+  }, [roomId])
 
   useEffect(() => {
     // Event handler for beforeunload event
@@ -569,7 +572,7 @@ const Home = () => {
           </S.WordButtonContainer>
         )}
         <S.AlphabetContainer>
-          {filteredLetters.map(letter => (
+          {filteredLetters?.map(letter => (
             <S.Letter
               background={activeLetter?.includes(letter) ? '0.2' : '1'}
               key={letter}

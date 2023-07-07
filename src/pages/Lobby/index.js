@@ -2,6 +2,13 @@ import React, { useEffect, useState, useRef } from 'react'
 import io from 'socket.io-client'
 import { useNavigate } from 'react-router-dom'
 import ModalTutorial from '../../components/ModalTutorial'
+import ModalRoomConfigs from '../../components/ModalRoomConfigs'
+import HelpButton from '../../components/HelpButton'
+import InstagramIcon from '../../assets/icons/InstagramIcon'
+import TwitterIcon from '../../assets/icons/TwitterIcon'
+import TwitchIcon from '../../assets/icons/TwitchIcon'
+import TiktokIcon from '../../assets/icons/TiktokIcon'
+import DiscordIcon from '../../assets/icons/DiscordIcon'
 import * as S from './styles'
 
 const Lobby = () => {
@@ -9,7 +16,10 @@ const Lobby = () => {
   const socketRef = useRef(null)
   const [room, setRoom] = useState('')
   const [openModalTutorial, setOpenModalTutorial] = useState(false)
+  const [openModalRoomConfigs, setOpenModalRoomConfigs] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [timerSelectValue, setTimerSelectValue] = useState()
+  const [roundsSelectValue, setRoundsSelectValue] = useState()
 
   useEffect(() => {
     if (localStorage.getItem('firstTime') === null) {
@@ -43,8 +53,13 @@ const Lobby = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleCreateRoomButton = () => {
-    socketRef.current.emit('createRoom')
+  const handleCreateRoomButton = letters => {
+    socketRef.current.emit(
+      'createRoom',
+      timerSelectValue?.value !== undefined ? timerSelectValue?.value : 10,
+      roundsSelectValue?.value !== undefined ? roundsSelectValue?.value : 3,
+      letters
+    )
     setLoading(true)
   }
 
@@ -54,17 +69,15 @@ const Lobby = () => {
     }
   }
 
-  console.log('loading:', loading);
-
   return (
     <S.PageContainer>
       <S.LoadingOverlay loading={loading}>
-        <S.Spinner loading={loading}/>
+        <S.Spinner loading={loading} />
         <S.HeaderContainer>
           <S.Title>Sururu</S.Title>
         </S.HeaderContainer>
         <S.BodyContainer>
-          <S.CreateRoomButton onClick={() => handleCreateRoomButton()}>
+          <S.CreateRoomButton onClick={() => setOpenModalRoomConfigs(true)}>
             CRIAR SALA
           </S.CreateRoomButton>
           <S.OrText>ou</S.OrText>
@@ -84,6 +97,23 @@ const Lobby = () => {
           setOpen={setOpenModalTutorial}
           open={openModalTutorial}
         />
+        <ModalRoomConfigs
+          setOpen={setOpenModalRoomConfigs}
+          open={openModalRoomConfigs}
+          handleCreateRoomButton={handleCreateRoomButton}
+          setRoundsSelectValue={setRoundsSelectValue}
+          setTimerSelectValue={setTimerSelectValue}
+          roundsSelectValue={roundsSelectValue}
+          timerSelectValue={timerSelectValue}
+        />
+        <S.IconsContainer>
+          <InstagramIcon width='35px' link={'https://www.instagram.com'} />
+          <TiktokIcon width='30px' link={'https://www.tiktok.com'} />
+          <TwitterIcon width='35px' link={'https://twitter.com'} />
+          <DiscordIcon width='40px' link={'https://discord.com'} />
+          <TwitchIcon width='35px' link={'https://www.twitch.tv'} />
+        </S.IconsContainer>
+        <HelpButton setOpen={setOpenModalTutorial} open={openModalTutorial} />
       </S.LoadingOverlay>
     </S.PageContainer>
   )

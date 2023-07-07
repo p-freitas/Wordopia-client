@@ -104,7 +104,8 @@ export const LoadingOverlay = styled.div`
   left: 0px;
   width: 100%;
   height: 100%;
-  background-color: ${({ loading }) => (loading ? 'rgba(0, 0, 0, 0.5)' : 'unset')};
+  background-color: ${({ loading }) =>
+    loading ? 'rgba(0, 0, 0, 0.5)' : 'unset'};
   z-index: 9999;
   flex-direction: column;
 `
@@ -129,5 +130,18 @@ export const Spinner = styled.div`
     100% {
       transform: rotate(360deg);
     }
+  }
+`
+
+export const IconsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 30px;
+
+  svg {
+    margin: 10px 10px;
+    cursor: pointer;
+    fill: white;
   }
 `

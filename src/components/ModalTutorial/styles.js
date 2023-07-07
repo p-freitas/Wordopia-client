@@ -89,6 +89,7 @@ export const ParagraphContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  text-align: justify;
 `
 
 export const ParagraphTitle = styled.h2`
