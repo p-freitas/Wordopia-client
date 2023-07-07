@@ -13,6 +13,7 @@ export const Button = styled.button`
   &:focus {
     outline: none;
   }
+  z-index: 10001;
 `
 
 export const Icon = styled.i`

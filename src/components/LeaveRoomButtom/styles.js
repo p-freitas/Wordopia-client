@@ -10,9 +10,11 @@ export const Button = styled.button`
   border: none;
   border-radius: 50%;
   cursor: pointer;
+  
   &:focus {
     outline: none;
   }
+  z-index: 10001
 `
 
 export const ButtonShare = styled.button`
@@ -28,6 +30,7 @@ export const ButtonShare = styled.button`
   &:focus {
     outline: none;
   }
+  z-index: 10001
 `
 
 export const Icon = styled.i`

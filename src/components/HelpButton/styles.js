@@ -13,6 +13,7 @@ export const Button = styled.div`
   &:focus {
     outline: none;
   }
+  z-index: 10001;
 `
 
 export const ButtonMobile = styled.button`
@@ -28,6 +29,7 @@ export const ButtonMobile = styled.button`
   &:focus {
     outline: none;
   }
+  z-index: 10001;
 `
 
 export const Icon = styled.i`
