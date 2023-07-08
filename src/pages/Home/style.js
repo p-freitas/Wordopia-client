@@ -96,7 +96,6 @@ export const PageContainer = styled.div`
     -webkit-box-pack: center;
     flex-direction: column;
     align-items: center;
-    margin-top: 20%;
   }
 `
 
@@ -126,6 +125,7 @@ export const TabletopContainer = styled.div`
     justify-content: center;
     flex-direction: column;
     justify-content: space-evenly;
+    margin-top: 20%;
   }
 `
 
@@ -177,7 +177,7 @@ export const Word = styled.p`
 `
 
 export const WordButton = styled.button`
-  width: 200px;
+  width: auto;
   height: 50px;
   border-radius: 10px;
   background-color: rgb(0, 142, 255);
@@ -187,6 +187,7 @@ export const WordButton = styled.button`
   cursor: pointer;
   border: 2px solid black;
   font-family: 'MyFont', sans-serif;
+  padding: 0 10px;
 
   &:hover {
     opacity: 0.8;

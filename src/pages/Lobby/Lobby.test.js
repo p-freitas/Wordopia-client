@@ -42,7 +42,7 @@ describe('Lobby component', () => {
   test('renders Lobby component', () => {
     render(<Lobby />)
     // Assert the presence of relevant elements on the rendered component
-    expect(screen.getByText('Sururu')).toBeInTheDocument()
+    expect(screen.getByText('WORDOPIA')).toBeInTheDocument()
     expect(screen.getByText('CRIAR SALA')).toBeInTheDocument()
     expect(screen.getByText('ou')).toBeInTheDocument()
     expect(

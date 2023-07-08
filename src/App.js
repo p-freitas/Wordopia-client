@@ -11,26 +11,24 @@ import SnackbarProvider from 'react-simple-snackbar'
 
 const browserLanguage = navigator.language || navigator.userLanguage
 
-function App() {
+const App = () => {
   const [lang, setLang] = useState()
 
-  i18n
-    .use(initReactI18next)
-    .init({
-      resources: {
-        en: {
-          translation: translationEN,
-        },
-        es: {
-          translation: translationES,
-        },
+  i18n.use(initReactI18next).init({
+    resources: {
+      en: {
+        translation: translationEN,
       },
-      lng: localStorage.getItem('i18nextLng') || lang || browserLanguage,
-      fallbackLng: 'pt-BR',
-      interpolation: {
-        escapeValue: false,
+      es: {
+        translation: translationES,
       },
-    })
+    },
+    lng: localStorage.getItem('i18nextLng') || lang || browserLanguage,
+    fallbackLng: 'pt-BR',
+    interpolation: {
+      escapeValue: false,
+    },
+  })
   return (
     <div className='App' id='outer-container'>
       <GlobalStyles />

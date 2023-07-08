@@ -1,38 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
-const PlayersList = ({
-  currentTurn,
-  playersOut,
-  currentLetter,
-  players,
-  setPlayers,
-  roomId,
-  socket,
-}) => {
+const PlayersList = ({ currentTurn, playersOut, currentLetter, players }) => {
   const { t } = useTranslation()
-  useEffect(() => {
-    socket.on('players', data => {
-      setPlayers(data)
-    })
-
-    return () => {
-      socket.off('players')
-    }
-  }, [setPlayers, socket])
-
-  useEffect(() => {
-    try {
-      socket.emit('getPlayersName', roomId)
-
-      socket.on('allPlayersNames', data => {
-        setPlayers(data)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }, [roomId, setPlayers, socket])
 
   return (
     <S.ScoreboardContainer>

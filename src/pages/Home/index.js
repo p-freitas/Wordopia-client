@@ -4,7 +4,7 @@ import { useSnackbar } from 'react-simple-snackbar'
 import { useTranslation } from 'react-i18next'
 import socket from '../../socket'
 import timeSound from '../../assets/timeSound.mp3'
-import timeSoundStop from '../../assets/darkcloudio.mp3'
+import timeSoundStop from '../../assets/eliminated.mp3'
 import playerTurnSound from '../../assets/playerTurnSound.mp3'
 import winnerRoundSound from '../../assets/winnerRound.mp3'
 import ModalPlayerName from '../../components/ModalPlayerName'
@@ -126,6 +126,28 @@ const Home = () => {
       setOpenModalWaitingPlayers(false)
     }
   }, [players?.length, roomId])
+
+  useEffect(() => {
+    socket.on('players', data => {
+      setPlayers(data)
+    })
+
+    return () => {
+      socket.off('players')
+    }
+  }, [setPlayers])
+
+  useEffect(() => {
+    try {
+      socket.emit('getPlayersName', roomId)
+
+      socket.on('allPlayersNames', data => {
+        setPlayers(data)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }, [roomId, setPlayers])
 
   useEffect(() => {
     try {
@@ -558,7 +580,7 @@ const Home = () => {
         setOpen={setOpenModalServerError}
       />
       <S.TabletopContainer>
-        <S.Title>Sururu</S.Title>
+        <S.Title>WORDOPIA</S.Title>
         <audio ref={audioRef} src={timeSound} muted={isMuted} />
         <audio ref={audioStopRef} src={timeSoundStop} muted={isMuted} />
         <audio

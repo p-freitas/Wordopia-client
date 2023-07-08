@@ -59,7 +59,6 @@ export const ModalContent = styled.div`
   border: 2px solid;
 
   @media (max-width: 768px) {
-    width: 90%;
     text-align: center;
   }
 `
@@ -104,6 +103,13 @@ export const ConfigsContainer = styled.div`
   height: 500px;
   width: 1000px;
   display: flex;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 export const SettingsContainer = styled.div`
@@ -113,6 +119,11 @@ export const SettingsContainer = styled.div`
   margin: 0 5px 0 0;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 20px 30px,
     rgba(0, 0, 0, 0.05) 0px 0px 10px;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    width: 100%;
+    height: 300px;
+  }
 `
 
 export const ThemesContainer = styled.div`
@@ -122,6 +133,11 @@ export const ThemesContainer = styled.div`
   margin: 0 5px 0 0;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 20px 30px,
     rgba(0, 0, 0, 0.05) 0px 0px 10px;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    width: 100%;
+    height: 300px;
+  }
 `
 
 export const LettersContainer = styled.div`
@@ -131,6 +147,10 @@ export const LettersContainer = styled.div`
   margin: 0 5px 0 0;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 20px 30px,
     rgba(0, 0, 0, 0.05) 0px 0px 10px;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    width: 100%;
+  }
 `
 
 export const Button = styled.button`

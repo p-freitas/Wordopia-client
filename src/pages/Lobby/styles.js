@@ -151,6 +151,11 @@ export const FlagsContainer = styled.div`
   top: 30px;
   right: 30px;
 
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    top: 10px;
+    right: 0px;
+  }
+
   svg {
     width: 30px;
     height: 30px;

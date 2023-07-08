@@ -26,7 +26,7 @@ describe('Home component', () => {
   })
 
   test('renders the component', () => {
-    expect(screen.getByText('Sururu')).toBeInTheDocument()
+    expect(screen.getByText('WORDOPIA')).toBeInTheDocument()
   })
 
   test('handles click on letter', () => {

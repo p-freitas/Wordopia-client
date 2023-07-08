@@ -35,8 +35,8 @@
   "Desativar som": "mute sound",
   "Jogadores": "Players",
   "Pontos": "Score",
-  "Jogador vencedor da partida": "Winning player of the match",
-  "Jogador vencedor da rodada": "Round winning player",
+  "Jogador vencedor da partida:": "Winning player of the match:",
+  "Jogador vencedor da rodada:": "Round winning player:",
   "Próxima palavra sorteada:": "Next word drawn:",
   "Próxima partida": "Next match",
   "Próxima rodada": "Next round",
@@ -94,8 +94,8 @@
   "Remédios": "Medicines",
   "Presentes de natal para a sogra": "Christmas Gifts for Mother-in-Law",
   "Sobre o jogo": "About the game",
-  "Sururu é um jogo que testa sua rapidez mental, sua criatividade e suas habilidades com palavras. É perfeito para reunir amigos e familiares em torno de uma mesa e desfrutar de momentos de diversão e competição saudável.": "Sururu is a game that tests your mental speed, creativity, and word skills. It's perfect for gathering friends and family around a table and enjoying moments of fun and healthy competition.",
-  "Sururu é um jogo versátil que pode ser adaptado para diferentes níveis de dificuldade e idades. É perfeito para crianças, pois estimula o pensamento rápido e o conhecimento das letras do alfabeto. Além disso, também é um desafio para adultos, que terão que pensar rapidamente e ser criativos para encontrar palavras adequadas dentro do tema escolhido.": "Sururu is a versatile game that can be adapted to different levels of difficulty and ages. It's perfect for children as it stimulates quick thinking and knowledge of alphabet letters. Additionally, it's also a challenge for adults who will need to think quickly and be creative to find suitable words within the chosen theme.",
+  "Wordopia é um jogo que testa sua rapidez mental, sua criatividade e suas habilidades com palavras. É perfeito para reunir amigos e familiares em torno de uma mesa e desfrutar de momentos de diversão e competição saudável.": "Wordopia is a game that tests your mental speed, creativity, and word skills. It's perfect for gathering friends and family around a table and enjoying moments of fun and healthy competition.",
+  "Wordopia é um jogo versátil que pode ser adaptado para diferentes níveis de dificuldade e idades. É perfeito para crianças, pois estimula o pensamento rápido e o conhecimento das letras do alfabeto. Além disso, também é um desafio para adultos, que terão que pensar rapidamente e ser criativos para encontrar palavras adequadas dentro do tema escolhido.": "Wordopia is a versatile game that can be adapted to different levels of difficulty and ages. It's perfect for children as it stimulates quick thinking and knowledge of alphabet letters. Additionally, it's also a challenge for adults who will need to think quickly and be creative to find suitable words within the chosen theme.",
   "Objetivo": "Objective",
   "O objetivo do jogo é formar palavras usando as letras disponíveis antes que o tempo acabe. O jogo é composto por uma série de botões, cada um contendo uma letra do alfabeto. No início do jogo, um tema é escolhido, como animais ou comidas. Em cada rodada, um jogador deve pensar em uma palavra relacionada ao tema e, em seguida, selecionar a letra correspondente no tabuleiro. O desafio é encontrar palavras únicas e evitar repetições, pois palavras já utilizadas pelos jogadores anteriores estão bloqueadas.": "The objective of the game is to form words using the available letters before time runs out. The game consists of a series of buttons, each containing a letter of the alphabet. At the beginning of the game, a theme is chosen, such as 'animals' or 'foods'. In each round, a player must think of a word related to the theme and then select the corresponding letter on the board. The challenge is to find unique words and avoid repetitions as words used by previous players are blocked.",
   "No entanto, aqui está o truque: o tempo é limitado! Um timer começa a contar assim que o tema é escolhido, e os jogadores têm apenas 10 segundos para pensar em uma palavra, encontrá-la no tabuleiro e pressionar a letra correspondente. A pressão de tempo adiciona uma dose extra de adrenalina e emoção ao jogo, tornando-o ainda mais cativante.": "However, here's the trick: time is limited! A timer starts as soon as the theme is chosen, and players have only 10 seconds to think of a word, find it on the board, and press the corresponding letter. The time pressure adds an extra dose of adrenaline and excitement to the game, making it even more captivating.",
@@ -120,7 +120,8 @@
   "Ganhando o jogo": "Winning the game",
   "O jogador que completar 3 pontos (vencer 3 rodadas) será o vencedor da partida.": "The player who reaches 3 points (wins 3 rounds) will be the winner of the game.",
   "Observação": "Notes",
-  "As regras do Sururu podem ser alteradas e incrementadas dependendo dos jogadores, sinta-se livre para inventar novas ideias, mas lembre-se de que é importante estabelecer regras claras e justas antes de começar o jogo. Além disso, encoraje a interação e a discussão amigável entre os jogadores durante o jogo para tornar a experiência mais divertida e estimulante.": "The rules of Sururu can be changed and enhanced depending on the players, feel free to come up with new ideas, but remember that it is important to establish clear and fair rules before starting the game. Additionally, encourage interaction and friendly discussion among the players during the game to make the experience more fun and stimulating.",
+  "As regras do Wordopia podem ser alteradas e incrementadas dependendo dos jogadores, sinta-se livre para inventar novas ideias, mas lembre-se de que é importante estabelecer regras claras e justas antes de começar o jogo. Além disso, encoraje a interação e a discussão amigável entre os jogadores durante o jogo para tornar a experiência mais divertida e estimulante.": "The rules of Wordopia can be changed and enhanced depending on the players, feel free to come up with new ideas, but remember that it is important to establish clear and fair rules before starting the game. Additionally, encourage interaction and friendly discussion among the players during the game to make the experience more fun and stimulating.",
   "Divirta-se!": "Have fun!",
-  "Regras": "Rules"
+  "Regras": "Rules",
+  "siteDescription": "Tap, connect, and conquer in the online Tapple game. Test your word skills today!"
 }

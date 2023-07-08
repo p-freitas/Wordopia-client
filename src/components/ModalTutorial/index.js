@@ -29,13 +29,13 @@ const ModalTutorial = ({ open, setOpen }) => {
               <S.ParagraphTitle>{t('Sobre o jogo')}</S.ParagraphTitle>
               <S.ParagraphText>
                 {t(
-                  'Sururu é um jogo que testa sua rapidez mental, sua criatividade e suas habilidades com palavras. É perfeito para reunir amigos e familiares em torno de uma mesa e desfrutar de momentos de diversão e competição saudável.'
+                  'Wordopia é um jogo que testa sua rapidez mental, sua criatividade e suas habilidades com palavras. É perfeito para reunir amigos e familiares em torno de uma mesa e desfrutar de momentos de diversão e competição saudável.'
                 )}
               </S.ParagraphText>
               <br />
               <S.ParagraphText>
                 {t(
-                  'Sururu é um jogo versátil que pode ser adaptado para diferentes níveis de dificuldade e idades. É perfeito para crianças, pois estimula o pensamento rápido e o conhecimento das letras do alfabeto. Além disso, também é um desafio para adultos, que terão que pensar rapidamente e ser criativos para encontrar palavras adequadas dentro do tema escolhido.'
+                  'Wordopia é um jogo versátil que pode ser adaptado para diferentes níveis de dificuldade e idades. É perfeito para crianças, pois estimula o pensamento rápido e o conhecimento das letras do alfabeto. Além disso, também é um desafio para adultos, que terão que pensar rapidamente e ser criativos para encontrar palavras adequadas dentro do tema escolhido.'
                 )}
               </S.ParagraphText>
             </S.ParagraphContainer>
@@ -145,7 +145,7 @@ const ModalTutorial = ({ open, setOpen }) => {
               <S.ParagraphTitle>{t('Observação')}</S.ParagraphTitle>
               <S.ParagraphText>
                 {t(
-                  'As regras do Sururu podem ser alteradas e incrementadas dependendo dos jogadores, sinta-se livre para inventar novas ideias, mas lembre-se de que é importante estabelecer regras claras e justas antes de começar o jogo. Além disso, encoraje a interação e a discussão amigável entre os jogadores durante o jogo para tornar a experiência mais divertida e estimulante.'
+                  'As regras do Wordopia podem ser alteradas e incrementadas dependendo dos jogadores, sinta-se livre para inventar novas ideias, mas lembre-se de que é importante estabelecer regras claras e justas antes de começar o jogo. Além disso, encoraje a interação e a discussão amigável entre os jogadores durante o jogo para tornar a experiência mais divertida e estimulante.'
                 )}
               </S.ParagraphText>
             </S.ParagraphContainer>

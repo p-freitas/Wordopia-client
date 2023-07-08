@@ -11,10 +11,10 @@ test('renders App component', () => {
   );
 
   // Assert that the Home page is rendered
-  const homeElement = screen.getByRole('heading', { name: /Sururu/i });
+  const homeElement = screen.getByRole('heading', { name: /WORDOPIA/i });
   expect(homeElement).toBeInTheDocument();
 
   // Assert that the Lobby page is not rendered
-  const lobbyElement = screen.queryByRole('heading', { name: /Sururu/i });
+  const lobbyElement = screen.queryByRole('heading', { name: /WORDOPIA/i });
   expect(lobbyElement).toBeInTheDocument();
 });
