@@ -390,6 +390,10 @@ export const Title = styled.h1`
   text-shadow: black 4px 5px 0px;
   font-size: 70px;
   font-family: 'MyFont', sans-serif;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    font-size: 60px;
+  }
 `
 
 export const RedButton = styled.div``
