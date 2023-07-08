@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
 const ModalPlayerEliminated = ({
@@ -10,6 +11,7 @@ const ModalPlayerEliminated = ({
   isTimerStarted,
   roomId,
 }) => {
+  const { t } = useTranslation()
   const [count, setCount] = useState(5)
   const timerRef = useRef(null)
 
@@ -30,8 +32,8 @@ const ModalPlayerEliminated = ({
     setCount(5)
     clearInterval(timerRef.current)
     setIsTimerStarted(false)
-    JSON.parse(localStorage.getItem(roomId))?.playerId === playerEliminated?.id &&
-      handleStartTimer()
+    JSON.parse(localStorage.getItem(roomId))?.playerId ===
+      playerEliminated?.id && handleStartTimer()
   }, [
     handleStartTimer,
     playerEliminated?.id,
@@ -51,7 +53,7 @@ const ModalPlayerEliminated = ({
       <S.Container data-testid='modal-testid'>
         <S.ModalContent>
           <S.ModalHeaderContent>
-            <S.TitleContainer>Jogador eliminado:</S.TitleContainer>
+            <S.TitleContainer>{t('Jogador eliminado:')}</S.TitleContainer>
           </S.ModalHeaderContent>
 
           <S.ModalHeaderContent>
@@ -61,7 +63,7 @@ const ModalPlayerEliminated = ({
           </S.ModalHeaderContent>
 
           <S.ModalBodyContent>
-            <S.TitleContainer>Próximo jogador em...</S.TitleContainer>
+            <S.TitleContainer>{t('Próximo jogador em...')}</S.TitleContainer>
             <S.CounterContainer>{count}</S.CounterContainer>
           </S.ModalBodyContent>
         </S.ModalContent>

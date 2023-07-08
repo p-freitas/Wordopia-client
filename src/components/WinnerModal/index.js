@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import Confetti from 'react-confetti'
 import * as S from './styles'
 
@@ -11,8 +12,9 @@ const WinnerModal = ({
   handleClickWordButton,
   currentWord,
   players,
-  roomId
+  roomId,
 }) => {
+  const { t } = useTranslation()
   useEffect(() => {
     if (open) {
       handleClickWordButton()
@@ -30,32 +32,39 @@ const WinnerModal = ({
           <S.ModalHeaderContent>
             <S.TitleContainer>
               {gameWinner
-                ? 'Corno vencedor da partida:'
-                : 'Corno vencedor da rodada:'}
+                ? t('Jogador vencedor da partida:')
+                : t('Jogador vencedor da rodada:')}
             </S.TitleContainer>
           </S.ModalHeaderContent>
 
           <S.ModalHeaderContent>
-            <S.WinnerContainer key={winner[0]?.id}>{winner[0]?.name} </S.WinnerContainer>
+            <S.WinnerContainer key={winner[0]?.id}>
+              {winner[0]?.name}{' '}
+            </S.WinnerContainer>
           </S.ModalHeaderContent>
 
           <S.ModalBodyContent>
             {!gameWinner && (
               <>
-                <S.TitleContainer>Próxima palavra sorteada:</S.TitleContainer>
+                <S.TitleContainer>
+                  {t('Próxima palavra sorteada:')}
+                </S.TitleContainer>
                 <S.WordContainer>{currentWord}</S.WordContainer>
               </>
             )}
 
             {players?.map(player => {
               return (
-                localStorage.getItem(roomId) && player?.leader && player?.id === JSON.parse(localStorage.getItem(roomId)).playerId && (
+                localStorage.getItem(roomId) &&
+                player?.leader &&
+                player?.id ===
+                  JSON.parse(localStorage.getItem(roomId)).playerId && (
                   <S.Button
                     onClick={() => {
                       gameWinner ? handleResetGameFinished() : handleResetGame()
                     }}
                   >
-                    {gameWinner ? 'Próxima partida' : 'Próxima rodada'}
+                    {gameWinner ? t('Próxima partida') : t('Próxima rodada')}
                   </S.Button>
                 )
               )

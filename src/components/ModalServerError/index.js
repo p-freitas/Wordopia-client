@@ -1,8 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
-const ModalServerError = ({ open, setOpen }) => {
+const ModalServerError = ({ open }) => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   if (open) {
     return (
@@ -10,10 +12,10 @@ const ModalServerError = ({ open, setOpen }) => {
         <S.ModalContent>
           <S.ModalHeaderContent>
             <S.TextWarning>
-              Houve um erro de processamento no servidor
+              {t('Houve um erro de processamento no servidor')}
             </S.TextWarning>
             <S.TitleContainer>
-              Por favor, tente criar outra sala
+              {t('Por favor, tente criar outra sala')}
             </S.TitleContainer>
           </S.ModalHeaderContent>
 
@@ -23,7 +25,7 @@ const ModalServerError = ({ open, setOpen }) => {
                 navigate(`/`)
               }}
             >
-              Voltar para o Lobby
+              {t('Voltar para o Lobby')}
             </S.Button>
           </S.ModalBodyContent>
         </S.ModalContent>

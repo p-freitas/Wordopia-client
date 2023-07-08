@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useSnackbar } from 'react-simple-snackbar'
+import { useTranslation } from 'react-i18next'
 import socket from '../../socket'
 import timeSound from '../../assets/timeSound.mp3'
 import timeSoundStop from '../../assets/darkcloudio.mp3'
@@ -43,6 +44,7 @@ const Home = () => {
   const navigate = useNavigate()
   const [openSnackbar] = useSnackbar(options)
   const screenWidth = window.innerWidth
+  const { t } = useTranslation()
 
   const [timer, setTimer] = useState()
   const [activeLetter, setActiveLetter] = useState(null)
@@ -377,9 +379,9 @@ const Home = () => {
   useEffect(() => {
     socket.on('playerDisconnected', playerData => {
       openSnackbar(
-        `${
-          playerData?.name ? playerData?.name : playerData?.playerName
-        } saiu da sala`,
+        `${playerData?.name ? playerData?.name : playerData?.playerName} ${t(
+          'saiu da sala'
+        )}`,
         5000
       )
     })
@@ -387,27 +389,33 @@ const Home = () => {
     return () => {
       socket.off('playerDisconnected')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openSnackbar])
 
   useEffect(() => {
     socket.on('playerConnected', playerData => {
-      openSnackbar(`${playerData?.playerName} entrou da sala`, 5000)
+      openSnackbar(`${playerData?.playerName} ${t('entrou da sala')}`, 5000)
     })
 
     return () => {
       socket.off('playerConnected')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openSnackbar])
 
   useEffect(() => {
     socket.on('resetCounter', resetCounter => {
       resetCounter !== 0 &&
-        openSnackbar(`Agora são ${resetCounter + 1} palavras!`, 5000)
+        openSnackbar(
+          `${t('Agora são')} ${resetCounter + 1} ${t('palavras!')}`,
+          5000
+        )
     })
 
     return () => {
       socket.off('resetCounter')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openSnackbar])
 
   const handleClick = letter => {
@@ -567,7 +575,7 @@ const Home = () => {
           <S.WordButtonContainer>
             <S.Word>{currentWord}</S.Word>
             <S.WordButton onClick={() => handleClickWordButton()}>
-              Gerar novo tema
+              {t('Gerar novo tema')}
             </S.WordButton>
           </S.WordButtonContainer>
         )}
@@ -587,8 +595,6 @@ const Home = () => {
         <S.TimerContainer>
           <S.TimerText>{timer}</S.TimerText>
         </S.TimerContainer>
-
-        {/* <S.Button onClick={handleStartTimer} /> */}
         <S.RedButton
           id='button'
           onMouseDown={handleMouseDown}
@@ -622,9 +628,9 @@ const Home = () => {
       <S.ScoreBoardContainer>
         {screenWidth >= 768 && (
           <S.WordButtonContainer>
-            <S.Word>{currentWord}</S.Word>
+            <S.Word>{t(currentWord)}</S.Word>
             <S.WordButton onClick={() => handleClickWordButton()}>
-              Gerar novo tema
+              {t('Gerar novo tema')}
             </S.WordButton>
           </S.WordButtonContainer>
         )}
@@ -642,7 +648,7 @@ const Home = () => {
         {roomLeader?.id ===
           JSON.parse(localStorage.getItem(roomId))?.playerId && (
           <S.RemovePlayerButton onClick={() => handleRemovePlayerClick()}>
-            Eliminar jogador
+            {t('Eliminar jogador')}
           </S.RemovePlayerButton>
         )}
 
@@ -650,7 +656,7 @@ const Home = () => {
           JSON.parse(localStorage.getItem(roomId))?.playerId &&
           showChangeTurnPlayerButton && (
             <S.WordButton onClick={() => setOpenModalChangeTurnPlayer(true)}>
-              Mudar turno atual
+              {t('Mudar turno atual')}
             </S.WordButton>
           )}
       </S.ScoreBoardContainer>

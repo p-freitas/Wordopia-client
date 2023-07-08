@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
 import { v4 as uuid } from 'uuid'
+import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
 const ModalPlayerName = ({
@@ -8,15 +9,19 @@ const ModalPlayerName = ({
   handlePlayerNameSubmit,
   handlePlayerNameChange,
   playerName,
-  openModalGameGoingOn
+  openModalGameGoingOn,
 }) => {
+  const { t } = useTranslation()
   const handleSubmitPlayer = useCallback(() => {
     const newUuid = uuid()
     handlePlayerNameSubmit({ playerName: playerName, id: newUuid })
   }, [handlePlayerNameSubmit, playerName])
   useEffect(() => {
     const listener = event => {
-      if ((event.code === 'Enter' || event.code === 'NumpadEnter') && !openModalGameGoingOn) {
+      if (
+        (event.code === 'Enter' || event.code === 'NumpadEnter') &&
+        !openModalGameGoingOn
+      ) {
         handleSubmitPlayer()
       }
     }
@@ -30,8 +35,8 @@ const ModalPlayerName = ({
       <S.Container data-testid='modal-testid'>
         <S.ModalContent>
           <S.ModalHeaderContent>
-            <S.TitleContainer>Digite o seu nome: </S.TitleContainer>
-            <S.TextWarning>Máximo 12 caracteres</S.TextWarning>
+            <S.TitleContainer>{t('Digite o seu nome: ')}</S.TitleContainer>
+            <S.TextWarning>{t('Máximo 12 caracteres')}</S.TextWarning>
           </S.ModalHeaderContent>
 
           <S.NameInput
@@ -45,13 +50,13 @@ const ModalPlayerName = ({
                 setOpen(false)
               }}
             >
-              Fechar
+              {t('Fechar')}
             </S.ButtonCancel>
             <S.Button
               disabled={!playerName}
               onClick={() => handleSubmitPlayer()}
             >
-              Confirmar
+              {t('Confirmar')}
             </S.Button>
           </S.ModalBodyContent>
         </S.ModalContent>

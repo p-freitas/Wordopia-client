@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import io from 'socket.io-client'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import ModalTutorial from '../../components/ModalTutorial'
 import ModalRoomConfigs from '../../components/ModalRoomConfigs'
 import HelpButton from '../../components/HelpButton'
@@ -9,11 +10,16 @@ import TwitterIcon from '../../assets/icons/TwitterIcon'
 import TwitchIcon from '../../assets/icons/TwitchIcon'
 import TiktokIcon from '../../assets/icons/TiktokIcon'
 import DiscordIcon from '../../assets/icons/DiscordIcon'
+import { ReactComponent as BrazilIcon } from '../../assets/icons/br.svg'
+import { ReactComponent as USAIcon } from '../../assets/icons/us.svg'
+import { ReactComponent as SpainIcon } from '../../assets/icons/es.svg'
 import * as S from './styles'
 
-const Lobby = () => {
+const Lobby = ({ setLang }) => {
   const navigate = useNavigate()
   const socketRef = useRef(null)
+  const { t } = useTranslation()
+
   const [room, setRoom] = useState('')
   const [openModalTutorial, setOpenModalTutorial] = useState(false)
   const [openModalRoomConfigs, setOpenModalRoomConfigs] = useState(false)
@@ -69,27 +75,37 @@ const Lobby = () => {
     }
   }
 
+  const handleFlagsClick = flag => {
+    setLang(flag)
+    localStorage.setItem('i18nextLng', flag)
+  }
+
   return (
     <S.PageContainer>
       <S.LoadingOverlay loading={loading}>
         <S.Spinner loading={loading} />
         <S.HeaderContainer>
           <S.Title>Sururu</S.Title>
+          <S.FlagsContainer>
+            <BrazilIcon onClick={() => handleFlagsClick('pt-BR')} />
+            <USAIcon onClick={() => handleFlagsClick('en')} />
+            <SpainIcon onClick={() => handleFlagsClick('es')} />
+          </S.FlagsContainer>
         </S.HeaderContainer>
         <S.BodyContainer>
           <S.CreateRoomButton onClick={() => setOpenModalRoomConfigs(true)}>
-            CRIAR SALA
+            {t('CRIAR SALA')}
           </S.CreateRoomButton>
-          <S.OrText>ou</S.OrText>
+          <S.OrText>{t('ou')}</S.OrText>
           <S.JoinButtonContainer>
             <S.JoinButtonInput
               type='text'
               value={room}
               onChange={e => handleRoomNameChange(e)}
-              placeholder='Digite o código da sala'
+              placeholder={t('Digite o código da sala')}
             />
             <S.JoinButton onClick={() => handleJoinRoomButton()}>
-              ENTRAR NA SALA
+              {t('ENTRAR NA SALA')}
             </S.JoinButton>
           </S.JoinButtonContainer>
         </S.BodyContainer>

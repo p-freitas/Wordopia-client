@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
+import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
 const ModalRemovePlayer = ({
@@ -12,6 +13,7 @@ const ModalRemovePlayer = ({
   currentTurn,
   winner,
 }) => {
+  const { t } = useTranslation()
   const [SelectValue, setSelectValue] = useState()
   const [playersFiltered, setPlayersFiltered] = useState()
 
@@ -23,8 +25,6 @@ const ModalRemovePlayer = ({
         )
     )
     setPlayersFiltered(filteredArray)
-
-
   }, [players, playersOut])
 
   const playersList = playersFiltered?.map(el => {
@@ -40,14 +40,14 @@ const ModalRemovePlayer = ({
         <S.ModalContent>
           <S.ModalHeaderContent>
             <S.TitleContainer>
-              Selecione o jogador que será eliminado:{' '}
+              {t('Selecione o jogador que será eliminado:')}
             </S.TitleContainer>
           </S.ModalHeaderContent>
 
           <Select
             id='select'
             isClearable
-            placeholder={'Selecione aqui'}
+            placeholder={t('Selecione aqui')}
             options={playersList}
             onChange={el => setSelectValue(el)}
             maxMenuHeight={170}
@@ -59,13 +59,15 @@ const ModalRemovePlayer = ({
                 setOpen(false)
               }}
             >
-              Fechar
+              {t('Fechar')}
             </S.ButtonCancel>
             <S.Button
               disabled={!SelectValue}
               onClick={() => {
                 setSelectValue('')
-                if(playersOut?.some(player => player?.id === SelectValue.value)){
+                if (
+                  playersOut?.some(player => player?.id === SelectValue.value)
+                ) {
                   return setOpen(false)
                 }
                 socket.emit(
@@ -80,7 +82,7 @@ const ModalRemovePlayer = ({
                 setOpen(false)
               }}
             >
-              Confirmar
+              {t('Confirmar')}
             </S.Button>
           </S.ModalBodyContent>
         </S.ModalContent>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
+import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
 const ModalRoomConfigs = ({
@@ -9,6 +10,7 @@ const ModalRoomConfigs = ({
   setRoundsSelectValue,
   setTimerSelectValue,
 }) => {
+  const { t } = useTranslation()
   const lettersOptions = [...Array(26)].map((_, index) =>
     String.fromCharCode(65 + index)
   )
@@ -69,7 +71,7 @@ const ModalRoomConfigs = ({
       <S.Container data-testid='modal-testid' isOpen={open}>
         <S.ModalContent>
           <S.ModalHeaderContent>
-            <S.TitleContainer>Configurações</S.TitleContainer>
+            <S.TitleContainer>{t('Configurações')}</S.TitleContainer>
             <S.Button
               onClick={handleClick}
               aria-label='Mute audio'
@@ -84,7 +86,7 @@ const ModalRoomConfigs = ({
             <S.ConfigsContainer>
               <S.SettingsContainer>
                 <S.TitleConfigsContainer>
-                  Configurações da sala
+                  {t('Configurações da sala')}
                 </S.TitleConfigsContainer>
                 <S.BodySettingsContainer>
                   <S.SettingContainer>
@@ -100,7 +102,9 @@ const ModalRoomConfigs = ({
                     />
                   </S.SettingContainer>
                   <S.SettingContainer>
-                    <S.SelectText>Pontos para vencer o jogo:</S.SelectText>
+                    <S.SelectText>
+                      {t('Pontos para vencer o jogo:')}
+                    </S.SelectText>
                     <Select
                       id='select-rounds'
                       placeholder={'Selecione aqui'}
@@ -114,14 +118,12 @@ const ModalRoomConfigs = ({
               </S.SettingsContainer>
               <S.ThemesContainer>
                 <S.TitleConfigsContainer>
-                  Personalize os temas
+                  {t('Personalize os temas')}
                 </S.TitleConfigsContainer>
-                <S.BodyThemesContainer>Em breve!</S.BodyThemesContainer>
+                <S.BodyThemesContainer>{t('Em breve!')}</S.BodyThemesContainer>
               </S.ThemesContainer>
               <S.LettersContainer>
-                <S.TitleConfigsContainer>
-                  Letras
-                </S.TitleConfigsContainer>
+                <S.TitleConfigsContainer>{t('Letras')}</S.TitleConfigsContainer>
                 <S.BodyLettersContainer>
                   {lettersOptions.map(letter => (
                     <S.Letter
@@ -138,7 +140,7 @@ const ModalRoomConfigs = ({
             <S.CreateRoomButton
               onClick={() => handleCreateRoomButton(activeLetter)}
             >
-              CRIAR SALA
+              {t('CRIAR SALA')}
             </S.CreateRoomButton>
           </S.ModalBodyContent>
         </S.ModalContent>

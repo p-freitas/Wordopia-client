@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
 const PlayersList = ({
   currentTurn,
   playersOut,
-  setPlayersOut,
   currentLetter,
   players,
   setPlayers,
   roomId,
   socket,
 }) => {
+  const { t } = useTranslation()
   useEffect(() => {
     socket.on('players', data => {
       setPlayers(data)
@@ -35,8 +36,8 @@ const PlayersList = ({
 
   return (
     <S.ScoreboardContainer>
-      <S.ScoreboardTitle>Players</S.ScoreboardTitle>
-      {players?.length !== 0 && <S.ScoreText>Pontos</S.ScoreText>}
+      <S.ScoreboardTitle>{t('Jogadores')}</S.ScoreboardTitle>
+      {players?.length !== 0 && <S.ScoreText>{t('Pontos')}</S.ScoreText>}
 
       <S.ScoreboardList>
         {players &&

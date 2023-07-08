@@ -1,8 +1,10 @@
 import React from 'react'
 import * as S from './styles'
+import { useTranslation } from 'react-i18next'
 import { Tooltip } from 'react-tooltip'
 
 const LeaveRoomButtom = ({ setOpenModalLeaveRoom, setOpenFriendsLink }) => {
+  const { t } = useTranslation()
   const LeaveRoomIcon = (
     <S.Icon className='fas fa-sign-out-alt fa-rotate-180'></S.Icon>
   )
@@ -24,7 +26,7 @@ const LeaveRoomButtom = ({ setOpenModalLeaveRoom, setOpenFriendsLink }) => {
         aria-pressed='false'
         type='button'
         data-tooltip-id='leave-room-tooltip'
-        data-tooltip-content='Sair da sala'
+        data-tooltip-content={t('Sair da sala')}
         data-tooltip-place='bottom'
       >
         {LeaveRoomIcon}
@@ -36,7 +38,7 @@ const LeaveRoomButtom = ({ setOpenModalLeaveRoom, setOpenFriendsLink }) => {
         aria-pressed='false'
         type='button'
         data-tooltip-id='leave-room-tooltip'
-        data-tooltip-content='Compartilhar o link'
+        data-tooltip-content={t('Compartilhar o link')}
         data-tooltip-place='bottom'
       >
         {ShareIcon}

@@ -1,8 +1,10 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Tooltip } from 'react-tooltip'
 import * as S from './styles'
 
 const HelpButton = ({ setOpen, open }) => {
+  const { t } = useTranslation()
   const width = window.innerWidth
   const HelpIcon = <S.Icon className='fas fa-question'></S.Icon>
   const handleClick = () => {
@@ -30,7 +32,7 @@ const HelpButton = ({ setOpen, open }) => {
           aria-pressed='false'
           type='button'
         >
-          Tutorial
+          {t('Regras')}
         </S.Button>
       )}
       <Tooltip id='tutorial-button-tooltip' />

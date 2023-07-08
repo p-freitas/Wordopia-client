@@ -1,13 +1,22 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
-const ModalLeaveRoom = ({ open, setOpenModalLeaveRoom, LeaveRoom, playerData }) => {
+const ModalLeaveRoom = ({
+  open,
+  setOpenModalLeaveRoom,
+  LeaveRoom,
+  playerData,
+}) => {
+  const { t } = useTranslation()
   if (open) {
     return (
       <S.Container data-testid='modal-testid'>
         <S.ModalContent>
           <S.ModalHeaderContent>
-            <S.TitleContainer>Desejar realmente sair da sala?</S.TitleContainer>
+            <S.TitleContainer>
+              {t('Deseja realmente sair da sala?')}
+            </S.TitleContainer>
           </S.ModalHeaderContent>
 
           <S.ModalBodyContent>
@@ -16,14 +25,14 @@ const ModalLeaveRoom = ({ open, setOpenModalLeaveRoom, LeaveRoom, playerData }) 
                 setOpenModalLeaveRoom(false)
               }}
             >
-              Cancelar
+              {t('Cancelar')}
             </S.ButtonCancel>
             <S.Button
               onClick={() => {
                 LeaveRoom(playerData)
               }}
             >
-              Confirmar
+              {t('Confirmar')}
             </S.Button>
           </S.ModalBodyContent>
         </S.ModalContent>

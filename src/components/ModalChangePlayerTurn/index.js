@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
+import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
 const ModalChangePlayerTurn = ({
@@ -10,6 +11,7 @@ const ModalChangePlayerTurn = ({
   roomId,
   playersOut,
 }) => {
+  const { t } = useTranslation()
   const [SelectValue, setSelectValue] = useState()
   const [playersFiltered, setPlayersFiltered] = useState()
 
@@ -33,14 +35,14 @@ const ModalChangePlayerTurn = ({
         <S.ModalContent>
           <S.ModalHeaderContent>
             <S.TitleContainer>
-              Selecione para qual jogador será o turno:
+              {t('Selecione para qual jogador será o turno:')}
             </S.TitleContainer>
           </S.ModalHeaderContent>
 
           <Select
             id='select'
             isClearable
-            placeholder={'Selecione aqui'}
+            placeholder={t('Selecione aqui')}
             options={playersList}
             onChange={el => setSelectValue(el)}
           />
@@ -51,7 +53,7 @@ const ModalChangePlayerTurn = ({
                 setOpen(false)
               }}
             >
-              Fechar
+              {t('Fechar')}
             </S.ButtonCancel>
             <S.Button
               disabled={!SelectValue}
@@ -62,7 +64,7 @@ const ModalChangePlayerTurn = ({
                 setOpen(false)
               }}
             >
-              Confirmar
+              {t('Confirmar')}
             </S.Button>
           </S.ModalBodyContent>
         </S.ModalContent>

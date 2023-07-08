@@ -145,3 +145,17 @@ export const IconsContainer = styled.div`
     fill: white;
   }
 `
+
+export const FlagsContainer = styled.div`
+  position: absolute;
+  top: 30px;
+  right: 30px;
+
+  svg {
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+`
