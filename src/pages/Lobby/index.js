@@ -124,8 +124,11 @@ const Lobby = ({ setLang }) => {
         />
         <S.IconsContainer>
           <InstagramIcon width='35px' link={'https://www.instagram.com'} />
-          <TiktokIcon width='30px' link={'https://www.tiktok.com'} />
-          <TwitterIcon width='35px' link={'https://twitter.com'} />
+          <TiktokIcon width='30px' link={'https://www.tiktok.com/@wordopia'} />
+          <TwitterIcon
+            width='35px'
+            link={'https://twitter.com/Wordopia_game'}
+          />
           <DiscordIcon width='40px' link={'https://discord.com'} />
           <TwitchIcon width='35px' link={'https://www.twitch.tv'} />
         </S.IconsContainer>

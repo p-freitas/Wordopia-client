@@ -390,9 +390,30 @@ export const Title = styled.h1`
   text-shadow: black 4px 5px 0px;
   font-size: 70px;
   font-family: 'MyFont', sans-serif;
+  cursor: context-menu;
+
+  &:after {
+    content: 'Beta';
+    font-size: 17px;
+    position: absolute;
+    border: 2px solid rgb(128, 69, 0);
+    border-radius: 20px;
+    padding: 3px 3px 0px;
+    text-shadow: none;
+    background: rgb(255, 189, 111);
+    color: white;
+  }
 
   @media only screen and (min-width: 360px) and (max-width: 767px) {
     font-size: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:after {
+      position: relative;
+      width: fit-content;
+    }
   }
 `
 
