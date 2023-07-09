@@ -16,13 +16,25 @@ const ModalTutorial = ({ open, setOpen }) => {
             <S.TitleContainer>{t('Tutorial')}</S.TitleContainer>
             <S.Button
               onClick={handleClick}
-              aria-label='Mute audio'
+              aria-label='Close'
               aria-pressed='false'
               type='button'
             >
               {CloseIcon}
             </S.Button>
           </S.ModalHeaderContent>
+
+          <S.VideoContainer>
+            <iframe
+              width='560'
+              height='400'
+              src='https://www.youtube.com/embed/eyDdGNexFuk?vq=hd1080'
+              title='YouTube video player'
+              frameborder='0'
+              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen'
+              allowfullscreen
+            ></iframe>
+          </S.VideoContainer>
 
           <S.ModalBodyContent>
             <S.ParagraphContainer>

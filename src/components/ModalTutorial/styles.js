@@ -92,6 +92,10 @@ export const ParagraphContainer = styled.div`
   text-align: justify;
 `
 
+export const VideoContainer = styled.div`
+  width: 100%;
+`
+
 export const ParagraphTitle = styled.h2`
   margin: 20px 0px;
   text-decoration: underline;

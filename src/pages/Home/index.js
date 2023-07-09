@@ -476,7 +476,7 @@ const Home = () => {
 
   const handleStartTimer = useCallback(() => {
     if (
-      currentTurn?.id === JSON.parse(localStorage.getItem(roomId)).playerId &&
+      currentTurn?.id === JSON.parse(localStorage.getItem(roomId))?.playerId &&
       players?.length > 1
     ) {
       if (timer === undefined) {
