@@ -94,6 +94,13 @@ export const ParagraphContainer = styled.div`
 
 export const VideoContainer = styled.div`
   width: 100%;
+
+  @media (max-width: 768px) {
+    iframe {
+      width: 100%;
+      height: 250px;
+    }
+  }
 `
 
 export const ParagraphTitle = styled.h2`
