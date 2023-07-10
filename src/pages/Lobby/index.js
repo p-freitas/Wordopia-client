@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ModalTutorial from '../../components/ModalTutorial'
 import ModalRoomConfigs from '../../components/ModalRoomConfigs'
+import ModalBugsReport from '../../components/ModalBugsReport'
 import HelpButton from '../../components/HelpButton'
 import InstagramIcon from '../../assets/icons/InstagramIcon'
 import TwitterIcon from '../../assets/icons/TwitterIcon'
@@ -23,9 +24,22 @@ const Lobby = ({ setLang }) => {
   const [room, setRoom] = useState('')
   const [openModalTutorial, setOpenModalTutorial] = useState(false)
   const [openModalRoomConfigs, setOpenModalRoomConfigs] = useState(false)
+  const [openModalBugsReport, setOpenModalBugsReport] = useState(false)
   const [loading, setLoading] = useState(false)
   const [timerSelectValue, setTimerSelectValue] = useState()
   const [roundsSelectValue, setRoundsSelectValue] = useState()
+  const [defaultThemesButtonClick, setDefaultThemesButtonClick] = useState(true)
+  const [customThemesButtonClick, setCustomThemesButtonClick] = useState(false)
+  const [themesList, setThemesList] = useState([
+    `${t('Países')}`,
+    `${t('Frutas')}`,
+    `${t('Animais')}`,
+    `${t('Objetos')}`,
+    `${t('Cores')}`,
+    `${t('Adjetivos')}`,
+    `${t('Partes do corpo humano')}`,
+    `${t('Seres mitológicos')}`,
+  ])
 
   useEffect(() => {
     if (localStorage.getItem('firstTime') === null) {
@@ -64,7 +78,10 @@ const Lobby = ({ setLang }) => {
       'createRoom',
       timerSelectValue?.value !== undefined ? timerSelectValue?.value : 10,
       roundsSelectValue?.value !== undefined ? roundsSelectValue?.value : 3,
-      letters
+      letters,
+      defaultThemesButtonClick,
+      customThemesButtonClick,
+      customThemesButtonClick ? themesList : null
     )
     setLoading(true)
   }
@@ -104,7 +121,7 @@ const Lobby = ({ setLang }) => {
               onChange={e => handleRoomNameChange(e)}
               placeholder={t('Digite o código da sala')}
             />
-            <S.JoinButton onClick={() => handleJoinRoomButton()}>
+            <S.JoinButton onClick={() => handleJoinRoomButton()} disabled={!room}>
               {t('ENTRAR NA SALA')}
             </S.JoinButton>
           </S.JoinButtonContainer>
@@ -121,6 +138,16 @@ const Lobby = ({ setLang }) => {
           setTimerSelectValue={setTimerSelectValue}
           roundsSelectValue={roundsSelectValue}
           timerSelectValue={timerSelectValue}
+          defaultThemesButtonClick={defaultThemesButtonClick}
+          setDefaultThemesButtonClick={setDefaultThemesButtonClick}
+          customThemesButtonClick={customThemesButtonClick}
+          setCustomThemesButtonClick={setCustomThemesButtonClick}
+          themesList={themesList}
+          setThemesList={setThemesList}
+        />
+        <ModalBugsReport
+          setOpen={setOpenModalBugsReport}
+          open={openModalBugsReport}
         />
         <S.IconsContainer>
           <InstagramIcon width='35px' link={'https://www.instagram.com'} />
@@ -132,7 +159,11 @@ const Lobby = ({ setLang }) => {
           <DiscordIcon width='40px' link={'https://discord.com'} />
           <TwitchIcon width='35px' link={'https://www.twitch.tv'} />
         </S.IconsContainer>
-        <HelpButton setOpen={setOpenModalTutorial} open={openModalTutorial} />
+        <HelpButton
+          setOpen={setOpenModalTutorial}
+          open={openModalTutorial}
+          setOpenBugsModal={setOpenModalBugsReport}
+        />
       </S.LoadingOverlay>
     </S.PageContainer>
   )

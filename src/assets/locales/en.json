@@ -55,7 +55,7 @@
   "Empresas/Marcas": "Companies/Brands",
   "Personagens fictícios": "Fictional Characters",
   "Frutas": "Fruits",
-  "Partes do corpo humano": "Parts of Human Body",
+  "Partes do corpo humano": "Parts of the Human Body",
   "Animais": "Animals",
   "Cores": "Colors",
   "Adjetivos": "Adjectives",
@@ -123,5 +123,13 @@
   "As regras do Wordopia podem ser alteradas e incrementadas dependendo dos jogadores, sinta-se livre para inventar novas ideias, mas lembre-se de que é importante estabelecer regras claras e justas antes de começar o jogo. Além disso, encoraje a interação e a discussão amigável entre os jogadores durante o jogo para tornar a experiência mais divertida e estimulante.": "The rules of Wordopia can be changed and enhanced depending on the players, feel free to come up with new ideas, but remember that it is important to establish clear and fair rules before starting the game. Additionally, encourage interaction and friendly discussion among the players during the game to make the experience more fun and stimulating.",
   "Divirta-se!": "Have fun!",
   "Regras": "Rules",
-  "siteDescription": "Tap, connect, and conquer in the online Tapple game. Test your word skills today!"
+  "siteDescription": "Tap, connect, and conquer in the online Tapple game. Test your word skills today!",
+  "Reportar bugs": "Report bugs",
+  "Encontrou algum bug?": "Found a bug?",
+  "Clique no botão abaixo e preencha o formulário para nos ajudar a continuar melhorando o jogo": "Click on the button below and fill out the form to help us keep improving the game",
+  "Temas": "Themes",
+  "Temas padrões": "Default themes",
+  "Criar novos temas": "Create new themes",
+  "Adicione novos temas": "Add new themes",
+  "Digite o tema": "Enter the theme"
 }

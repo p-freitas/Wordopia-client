@@ -465,7 +465,7 @@ const Home = () => {
 
   const handleClickWordButton = () => {
     socket.emit('wordsButtonClick', roomId)
-    socket.emit('getWord', roomId)
+    // socket.emit('getWord', roomId)
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

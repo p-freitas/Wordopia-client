@@ -129,7 +129,7 @@ export const SettingsContainer = styled.div`
 export const ThemesContainer = styled.div`
   border: 1px solid white;
   border-radius: 20px;
-  width: 40%;
+  width: 30%;
   margin: 0 5px 0 0;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 20px 30px,
     rgba(0, 0, 0, 0.05) 0px 0px 10px;
@@ -143,7 +143,7 @@ export const ThemesContainer = styled.div`
 export const LettersContainer = styled.div`
   border: 1px solid white;
   border-radius: 20px;
-  width: 30%;
+  width: 40%;
   margin: 0 5px 0 0;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 20px 30px,
     rgba(0, 0, 0, 0.05) 0px 0px 10px;
@@ -187,6 +187,41 @@ export const CreateRoomButton = styled.button`
     opacity: 0.8;
   }
 `
+export const DefaultThemesButton = styled.button`
+  padding: 0 10px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: rgb(72 92 254);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 2px solid black;
+  font-family: 'MyFont', sans-serif;
+  opacity: ${({ isClicked }) => isClicked};
+`
+export const CustomThemesButton = styled.button`
+  padding: 0 10px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: rgb(10 206 254);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 2px solid black;
+  font-family: 'MyFont', sans-serif;
+  opacity: ${({ isClicked }) => isClicked};
+
+  // &:hover {
+  //   opacity: 0.8;
+  // }
+`
+
+export const OrText = styled.h1`
+  font-size: 35px;
+  margin: 45px 0;
+`
 
 export const BodySettingsContainer = styled.div`
   height: 90%;
@@ -204,9 +239,9 @@ export const BodyThemesContainer = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 40px;
-  color: #ffbd6f;
+  color: white;
   text-shadow: black 3px 3px 0px;
-  -webkit-text-stroke: 1.5px rgb(128, 69, 0);
+  flex-direction: column;
 `
 
 export const BodyLettersContainer = styled.div`
@@ -257,7 +292,7 @@ export const Letter = styled.div`
   margin: 10px;
   font-family: MyFont, sans-serif;
   border-radius: 12px;
-  padding-top: 8px;
+  padding-top: 4px;
   background: white;
   color: rgb(255, 189, 111);
   -webkit-text-stroke: 1px rgb(128, 69, 0);

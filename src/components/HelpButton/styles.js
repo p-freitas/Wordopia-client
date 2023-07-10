@@ -16,6 +16,19 @@ export const Button = styled.div`
   z-index: 10001;
 `
 
+export const ButtonBugs = styled.div`
+  position: fixed;
+  bottom: 20px;
+  left: 125px;
+  background-color: rgb(255 0 0);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  color: white;
+  padding: 18px;
+  z-index: 10001;
+`
+
 export const ButtonMobile = styled.button`
   position: fixed;
   bottom: 20px;
@@ -37,5 +50,13 @@ export const Icon = styled.i`
   color: white;
   position: absolute;
   left: 19px;
+  transform: translate(-50%, -50%);
+`
+
+export const IconBug = styled.i`
+  font-size: 20px;
+  color: white;
+  position: absolute;
+  left: 17px;
   transform: translate(-50%, -50%);
 `

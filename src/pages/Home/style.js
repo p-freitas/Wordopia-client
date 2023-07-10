@@ -173,7 +173,9 @@ export const Word = styled.p`
   margin-bottom: 20px;
   font-size: 26px;
   text-align: center;
-  font-family: 'MyFont', sans-serif;
+  font-family: MyFont, sans-serif;
+  max-width: 350px;
+  word-break: break-all;
 `
 
 export const WordButton = styled.button`

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
 import { useTranslation } from 'react-i18next'
+import ModalCustomThemes from '../ModalCustomThemes'
 import * as S from './styles'
 
 const ModalRoomConfigs = ({
@@ -9,6 +10,12 @@ const ModalRoomConfigs = ({
   handleCreateRoomButton,
   setRoundsSelectValue,
   setTimerSelectValue,
+  setDefaultThemesButtonClick,
+  defaultThemesButtonClick,
+  setCustomThemesButtonClick,
+  customThemesButtonClick,
+  themesList,
+  setThemesList,
 }) => {
   const { t } = useTranslation()
   const lettersOptions = [...Array(26)].map((_, index) =>
@@ -38,6 +45,8 @@ const ModalRoomConfigs = ({
     'V',
     'Z',
   ])
+
+  const [openCustomThemesModal, setOpenCustomThemesModal] = useState(false)
   const CloseIcon = <S.Icon className='far fa-times-circle'></S.Icon>
   const handleClick = () => {
     setOpen(false)
@@ -51,6 +60,17 @@ const ModalRoomConfigs = ({
       const updatedArray = activeLetter.filter(str => str !== selectedLetter)
       setActiveLetter(updatedArray)
     }
+  }
+
+  const handleCustomThemesButtonButton = () => {
+    setCustomThemesButtonClick(true)
+    setDefaultThemesButtonClick(false)
+    setOpenCustomThemesModal(true)
+  }
+
+  const handleDefaultThemesButtonButton = () => {
+    setDefaultThemesButtonClick(true)
+    setCustomThemesButtonClick(false)
   }
 
   const roundsOptions = [
@@ -74,7 +94,7 @@ const ModalRoomConfigs = ({
             <S.TitleContainer>{t('Configurações')}</S.TitleContainer>
             <S.Button
               onClick={handleClick}
-              aria-label='Mute audio'
+              aria-label='Close button'
               aria-pressed='false'
               type='button'
             >
@@ -116,12 +136,7 @@ const ModalRoomConfigs = ({
                   </S.SettingContainer>
                 </S.BodySettingsContainer>
               </S.SettingsContainer>
-              <S.ThemesContainer>
-                <S.TitleConfigsContainer>
-                  {t('Personalize os temas')}
-                </S.TitleConfigsContainer>
-                <S.BodyThemesContainer>{t('Em breve!')}</S.BodyThemesContainer>
-              </S.ThemesContainer>
+
               <S.LettersContainer>
                 <S.TitleConfigsContainer>{t('Letras')}</S.TitleConfigsContainer>
                 <S.BodyLettersContainer>
@@ -136,6 +151,24 @@ const ModalRoomConfigs = ({
                   ))}
                 </S.BodyLettersContainer>
               </S.LettersContainer>
+              <S.ThemesContainer>
+                <S.TitleConfigsContainer>{t('Temas')}</S.TitleConfigsContainer>
+                <S.BodyThemesContainer>
+                  <S.DefaultThemesButton
+                    onClick={() => handleDefaultThemesButtonButton()}
+                    isClicked={defaultThemesButtonClick ? 1 : 0.2}
+                  >
+                    {t('Temas padrões')}
+                  </S.DefaultThemesButton>
+                  <S.OrText>OU</S.OrText>
+                  <S.CustomThemesButton
+                    onClick={() => handleCustomThemesButtonButton()}
+                    isClicked={customThemesButtonClick ? 1 : 0.2}
+                  >
+                    {t('Criar novos temas')}
+                  </S.CustomThemesButton>
+                </S.BodyThemesContainer>
+              </S.ThemesContainer>
             </S.ConfigsContainer>
             <S.CreateRoomButton
               onClick={() => handleCreateRoomButton(activeLetter)}
@@ -144,6 +177,14 @@ const ModalRoomConfigs = ({
             </S.CreateRoomButton>
           </S.ModalBodyContent>
         </S.ModalContent>
+        <ModalCustomThemes
+          open={openCustomThemesModal}
+          setOpen={setOpenCustomThemesModal}
+          handleCreateRoomButton={handleCreateRoomButton}
+          activeLetter={activeLetter}
+          themesList={themesList}
+          setThemesList={setThemesList}
+        />
       </S.Container>
     )
   } else {
