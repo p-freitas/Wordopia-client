@@ -4,6 +4,7 @@ import { initReactI18next } from 'react-i18next'
 import i18n from 'i18next'
 import translationEN from './assets/locales/en.json'
 import translationES from './assets/locales/es.json'
+import translationPT from './assets/locales/pt-br.json'
 import Home from './pages/Home/index'
 import Lobby from './pages/Lobby'
 import GlobalStyles from './styles/global'
@@ -22,9 +23,12 @@ const App = () => {
       es: {
         translation: translationES,
       },
+      'pt-BR': {
+        translation: translationPT,
+      },
     },
     lng: localStorage.getItem('i18nextLng') || lang || browserLanguage,
-    fallbackLng: 'pt-BR',
+    fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
     },
