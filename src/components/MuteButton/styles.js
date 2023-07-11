@@ -13,6 +13,13 @@ export const Button = styled.button`
   &:focus {
     outline: none;
   }
+
+  @media only screen and (max-device-width: 767px) {
+    top: 20px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+  }
   z-index: 10001;
 `
 

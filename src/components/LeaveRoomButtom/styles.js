@@ -14,6 +14,14 @@ export const Button = styled.button`
   &:focus {
     outline: none;
   }
+  
+  @media only screen and (max-device-width: 767px) {
+    top: 20px;
+    left: 10px;
+    width: 35px;
+    height: 35px;
+  }
+
   z-index: 10001
 `
 
@@ -30,6 +38,14 @@ export const ButtonShare = styled.button`
   &:focus {
     outline: none;
   }
+ 
+  @media only screen and (max-device-width: 767px) {
+    top: 20px;
+    left: 60px;
+    width: 35px;
+    height: 35px;
+  }
+
   z-index: 10001
 `
 

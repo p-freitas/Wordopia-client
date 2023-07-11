@@ -18,8 +18,8 @@ export const Button = styled.div`
 
 export const ButtonBugs = styled.div`
   position: fixed;
-  top: 5px;
-  left: 60px;
+  bottom: 20px;
+  left: 125px;
   background-color: rgb(255 0 0);
   border: none;
   border-radius: 20px;
@@ -27,11 +27,27 @@ export const ButtonBugs = styled.div`
   color: white;
   padding: 18px;
   z-index: 10001;
+
+  @media only screen and (max-device-width: 767px) {
+    position: fixed;
+    bottom: auto;
+    top: 5px;
+    left: 60px;
+    background-color: rgb(255 0 0);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    padding: 18px;
+    z-index: 10001;
+  }
 `
 
 export const ButtonMobile = styled.button`
   position: fixed;
-  top: 5px;
+  top: ${({ isHome }) => isHome ? 'auto' : '5px'};
+  bottom: ${({ isHome }) => !isHome ? 'auto' : '5px'};
+  // top: 5px;
   left: 10px;
   width: 35px;
   height: 35px;

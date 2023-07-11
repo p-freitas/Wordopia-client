@@ -23,7 +23,6 @@ import ModalRoomNotFound from '../../components/ModalRoomNotFound'
 import ModalWaitingPlayers from '../../components/ModalWaitingPlayers'
 import ModalGameGoingOn from '../../components/ModalGameGoingOn'
 import ModalServerError from '../../components/ModalServerError'
-import ModalBugsReport from '../../components/ModalBugsReport'
 import '../../styles/styles.css'
 import * as S from './style'
 
@@ -702,6 +701,7 @@ const Home = () => {
         setOpen={setOpenModalTutorial}
         open={openModalTutorial}
         setOpenBugsModal={setOpenModalBugsReport}
+        isHome={true}
       />
       <LeaveRoomButtom
         setOpenModalLeaveRoom={setOpenModalLeaveRoom}
@@ -744,10 +744,6 @@ const Home = () => {
         roomId={roomId}
       />
       <ModalTutorial setOpen={setOpenModalTutorial} open={openModalTutorial} />
-      <ModalBugsReport
-        setOpen={setOpenModalBugsReport}
-        open={openModalBugsReport}
-      />
     </S.PageContainer>
   )
 }
