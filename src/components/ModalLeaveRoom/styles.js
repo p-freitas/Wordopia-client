@@ -104,6 +104,7 @@ export const Button = styled.button`
   @media only screen and (max-device-width: 767px) {
     width: 150px;
     font-size: 18px;
+    padding: 8px 0 5px;
   }
 `
 
@@ -132,5 +133,6 @@ export const ButtonCancel = styled.button`
   @media only screen and (max-device-width: 767px) {
     width: 150px;
     font-size: 18px;
+    padding: 8px 0 5px;
   }
 `

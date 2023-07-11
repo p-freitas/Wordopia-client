@@ -38,7 +38,7 @@ export const ModalContent = styled.div`
   border: 2px solid;
 
   @media (max-width: 768px) {
-    width: 90%;
+    width: 97%;
     height: auto;
     text-align: center;
   }
@@ -58,10 +58,6 @@ export const ModalBodyContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  @media (max-width: 768px) {
-    flex-direction: column-reverse;
-  }
 `
 
 export const TextWarning = styled.p`
@@ -144,6 +140,10 @@ export const TagsContainer = styled.div`
   padding: 2px;
   justify-content: center;
   overflow: auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 export const ButtonAdd = styled.button`
@@ -166,11 +166,6 @@ export const ButtonAdd = styled.button`
 
   &:hover {
     background-color: var(--green-strong);
-  }
-
-  @media only screen and (max-device-width: 767px) {
-    width: 150px;
-    font-size: 18px;
   }
 `
 

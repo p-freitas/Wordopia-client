@@ -124,6 +124,12 @@ export const Button = styled.button`
       background-color: #cccccc;
     }
   }
+
+  @media only screen and (max-device-width: 767px) {
+    width: 150px;
+    font-size: 18px;
+    padding: 8px 0 5px;
+  }
 `
 
 export const ButtonCancel = styled.button`
@@ -143,6 +149,12 @@ export const ButtonCancel = styled.button`
 
   &:hover {
     background-color: var(--red-strong);
+  }
+
+  @media only screen and (max-device-width: 767px) {
+    width: 150px;
+    font-size: 18px;
+    padding: 8px 0 5px;
   }
 `
 

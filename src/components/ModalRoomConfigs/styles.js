@@ -136,7 +136,7 @@ export const ThemesContainer = styled.div`
 
   @media only screen and (min-width: 360px) and (max-width: 767px) {
     width: 100%;
-    height: 300px;
+    height: 350px;
   }
 `
 
