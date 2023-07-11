@@ -80,7 +80,6 @@ const Home = () => {
   const [isButtonClicked, setIsButtonClicked] = useState(false)
   const [isGameGoingOn, setIsGameGoingOn] = useState(false)
   const [openModalServerError, setOpenModalServerError] = useState(false)
-  const [openModalBugsReport, setOpenModalBugsReport] = useState(false)
 
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
@@ -700,7 +699,6 @@ const Home = () => {
       <HelpButton
         setOpen={setOpenModalTutorial}
         open={openModalTutorial}
-        setOpenBugsModal={setOpenModalBugsReport}
         isHome={true}
       />
       <LeaveRoomButtom
