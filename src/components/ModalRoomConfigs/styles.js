@@ -60,6 +60,7 @@ export const ModalContent = styled.div`
 
   @media (max-width: 768px) {
     text-align: center;
+    height: 600px;
   }
 `
 
@@ -162,6 +163,10 @@ export const Button = styled.button`
   cursor: pointer;
   &:focus {
     outline: none;
+  }
+
+  @media only screen and (max-device-width: 767px) {
+    margin-left: 20px;
   }
 `
 

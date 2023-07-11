@@ -18,8 +18,8 @@ export const Button = styled.div`
 
 export const ButtonBugs = styled.div`
   position: fixed;
-  bottom: 20px;
-  left: 125px;
+  top: 5px;
+  left: 60px;
   background-color: rgb(255 0 0);
   border: none;
   border-radius: 20px;
@@ -31,17 +31,14 @@ export const ButtonBugs = styled.div`
 
 export const ButtonMobile = styled.button`
   position: fixed;
-  bottom: 20px;
-  left: 30px;
-  width: 40px;
-  height: 40px;
-  background-color: rgb(72 91 255);
+  top: 5px;
+  left: 10px;
+  width: 35px;
+  height: 35px;
+  background-color: rgb(72, 91, 255);
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  &:focus {
-    outline: none;
-  }
   z-index: 10001;
 `
 
@@ -49,7 +46,7 @@ export const Icon = styled.i`
   font-size: 20px;
   color: white;
   position: absolute;
-  left: 19px;
+  left: 17px;
   transform: translate(-50%, -50%);
 `
 
