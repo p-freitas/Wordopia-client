@@ -212,10 +212,6 @@ export const CustomThemesButton = styled.button`
   border: 2px solid black;
   font-family: 'MyFont', sans-serif;
   opacity: ${({ isClicked }) => isClicked};
-
-  // &:hover {
-  //   opacity: 0.8;
-  // }
 `
 
 export const OrText = styled.h1`

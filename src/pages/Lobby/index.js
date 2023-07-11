@@ -8,7 +8,6 @@ import ModalBugsReport from '../../components/ModalBugsReport'
 import HelpButton from '../../components/HelpButton'
 import InstagramIcon from '../../assets/icons/InstagramIcon'
 import TwitterIcon from '../../assets/icons/TwitterIcon'
-import TwitchIcon from '../../assets/icons/TwitchIcon'
 import TiktokIcon from '../../assets/icons/TiktokIcon'
 import DiscordIcon from '../../assets/icons/DiscordIcon'
 import { ReactComponent as BrazilIcon } from '../../assets/icons/br.svg'
@@ -121,7 +120,10 @@ const Lobby = ({ setLang }) => {
               onChange={e => handleRoomNameChange(e)}
               placeholder={t('Digite o código da sala')}
             />
-            <S.JoinButton onClick={() => handleJoinRoomButton()} disabled={!room}>
+            <S.JoinButton
+              onClick={() => handleJoinRoomButton()}
+              disabled={!room}
+            >
               {t('ENTRAR NA SALA')}
             </S.JoinButton>
           </S.JoinButtonContainer>
@@ -150,14 +152,16 @@ const Lobby = ({ setLang }) => {
           open={openModalBugsReport}
         />
         <S.IconsContainer>
-          <InstagramIcon width='35px' link={'https://www.instagram.com'} />
+          <InstagramIcon
+            width='35px'
+            link={'https://www.instagram.com/wordopia.online/'}
+          />
           <TiktokIcon width='30px' link={'https://www.tiktok.com/@wordopia'} />
           <TwitterIcon
             width='35px'
             link={'https://twitter.com/Wordopia_game'}
           />
-          <DiscordIcon width='40px' link={'https://discord.com'} />
-          <TwitchIcon width='35px' link={'https://www.twitch.tv'} />
+          <DiscordIcon width='40px' link={'https://discord.gg/Wq4DnYAD2F'} />
         </S.IconsContainer>
         <HelpButton
           setOpen={setOpenModalTutorial}

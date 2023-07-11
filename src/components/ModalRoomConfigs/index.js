@@ -80,10 +80,10 @@ const ModalRoomConfigs = ({
   ]
 
   const timerOptions = [
-    { value: 10, label: '10 segundos' },
-    { value: 15, label: '15 segundos' },
-    { value: 20, label: '20 segundos' },
-    { value: 30, label: '30 segundos' },
+    { value: 10, label: t('10 segundos') },
+    { value: 15, label: t('15 segundos') },
+    { value: 20, label: t('20 segundos') },
+    { value: 30, label: t('30 segundos') },
   ]
 
   if (open) {
@@ -156,14 +156,14 @@ const ModalRoomConfigs = ({
                 <S.BodyThemesContainer>
                   <S.DefaultThemesButton
                     onClick={() => handleDefaultThemesButtonButton()}
-                    isClicked={defaultThemesButtonClick ? 1 : 0.2}
+                    isClicked={defaultThemesButtonClick ? 1 : 0.4}
                   >
                     {t('Temas padrões')}
                   </S.DefaultThemesButton>
                   <S.OrText>OU</S.OrText>
                   <S.CustomThemesButton
                     onClick={() => handleCustomThemesButtonButton()}
-                    isClicked={customThemesButtonClick ? 1 : 0.2}
+                    isClicked={customThemesButtonClick ? 1 : 0.4}
                   >
                     {t('Criar novos temas')}
                   </S.CustomThemesButton>

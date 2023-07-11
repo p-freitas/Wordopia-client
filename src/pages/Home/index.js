@@ -23,6 +23,7 @@ import ModalRoomNotFound from '../../components/ModalRoomNotFound'
 import ModalWaitingPlayers from '../../components/ModalWaitingPlayers'
 import ModalGameGoingOn from '../../components/ModalGameGoingOn'
 import ModalServerError from '../../components/ModalServerError'
+import ModalBugsReport from '../../components/ModalBugsReport'
 import '../../styles/styles.css'
 import * as S from './style'
 
@@ -80,6 +81,7 @@ const Home = () => {
   const [isButtonClicked, setIsButtonClicked] = useState(false)
   const [isGameGoingOn, setIsGameGoingOn] = useState(false)
   const [openModalServerError, setOpenModalServerError] = useState(false)
+  const [openModalBugsReport, setOpenModalBugsReport] = useState(false)
 
   const audioRef = useRef(null)
   const audioStopRef = useRef(null)
@@ -696,7 +698,11 @@ const Home = () => {
         roomId={roomId}
       />
       <MuteButton setIsMuted={setIsMuted} isMuted={isMuted} />
-      <HelpButton setOpen={setOpenModalTutorial} open={openModalTutorial} />
+      <HelpButton
+        setOpen={setOpenModalTutorial}
+        open={openModalTutorial}
+        setOpenBugsModal={setOpenModalBugsReport}
+      />
       <LeaveRoomButtom
         setOpenModalLeaveRoom={setOpenModalLeaveRoom}
         setOpenFriendsLink={setOpenFriendsLink}
@@ -738,6 +744,10 @@ const Home = () => {
         roomId={roomId}
       />
       <ModalTutorial setOpen={setOpenModalTutorial} open={openModalTutorial} />
+      <ModalBugsReport
+        setOpen={setOpenModalBugsReport}
+        open={openModalBugsReport}
+      />
     </S.PageContainer>
   )
 }

@@ -175,7 +175,7 @@ export const Word = styled.p`
   text-align: center;
   font-family: MyFont, sans-serif;
   max-width: 350px;
-  word-break: break-all;
+  word-break: break-word;
 `
 
 export const WordButton = styled.button`
@@ -241,26 +241,6 @@ export const Button = styled.a`
       height: 10%;
     }
   }
-  // width: 200px;
-  // height: 200px;
-  // border-radius: 50%;
-  // background-color: red;
-  // border: none;
-  // color: white;
-  // font-size: 20px;
-  // font-weight: bold;
-  // cursor: pointer;
-  // border: 3px solid black;
-  // box-shadow: black 0 0 10px 0px;
-
-  // &:hover {
-  //   opacity: 0.9;
-  // }
-
-  // &:active {
-  //   opacity: 0.82;
-  //   transform: scale(0.95);
-  // }
 
   @media (max-width: 768px) {
     width: 150px;
