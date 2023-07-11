@@ -40,13 +40,6 @@ const Lobby = ({ setLang }) => {
     `${t('Seres mitológicos')}`,
   ])
 
-  useEffect(() => {
-    if (localStorage.getItem('firstTime') === null) {
-      setOpenModalTutorial(true)
-      localStorage.setItem('firstTime', true)
-    }
-  }, [])
-
   const handleJoinRoomButton = () => {
     navigate(`/room/${room}`)
     setLoading(true)
