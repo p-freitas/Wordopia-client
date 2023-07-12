@@ -131,8 +131,8 @@ export const LoadingOverlay = styled.div`
   height: 100%;
   background-color: ${({ loading }) =>
     loading ? 'rgba(0, 0, 0, 0.5)' : 'unset'};
-  z-index: 9999;
-  flex-direction: column;
+    flex-direction: column;
+    z-index: 999999;
 `
 
 export const Spinner = styled.div`

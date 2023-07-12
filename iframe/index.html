@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://sdk.crazygames.com/crazygames-sdk-v2.js"></script>
+    <title>Wordopia</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe src="https://wordopia.app"></iframe>
+    <script>
+              try {
+                  const result = await window.CrazyGames.SDK.ad.hasAdblock();
+                  console.log("Adblock usage fetched", result);
+              } catch (e) {
+                  console.log("Adblock usage error", e);
+              }
+
+              try {
+                  const result = await window.CrazyGames.SDK.ad.hasAdblock();
+                  console.log("Adblock usage fetched", result);
+              } catch (e) {
+                  console.log("Adblock usage error", e);
+              }
+
+              try {
+                  const result = await window.CrazyGames.SDK.banner.requestBanner(
+                      {
+                          id: "banner-container",
+                          width: 300,
+                          height: 250,
+                      }
+                  );
+                  console.log("End request banner", result); // result is always undefined when requesting banners
+              } catch (e) {
+                  console.log("Error on request banner", e);
+              }
+
+              try {
+                  const result = await window.CrazyGames.SDK.banner.requestResponsiveBanner("responsive-banner-container");
+                  console.log("End request responsive banner", result); // result is always undefined when requesting banners
+              } catch (e) {
+                  console.log("Error on request responsive banner", e);
+              }
+
+              const link = await window.CrazyGames.SDK.game.inviteLink(
+          { roomId: 12345, param2: "value", param3: "value" }
+      );
+      console.log("Invite link", link);
+    </script>
+  </body>
+</html>
