@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { initReactI18next } from 'react-i18next'
 import i18n from 'i18next'
@@ -9,11 +9,17 @@ import Home from './pages/Home/index'
 import Lobby from './pages/Lobby'
 import GlobalStyles from './styles/global'
 import SnackbarProvider from 'react-simple-snackbar'
+import ReactGA from 'react-ga'
 
+ReactGA.initialize('G-YPM3SRL8N7')
 const browserLanguage = navigator.language || navigator.userLanguage
 
 const App = () => {
   const [lang, setLang] = useState()
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
 
   i18n.use(initReactI18next).init({
     resources: {
