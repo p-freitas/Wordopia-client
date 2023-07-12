@@ -9,7 +9,7 @@ import HelpButton from '../../components/HelpButton'
 import InstagramIcon from '../../assets/icons/InstagramIcon'
 import TwitterIcon from '../../assets/icons/TwitterIcon'
 import TiktokIcon from '../../assets/icons/TiktokIcon'
-import DiscordIcon from '../../assets/icons/DiscordIcon'
+// import DiscordIcon from '../../assets/icons/DiscordIcon'
 import { ReactComponent as BrazilIcon } from '../../assets/icons/br.svg'
 import { ReactComponent as USAIcon } from '../../assets/icons/us.svg'
 import { ReactComponent as SpainIcon } from '../../assets/icons/es.svg'
@@ -154,7 +154,7 @@ const Lobby = ({ setLang }) => {
             width='35px'
             link={'https://twitter.com/Wordopia_game'}
           />
-          <DiscordIcon width='40px' link={'https://discord.gg/Wq4DnYAD2F'} />
+          {/* <DiscordIcon width='40px' link={'https://discord.gg/Wq4DnYAD2F'} /> */}
         </S.IconsContainer>
         <HelpButton
           setOpen={setOpenModalTutorial}
