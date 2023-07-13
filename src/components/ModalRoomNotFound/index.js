@@ -6,6 +6,7 @@ import * as S from './styles'
 const ModalRoomNotFound = ({ open }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const screenWidth = window.innerWidth
 
   if (open) {
     return (
@@ -26,8 +27,17 @@ const ModalRoomNotFound = ({ open }) => {
                 navigate(`/`)
               }}
             >
-              {t('Voltar para o Lobby!')}
+              {t('Voltar para o Lobby')}
             </S.Button>
+            {screenWidth < 767 && (
+              <S.ButtonReload
+                onClick={() => {
+                  window.location.reload()
+                }}
+              >
+                {t('Atualizar a página')}
+              </S.ButtonReload>
+            )}
           </S.ModalBodyContent>
         </S.ModalContent>
       </S.Container>

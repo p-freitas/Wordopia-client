@@ -735,7 +735,7 @@ const Home = () => {
         LeaveRoom={LeaveRoom}
         playerData={localStorage.getItem(roomId)}
       />
-      <ModalRoomNotFound open={openModalRoomNotFound} />
+      <ModalRoomNotFound open={true}/>
       <ModalFriendsLink setOpen={setOpenFriendsLink} open={openFriendsLink} />
       <ModalPlayerEliminated
         setOpen={setOpenPlayerEliminatedModal}

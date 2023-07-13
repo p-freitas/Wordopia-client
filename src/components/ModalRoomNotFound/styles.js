@@ -101,6 +101,30 @@ export const Button = styled.button`
   }
 `
 
+export const ButtonReload = styled.button`
+  border-radius: 5px;
+  text-transform: uppercase;
+  padding: 0px 10px;
+  color: var(--white);
+  background-color: #0acffe;
+  transition: all 0.5s ease 0s;
+  cursor: pointer;
+  margin: 10px;
+  font-size: 25px;
+  border: 1px solid black;
+  font-family: MyFont, sans-serif;
+  display: flex;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  height: 50px;
+
+  @media only screen and (max-device-width: 767px) {
+    width: 150px;
+    font-size: 18px;
+  }
+`
+
 export const ButtonCancel = styled.button`
   border-radius: 5px;
   text-transform: uppercase;
