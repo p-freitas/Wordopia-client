@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useSnackbar } from 'react-simple-snackbar'
 import { useTranslation } from 'react-i18next'
-import io from 'socket.io-client'
-// import socket from '../../socket'
+import socket from '../../socket'
 import timeSound from '../../assets/timeSound.mp3'
 import timeSoundStop from '../../assets/eliminated.mp3'
 import playerTurnSound from '../../assets/playerTurnSound.mp3'
@@ -26,11 +25,6 @@ import ModalGameGoingOn from '../../components/ModalGameGoingOn'
 import ModalServerError from '../../components/ModalServerError'
 import '../../styles/styles.css'
 import * as S from './style'
-
-const socket = io(process.env.REACT_APP_SOCKET_URL, {
-  transports: ['websocket'],
-  reconnection: true,
-})
 
 socket.on('connect', () => console.log('[SOCKET] [DISPLAY] => New Connection'))
 
@@ -289,8 +283,9 @@ const Home = () => {
   useEffect(() => {
     socket.on('roomNotFound', () => {
       setOpenModalRoomNotFound(true)
+      if(screenWidth < 767) window.location.reload()
     })
-  }, [])
+  }, [screenWidth])
 
   useEffect(() => {
     socket.on('serverError', () => {
