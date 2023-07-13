@@ -283,7 +283,6 @@ const Home = () => {
   useEffect(() => {
     socket.on('roomNotFound', () => {
       setOpenModalRoomNotFound(true)
-      if(screenWidth < 767) window.location.reload()
     })
   }, [screenWidth])
 
