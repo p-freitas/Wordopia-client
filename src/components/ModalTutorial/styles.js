@@ -110,6 +110,7 @@ export const ParagraphTitle = styled.h2`
 
 export const ParagraphText = styled.p`
   font-size: 16px;
+  font-family: system-ui;
 
   @media only screen and (min-width: 360px) and (max-width: 767px) {
     text-align: justify;

@@ -22,7 +22,9 @@ const ModalFriendsLink = ({ open, setOpen }) => {
     const inputElement = inputRef.current
     if (inputElement) {
       const textToCopy = inputElement.value
-      await navigator.clipboard.writeText(textToCopy)
+      console.log('textToCopy:', textToCopy);
+      console.log('navigator.clipboard:', navigator.clipboard);
+      await navigator?.clipboard?.writeText(textToCopy)
       setOpen(false)
       openSnackbar(`${t('Link copiado com sucesso!')}`, 5000)
     }

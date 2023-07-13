@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import MyFont from '../assets/fonts/RequestCoffee/OpenType-TT/MyFont.ttf'
+import MyFont from '../assets/fonts/RequestCoffee/Web-PS/MyFont.woff2'
 import BackgroungSVG from '../assets/images/background.webp'
 
 const GlobalStyles = createGlobalStyle`

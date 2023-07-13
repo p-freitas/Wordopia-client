@@ -7,6 +7,12 @@ export const PageContainer = styled.div`
   align-items: center;
   -webkit-box-pack: center;
   flex-direction: column;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    position: relative;
+    height: 150vh;
+    overflow: hidden;
+  }
 `
 
 export const JoinButtonContainer = styled.div`
@@ -21,6 +27,11 @@ export const BodyContainer = styled.div`
   align-items: center;
   height: 80vh;
   justify-content: center;
+  margin-top: 5%;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    height: auto;
+  }
 `
 
 export const Title = styled.h1`
@@ -108,6 +119,11 @@ export const OrText = styled.h1`
   color: white;
   font-size: 35px;
   margin: 40px 0;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    font-size: 30px;
+    margin: 25px 0;
+  }
 `
 
 export const HeaderContainer = styled.header`
@@ -131,8 +147,13 @@ export const LoadingOverlay = styled.div`
   height: 100%;
   background-color: ${({ loading }) =>
     loading ? 'rgba(0, 0, 0, 0.5)' : 'unset'};
-    flex-direction: column;
-    z-index: 999999;
+  flex-direction: column;
+  z-index: 999999;
+
+  @media only screen and (min-width: 360px) and (max-width: 767px) {
+    height: 100vh;
+    overflow: hidden;
+  }
 `
 
 export const Spinner = styled.div`
@@ -156,6 +177,7 @@ export const Spinner = styled.div`
       transform: rotate(360deg);
     }
   }
+  z-index: 999999;
 `
 
 export const IconsContainer = styled.div`
@@ -177,7 +199,7 @@ export const FlagsContainer = styled.div`
   right: 30px;
 
   @media only screen and (min-width: 360px) and (max-width: 767px) {
-    top: 10px;
+    top: 5px;
     right: 0px;
   }
 
@@ -188,4 +210,32 @@ export const FlagsContainer = styled.div`
     margin: 0 10px;
     cursor: pointer;
   }
+`
+
+export const RulesContainer = styled.div`
+  height: 300px;
+  width: 350px;
+  border: 1px solid;
+  border-radius: 10px;
+  color: white;
+  margin-top: 20px;
+  padding: 10px;
+  color: white;
+`
+
+export const TitleRules = styled.p`
+  font-size: 24px;
+  text-decoration: underline;
+`
+
+export const RulesList = styled.ul`
+  font-size: 18px;
+`
+
+export const RulesListItem = styled.li`
+  font-size: 18px;
+  list-style: none;
+  text-align: initial;
+  margin: 15px 0;
+  line-height: 24px;
 `

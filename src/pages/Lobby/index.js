@@ -92,7 +92,6 @@ const Lobby = ({ setLang }) => {
   return (
     <S.PageContainer>
       <S.LoadingOverlay loading={loading}>
-        <S.Spinner loading={loading} />
         <S.HeaderContainer>
           <S.Title>WORDOPIA</S.Title>
           <S.FlagsContainer>
@@ -120,6 +119,22 @@ const Lobby = ({ setLang }) => {
               {t('ENTRAR NA SALA')}
             </S.JoinButton>
           </S.JoinButtonContainer>
+          <S.RulesContainer>
+            <S.TitleRules>{t('Como jogar')}</S.TitleRules>
+            <S.RulesList>
+              <S.RulesListItem>{t('1- Gere um tema')}</S.RulesListItem>
+              <S.RulesListItem>
+                {t(
+                  '2- Clique em uma letra, fale uma palavra relacionada ao tema que comece com a letra que você clicou'
+                )}
+              </S.RulesListItem>
+              <S.RulesListItem>
+                {t(
+                  '3- Clique no botão vermelho para passar a vez para o próximo jogador'
+                )}
+              </S.RulesListItem>
+            </S.RulesList>
+          </S.RulesContainer>
         </S.BodyContainer>
         <ModalTutorial
           setOpen={setOpenModalTutorial}
@@ -161,6 +176,7 @@ const Lobby = ({ setLang }) => {
           open={openModalTutorial}
           setOpenBugsModal={setOpenModalBugsReport}
         />
+        <S.Spinner loading={loading} />
       </S.LoadingOverlay>
     </S.PageContainer>
   )

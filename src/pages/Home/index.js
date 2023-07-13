@@ -104,17 +104,23 @@ const Home = () => {
   }, [roomId])
 
   useEffect(() => {
-    // Event handler for beforeunload event
-    const handleBeforeUnload = () => {
-      if (localStorage.getItem(roomId)) {
-        localStorage.removeItem(roomId)
+    const handlePageHide = event => {
+      // Check if the event's persisted attribute is false (indicating a page unload)
+      if (!event.persisted) {
+        if (localStorage.getItem(roomId)) {
+          localStorage.removeItem(roomId)
+        }
       }
     }
 
-    window.addEventListener('beforeunload', handleBeforeUnload)
+    // Add event listeners for both beforeunload and pagehide events
+    window.addEventListener('beforeunload', handlePageHide)
+    window.addEventListener('pagehide', handlePageHide)
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload)
+      // Remove event listeners when the component unmounts
+      window.removeEventListener('beforeunload', handlePageHide)
+      window.removeEventListener('pagehide', handlePageHide)
     }
   }, [roomId])
 
