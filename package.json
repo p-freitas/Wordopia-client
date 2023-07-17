@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
-    "agora-rtc-react": "git+https://oauth2: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@github:AgoraIO-Community/agora-rtc-react#v1.0.0",
+    "agora-rtc-react": "git+https://oauth2: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@github.com:AgoraIO-Community/Agora-RTC-React.git",
     "agora-rtc-sdk-ng": "^4.18.2",
     "axios": "^0.27.2",
     "i18next": "^23.2.8",
