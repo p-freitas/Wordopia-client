@@ -13,7 +13,7 @@ const ModalRoomNotFound = ({ open }) => {
       <S.Container data-testid='modal-testid'>
         <S.ModalContent>
           <S.ModalHeaderContent>
-            <S.TextWarning>{t('Essa sala não existe!')}</S.TextWarning>
+            <S.TextWarning data-testid='room-not-found-modal-text'>{t('Essa sala não existe!')}</S.TextWarning>
             <S.TitleContainer>
               {t(
                 'Verifique se o link está correto ou se o código foi digitado corretamente'

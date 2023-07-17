@@ -19,6 +19,7 @@ const ModalTutorial = ({ open, setOpen }) => {
               aria-label='Close'
               aria-pressed='false'
               type='button'
+              data-testid='tutorial-modal-close-button'
             >
               {CloseIcon}
             </S.Button>

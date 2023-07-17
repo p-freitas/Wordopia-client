@@ -164,6 +164,7 @@ const ModalRoomConfigs = ({
                   <S.CustomThemesButton
                     onClick={() => handleCustomThemesButtonButton()}
                     isClicked={customThemesButtonClick ? 1 : 0.4}
+                    data-testid='custom-themes-button'
                   >
                     {t('Criar novos temas')}
                   </S.CustomThemesButton>

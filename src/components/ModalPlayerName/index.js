@@ -42,6 +42,7 @@ const ModalPlayerName = ({
           <S.NameInput
             value={playerName}
             onChange={e => handlePlayerNameChange(e)}
+            data-testid='playerName-modal-input'
           />
 
           <S.ModalBodyContent>
@@ -55,6 +56,7 @@ const ModalPlayerName = ({
             <S.Button
               disabled={!playerName}
               onClick={() => handleSubmitPlayer()}
+              data-testid='playerName-modal-confirm-button'
             >
               {t('Confirmar')}
             </S.Button>

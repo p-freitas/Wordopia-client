@@ -36,14 +36,14 @@ const ModalCustomThemes = ({
       <S.Container data-testid='modal-testid'>
         <S.ModalContent>
           <S.ModalHeaderContent>
-            <S.TextWarning>{t('Adicione novos temas')}</S.TextWarning>
+            <S.TextWarning data-testid='custom-themes-modal-title'>{t('Adicione novos temas')}</S.TextWarning>
           </S.ModalHeaderContent>
 
           <S.ModalBodyContent>
             <S.TagsContainer>
               {themesList?.map(theme => {
                 return (
-                  <S.ThemeTag key={theme} onClick={() => handleTagClick(theme)}>
+                  <S.ThemeTag key={theme} onClick={() => handleTagClick(theme)} data-testid='theme-tag'>
                     {theme}
                   </S.ThemeTag>
                 )
@@ -68,6 +68,7 @@ const ModalCustomThemes = ({
               <S.Button onClick={() => setOpen(false)}>{t('Fechar')}</S.Button>
               <S.CreateRoomButton
                 onClick={() => handleCreateRoomButton(activeLetter)}
+                data-testid='custom-themes-create-room-button'
               >
                 {t('CRIAR SALA')}
               </S.CreateRoomButton>

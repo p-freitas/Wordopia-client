@@ -95,26 +95,28 @@ const Lobby = ({ setLang }) => {
         <S.HeaderContainer>
           <S.Title>WORDOPIA</S.Title>
           <S.FlagsContainer>
-            <BrazilIcon onClick={() => handleFlagsClick('pt-BR')} />
-            <USAIcon onClick={() => handleFlagsClick('en')} />
-            <SpainIcon onClick={() => handleFlagsClick('es')} />
+            <BrazilIcon onClick={() => handleFlagsClick('pt-BR')} data-testid='brazil-button'/>
+            <USAIcon onClick={() => handleFlagsClick('en')} data-testid='us-button'/>
+            <SpainIcon onClick={() => handleFlagsClick('es')} data-testid='spain-button'/>
           </S.FlagsContainer>
         </S.HeaderContainer>
         <S.BodyContainer>
-          <S.CreateRoomButton onClick={() => setOpenModalRoomConfigs(true)}>
+          <S.CreateRoomButton onClick={() => setOpenModalRoomConfigs(true)} data-testid='create-room-button'>
             {t('CRIAR SALA')}
           </S.CreateRoomButton>
-          <S.OrText>{t('ou')}</S.OrText>
+          <S.OrText data-testid='or-text'>{t('ou')}</S.OrText>
           <S.JoinButtonContainer>
             <S.JoinButtonInput
               type='text'
               value={room}
               onChange={e => handleRoomNameChange(e)}
               placeholder={t('Digite o código da sala')}
+              data-testid='enter-room-input'
             />
             <S.JoinButton
               onClick={() => handleJoinRoomButton()}
               disabled={!room}
+              data-testid='enter-room-button'
             >
               {t('ENTRAR NA SALA')}
             </S.JoinButton>

@@ -55,6 +55,7 @@ const ModalFriendsLink = ({ open, setOpen }) => {
               onClick={() => {
                 setOpen(false)
               }}
+              data-testid='friends-link-modal-close-button'
             >
               {t('Fechar')}
             </S.ButtonCancel>

@@ -82,6 +82,7 @@ const GlobalStyles = createGlobalStyle`
   @font-face {
     font-family: 'MyFont';
     src: url(${MyFont}) format('truetype');
+    font-display: swap;
   }
 `
 

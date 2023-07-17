@@ -1,8 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import VoiceChat from '../VoiceChat'
 import * as S from './styles'
 
-const PlayersList = ({ currentTurn, playersOut, currentLetter, players }) => {
+const PlayersList = ({ currentTurn, playersOut, currentLetter, players, socket, roomId }) => {
   const { t } = useTranslation()
 
   return (
@@ -25,6 +26,7 @@ const PlayersList = ({ currentTurn, playersOut, currentLetter, players }) => {
                         return obj?.id === player?.id
                       })
                     }
+                    data-testid='player-list-modal-text'
                   >
                     {player?.name}
                   </S.ScoreboardListItem>
@@ -40,6 +42,7 @@ const PlayersList = ({ currentTurn, playersOut, currentLetter, players }) => {
               </S.PlayerNameContainer>
             )
           })}
+          <VoiceChat socket={socket} roomId={roomId}/>
       </S.ScoreboardList>
     </S.ScoreboardContainer>
   )
