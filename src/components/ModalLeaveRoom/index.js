@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
@@ -9,6 +9,21 @@ const ModalLeaveRoom = ({
   playerData,
 }) => {
   const { t } = useTranslation()
+
+  useEffect(() => {
+    const handleOutsideClick = event => {
+      if (open && event.target.getAttribute('data-testid') === 'modal-testid') {
+        setOpenModalLeaveRoom(false)
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick)
+    document.addEventListener('touchstart', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+      document.removeEventListener('touchstart', handleOutsideClick)
+    }
+  }, [open, setOpenModalLeaveRoom])
   if (open) {
     return (
       <S.Container data-testid='modal-testid'>

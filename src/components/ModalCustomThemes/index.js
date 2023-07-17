@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
@@ -31,19 +31,40 @@ const ModalCustomThemes = ({
     setThemesList(themesList.filter(theme => theme !== themeName))
   }
 
+  useEffect(() => {
+    const handleOutsideClick = event => {
+      if (open && event.target.getAttribute('data-testid') === 'modal-testid') {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick)
+    document.addEventListener('touchstart', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+      document.removeEventListener('touchstart', handleOutsideClick)
+    }
+  }, [open, setOpen])
+
   if (open) {
     return (
       <S.Container data-testid='modal-testid'>
         <S.ModalContent>
           <S.ModalHeaderContent>
-            <S.TextWarning data-testid='custom-themes-modal-title'>{t('Adicione novos temas')}</S.TextWarning>
+            <S.TextWarning data-testid='custom-themes-modal-title'>
+              {t('Adicione novos temas')}
+            </S.TextWarning>
           </S.ModalHeaderContent>
 
           <S.ModalBodyContent>
             <S.TagsContainer>
               {themesList?.map(theme => {
                 return (
-                  <S.ThemeTag key={theme} onClick={() => handleTagClick(theme)} data-testid='theme-tag'>
+                  <S.ThemeTag
+                    key={theme}
+                    onClick={() => handleTagClick(theme)}
+                    data-testid='theme-tag'
+                  >
                     {theme}
                   </S.ThemeTag>
                 )

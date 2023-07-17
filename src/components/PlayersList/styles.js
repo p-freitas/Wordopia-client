@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const ScoreboardContainer = styled.div`
-  padding: 10px;
+  padding: 10px 10px 0;
   border-radius: 30px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px 6px;
   width: 100%;
@@ -12,7 +12,6 @@ export const ScoreboardContainer = styled.div`
   color: white;
   font-family: 'MyFont', sans-serif;
   max-height: 500px;
-  overflow-x: hidden;
   background: rgb(87 115 255 / 80%);
   margin-right: 10px;
 
@@ -36,6 +35,7 @@ export const ScoreboardList = styled.ul`
   flex-direction: column;
   -webkit-box-align: center;
   width: 100%;
+  overflow-x: auto;
 `
 
 export const ScoreboardListItem = styled.p`

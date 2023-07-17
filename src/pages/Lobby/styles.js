@@ -69,8 +69,7 @@ export const Title = styled.h1`
 `
 
 export const CreateRoomButton = styled.button`
-  width: 200px;
-  height: 50px;
+  padding: 10px 40px;
   border-radius: 10px;
   background-color: rgb(0, 142, 255);
   color: white;
@@ -86,8 +85,7 @@ export const CreateRoomButton = styled.button`
 `
 
 export const JoinButton = styled.button`
-  width: 200px;
-  height: 50px;
+  padding: 10px 40px;
   border-radius: 10px;
   background-color: rgb(0, 142, 255);
   color: white;
@@ -149,11 +147,21 @@ export const LoadingOverlay = styled.div`
     loading ? 'rgba(0, 0, 0, 0.5)' : 'unset'};
   flex-direction: column;
   z-index: 999999;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   @media only screen and (min-width: 360px) and (max-width: 767px) {
     height: 100vh;
     overflow: hidden;
   }
+`
+
+export const LobbyContainer = styled.div`
+  width: 100%;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 export const Spinner = styled.div`
@@ -167,6 +175,7 @@ export const Spinner = styled.div`
   width: 50px;
   animation: 2s linear 0s infinite normal none running spin;
   position: absolute;
+  top: 50%;
 
   @keyframes spin {
     0% {

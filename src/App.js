@@ -40,7 +40,7 @@ const App = () => {
     },
   })
   return (
-    <div className='App' id='outer-container'>
+    <div className='App' id='outer-container' style={{overflow: 'auto'}}>
       <GlobalStyles />
       <SnackbarProvider>
         <Routes>

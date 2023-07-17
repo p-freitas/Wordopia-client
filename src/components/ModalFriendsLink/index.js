@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useSnackbar } from 'react-simple-snackbar'
 import { useTranslation } from 'react-i18next'
 import * as S from './styles'
@@ -22,13 +22,24 @@ const ModalFriendsLink = ({ open, setOpen }) => {
     const inputElement = inputRef.current
     if (inputElement) {
       const textToCopy = inputElement.value
-      console.log('textToCopy:', textToCopy);
-      console.log('navigator.clipboard:', navigator.clipboard);
       await navigator?.clipboard?.writeText(textToCopy)
       setOpen(false)
       openSnackbar(`${t('Link copiado com sucesso!')}`, 5000)
     }
   }
+
+  useEffect(() => {
+    const handleOutsideClick = event => {
+      if (open && event.target.getAttribute('data-testid') === 'modal-testid') {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [open, setOpen])
 
   if (open) {
     return (

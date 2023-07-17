@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
 import { useTranslation } from 'react-i18next'
 import ModalCustomThemes from '../ModalCustomThemes'
@@ -86,9 +86,24 @@ const ModalRoomConfigs = ({
     { value: 30, label: t('30 segundos') },
   ]
 
+  useEffect(() => {
+    const handleOutsideClick = event => {
+      if (open && event.target.getAttribute('data-testid') === 'modal-testid-room-config') {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick)
+    document.addEventListener('touchstart', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+      document.removeEventListener('touchstart', handleOutsideClick)
+    }
+  }, [open, setOpen])
+
   if (open) {
     return (
-      <S.Container data-testid='modal-testid' isOpen={open}>
+      <S.Container data-testid='modal-testid-room-config' isOpen={open}>
         <S.ModalContent>
           <S.ModalHeaderContent>
             <S.TitleContainer>{t('Configurações')}</S.TitleContainer>

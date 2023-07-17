@@ -92,93 +92,110 @@ const Lobby = ({ setLang }) => {
   return (
     <S.PageContainer>
       <S.LoadingOverlay loading={loading}>
-        <S.HeaderContainer>
-          <S.Title>WORDOPIA</S.Title>
-          <S.FlagsContainer>
-            <BrazilIcon onClick={() => handleFlagsClick('pt-BR')} data-testid='brazil-button'/>
-            <USAIcon onClick={() => handleFlagsClick('en')} data-testid='us-button'/>
-            <SpainIcon onClick={() => handleFlagsClick('es')} data-testid='spain-button'/>
-          </S.FlagsContainer>
-        </S.HeaderContainer>
-        <S.BodyContainer>
-          <S.CreateRoomButton onClick={() => setOpenModalRoomConfigs(true)} data-testid='create-room-button'>
-            {t('CRIAR SALA')}
-          </S.CreateRoomButton>
-          <S.OrText data-testid='or-text'>{t('ou')}</S.OrText>
-          <S.JoinButtonContainer>
-            <S.JoinButtonInput
-              type='text'
-              value={room}
-              onChange={e => handleRoomNameChange(e)}
-              placeholder={t('Digite o código da sala')}
-              data-testid='enter-room-input'
-            />
-            <S.JoinButton
-              onClick={() => handleJoinRoomButton()}
-              disabled={!room}
-              data-testid='enter-room-button'
+        <S.LobbyContainer>
+          <S.HeaderContainer>
+            <S.Title>WORDOPIA</S.Title>
+            <S.FlagsContainer>
+              <BrazilIcon
+                onClick={() => handleFlagsClick('pt-BR')}
+                data-testid='brazil-button'
+              />
+              <USAIcon
+                onClick={() => handleFlagsClick('en')}
+                data-testid='us-button'
+              />
+              <SpainIcon
+                onClick={() => handleFlagsClick('es')}
+                data-testid='spain-button'
+              />
+            </S.FlagsContainer>
+          </S.HeaderContainer>
+          <S.BodyContainer>
+            <S.CreateRoomButton
+              onClick={() => setOpenModalRoomConfigs(true)}
+              data-testid='create-room-button'
             >
-              {t('ENTRAR NA SALA')}
-            </S.JoinButton>
-          </S.JoinButtonContainer>
-          <S.RulesContainer>
-            <S.TitleRules>{t('Como jogar')}</S.TitleRules>
-            <S.RulesList>
-              <S.RulesListItem>{t('1- Gere um tema')}</S.RulesListItem>
-              <S.RulesListItem>
-                {t(
-                  '2- Clique em uma letra, fale uma palavra relacionada ao tema que comece com a letra que você clicou'
-                )}
-              </S.RulesListItem>
-              <S.RulesListItem>
-                {t(
-                  '3- Clique no botão vermelho para passar a vez para o próximo jogador'
-                )}
-              </S.RulesListItem>
-            </S.RulesList>
-          </S.RulesContainer>
-        </S.BodyContainer>
-        <ModalTutorial
-          setOpen={setOpenModalTutorial}
-          open={openModalTutorial}
-        />
-        <ModalRoomConfigs
-          setOpen={setOpenModalRoomConfigs}
-          open={openModalRoomConfigs}
-          handleCreateRoomButton={handleCreateRoomButton}
-          setRoundsSelectValue={setRoundsSelectValue}
-          setTimerSelectValue={setTimerSelectValue}
-          roundsSelectValue={roundsSelectValue}
-          timerSelectValue={timerSelectValue}
-          defaultThemesButtonClick={defaultThemesButtonClick}
-          setDefaultThemesButtonClick={setDefaultThemesButtonClick}
-          customThemesButtonClick={customThemesButtonClick}
-          setCustomThemesButtonClick={setCustomThemesButtonClick}
-          themesList={themesList}
-          setThemesList={setThemesList}
-        />
-        <ModalBugsReport
-          setOpen={setOpenModalBugsReport}
-          open={openModalBugsReport}
-        />
-        <S.IconsContainer>
-          <InstagramIcon
-            width='35px'
-            link={'https://www.instagram.com/wordopia.online/'}
+              {t('CRIAR SALA')}
+            </S.CreateRoomButton>
+            <S.OrText data-testid='or-text'>{t('ou')}</S.OrText>
+            <S.JoinButtonContainer>
+              <S.JoinButtonInput
+                type='text'
+                value={room}
+                onChange={e => handleRoomNameChange(e)}
+                placeholder={t('Digite o código da sala')}
+                data-testid='enter-room-input'
+              />
+              <S.JoinButton
+                onClick={() => handleJoinRoomButton()}
+                disabled={!room}
+                data-testid='enter-room-button'
+              >
+                {t('ENTRAR NA SALA')}
+              </S.JoinButton>
+            </S.JoinButtonContainer>
+            <S.RulesContainer>
+              <S.TitleRules>{t('Como jogar')}</S.TitleRules>
+              <S.RulesList>
+                <S.RulesListItem>{t('1- Gere um tema')}</S.RulesListItem>
+                <S.RulesListItem>
+                  {t(
+                    '2- Clique em uma letra, fale uma palavra relacionada ao tema que comece com a letra que você clicou'
+                  )}
+                </S.RulesListItem>
+                <S.RulesListItem>
+                  {t(
+                    '3- Clique no botão vermelho para passar a vez para o próximo jogador'
+                  )}
+                </S.RulesListItem>
+              </S.RulesList>
+            </S.RulesContainer>
+          </S.BodyContainer>
+          <ModalTutorial
+            setOpen={setOpenModalTutorial}
+            open={openModalTutorial}
           />
-          <TiktokIcon width='30px' link={'https://www.tiktok.com/@wordopia'} />
-          <TwitterIcon
-            width='35px'
-            link={'https://twitter.com/Wordopia_game'}
+          <ModalRoomConfigs
+            setOpen={setOpenModalRoomConfigs}
+            open={openModalRoomConfigs}
+            handleCreateRoomButton={handleCreateRoomButton}
+            setRoundsSelectValue={setRoundsSelectValue}
+            setTimerSelectValue={setTimerSelectValue}
+            roundsSelectValue={roundsSelectValue}
+            timerSelectValue={timerSelectValue}
+            defaultThemesButtonClick={defaultThemesButtonClick}
+            setDefaultThemesButtonClick={setDefaultThemesButtonClick}
+            customThemesButtonClick={customThemesButtonClick}
+            setCustomThemesButtonClick={setCustomThemesButtonClick}
+            themesList={themesList}
+            setThemesList={setThemesList}
           />
-          {/* <DiscordIcon width='40px' link={'https://discord.gg/Wq4DnYAD2F'} /> */}
-        </S.IconsContainer>
-        <HelpButton
-          setOpen={setOpenModalTutorial}
-          open={openModalTutorial}
-          setOpenBugsModal={setOpenModalBugsReport}
-        />
-        <S.Spinner loading={loading} />
+          <ModalBugsReport
+            setOpen={setOpenModalBugsReport}
+            open={openModalBugsReport}
+          />
+          <S.IconsContainer>
+            <InstagramIcon
+              width='35px'
+              link={'https://www.instagram.com/wordopia.online/'}
+            />
+            <TiktokIcon
+              width='30px'
+              link={'https://www.tiktok.com/@wordopia'}
+            />
+            <TwitterIcon
+              width='35px'
+              link={'https://twitter.com/Wordopia_game'}
+            />
+            {/* <DiscordIcon width='40px' link={'https://discord.gg/Wq4DnYAD2F'} /> */}
+          </S.IconsContainer>
+          <HelpButton
+            setOpen={setOpenModalTutorial}
+            open={openModalTutorial}
+            setOpenBugsModal={setOpenModalBugsReport}
+          />
+          <S.Spinner loading={loading} />
+        </S.LobbyContainer>
       </S.LoadingOverlay>
     </S.PageContainer>
   )

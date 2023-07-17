@@ -21,12 +21,10 @@
     "react-select": "^5.7.2",
     "react-simple-snackbar": "^1.1.11",
     "react-tooltip": "^5.16.1",
-    "simple-peer": "^9.11.1",
     "socket.io-client": "^4.5.1",
     "styled-components": "^5.3.5",
     "uuid": "^8.3.2",
-    "web-vitals": "^2.1.0",
-    "zego-express-engine-webrtc": "^2.25.5"
+    "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

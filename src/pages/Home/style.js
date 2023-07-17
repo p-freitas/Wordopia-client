@@ -116,6 +116,7 @@ export const TabletopContainer = styled.div`
     flex-direction: column;
     justify-content: space-evenly;
     width: 70%;
+    margin-top: 40px;
   }
 
   @media only screen and (min-width: 360px) and (max-width: 767px) {

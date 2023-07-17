@@ -23,6 +23,7 @@ const fadeOut = keyframes`
 `
 
 export const Container = styled.div`
+  overflow: auto;
   position: fixed;
   top: 0;
   left: 0;
@@ -33,9 +34,9 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
   font-family: 'MyFont', sans-serif;
   animation: ${({ isOpen }) => (isOpen ? fadeIn : fadeOut)} 0.3s ease-in-out;
+  z-index: 10000;
 `
 
 export const ModalContent = styled.div`
@@ -58,9 +59,14 @@ export const ModalContent = styled.div`
   align-items: center;
   border: 2px solid;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     text-align: center;
     height: 600px;
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1400px) {
+    height: 600px;
+    overflow-x: hidden;
   }
 `
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as S from './styles'
 
@@ -8,9 +8,30 @@ const ModalTutorial = ({ open, setOpen }) => {
   const handleClick = () => {
     setOpen(false)
   }
+
+  useEffect(() => {
+    const handleOutsideClick = event => {
+      if (open && event.target.id === 'tutorial-modal-container') {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleOutsideClick)
+    document.addEventListener('touchstart', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+      document.removeEventListener('touchstart', handleOutsideClick)
+    }
+  }, [open, setOpen])
+
   if (open) {
     return (
-      <S.Container data-testid='modal-testid' isOpen={open}>
+      <S.Container
+        id='tutorial-modal-container'
+        data-testid='modal-testid'
+        isOpen={open}
+      >
         <S.ModalContent>
           <S.ModalHeaderContent>
             <S.TitleContainer>{t('Tutorial')}</S.TitleContainer>

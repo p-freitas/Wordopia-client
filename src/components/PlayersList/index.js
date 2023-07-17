@@ -3,7 +3,14 @@ import { useTranslation } from 'react-i18next'
 import VoiceChat from '../VoiceChat'
 import * as S from './styles'
 
-const PlayersList = ({ currentTurn, playersOut, currentLetter, players, socket, roomId }) => {
+const PlayersList = ({
+  currentTurn,
+  playersOut,
+  currentLetter,
+  players,
+  socket,
+  roomId,
+}) => {
   const { t } = useTranslation()
 
   return (
@@ -42,8 +49,10 @@ const PlayersList = ({ currentTurn, playersOut, currentLetter, players, socket, 
               </S.PlayerNameContainer>
             )
           })}
-          <VoiceChat socket={socket} roomId={roomId}/>
       </S.ScoreboardList>
+      {localStorage.getItem(roomId) !== null && (
+        <VoiceChat socket={socket} roomId={roomId} />
+      )}
     </S.ScoreboardContainer>
   )
 }
