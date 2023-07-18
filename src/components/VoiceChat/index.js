@@ -102,9 +102,11 @@ export const Controls = props => {
   const { audioTrack, setInCall } = props
   const [muteAudio, setMuteAudio] = useState(false)
 
+  console.log('audioTrack::', audioTrack);
+
   const toggleAudio = async () => {
     const newMuteAudio = !muteAudio
-    await audioTrack.setEnabled(!newMuteAudio)
+    await audioTrack.setMuted(!newMuteAudio)
     setMuteAudio(newMuteAudio)
   }
 
