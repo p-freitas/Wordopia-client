@@ -100,7 +100,7 @@ export const Controls = props => {
   const { t } = useTranslation()
 
   const { audioTrack, setInCall } = props
-  const [muteAudio, setMuteAudio] = useState(false)
+  const [muteAudio, setMuteAudio] = useState(true)
 
   console.log('audioTrack::', audioTrack);
 
@@ -129,7 +129,7 @@ export const Controls = props => {
       </p> */}
       <S.MuteButton
         onClick={() => toggleAudio()}
-        isMuted={!muteAudio}
+        isMuted={muteAudio}
         aria-label='Mute audio'
         aria-pressed='false'
         type='button'
