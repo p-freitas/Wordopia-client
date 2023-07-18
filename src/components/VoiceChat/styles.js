@@ -46,7 +46,6 @@ export const MuteButton = styled.button`
     width: 35px;
     height: 35px;
   }
-  z-index: 10001;
 `
 
 export const LeaveButton = styled.button`
@@ -67,7 +66,6 @@ export const LeaveButton = styled.button`
     width: 35px;
     height: 35px;
   }
-  z-index: 10001;
 `
 
 export const Icon = styled.i`
