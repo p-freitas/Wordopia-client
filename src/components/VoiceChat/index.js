@@ -129,7 +129,7 @@ export const Controls = props => {
       </p> */}
       <S.MuteButton
         onClick={() => toggleAudio()}
-        isMuted={muteAudio}
+        isMuted={!muteAudio}
         aria-label='Mute audio'
         aria-pressed='false'
         type='button'
@@ -139,7 +139,7 @@ export const Controls = props => {
         }
         data-tooltip-place='bottom'
       >
-        {!muteAudio ? MuteIcon : UnmuteIcon}
+        {muteAudio ? MuteIcon : UnmuteIcon}
       </S.MuteButton>
       <S.LeaveButton
         onClick={leaveChannel}
