@@ -140,7 +140,7 @@ const Lobby = ({ setLang }) => {
                 <S.RulesListItem>{t('1- Gere um tema')}</S.RulesListItem>
                 <S.RulesListItem>
                   {t(
-                    '2- Clique em uma letra, fale uma palavra relacionada ao tema que comece com a letra que você clicou'
+                    '2- Clique em uma letra e fale uma palavra relacionada ao tema que comece com a letra que você clicou'
                   )}
                 </S.RulesListItem>
                 <S.RulesListItem>

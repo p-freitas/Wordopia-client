@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from "styled-components";
 
 const fadeIn = keyframes`
   from {
@@ -9,7 +9,7 @@ const fadeIn = keyframes`
     opacity: 1;
     transform: translateY(0);
   }
-`
+`;
 
 const fadeOut = keyframes`
   from {
@@ -20,7 +20,7 @@ const fadeOut = keyframes`
     opacity: 0;
     transform: translateY(-50px);
   }
-`
+`;
 
 export const Container = styled.div`
   overflow: auto;
@@ -34,10 +34,10 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'MyFont', sans-serif;
+  font-family: "MyFont", sans-serif;
   animation: ${({ isOpen }) => (isOpen ? fadeIn : fadeOut)} 0.3s ease-in-out;
   z-index: 10000;
-`
+`;
 
 export const ModalContent = styled.div`
   display: flex;
@@ -68,7 +68,7 @@ export const ModalContent = styled.div`
     height: 600px;
     overflow-x: hidden;
   }
-`
+`;
 
 export const ModalHeaderContent = styled.div`
   display: flex;
@@ -78,13 +78,13 @@ export const ModalHeaderContent = styled.div`
   height: auto;
   flex-direction: row;
   width: 100%;
-`
+`;
 
 export const ModalBodyContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -93,8 +93,7 @@ export const TitleContainer = styled.div`
   color: white;
   font-size: 40px;
   margin-bottom: 5px;
-  text-shadow: black 3px 3px 0px;
-`
+`;
 
 export const TitleConfigsContainer = styled.div`
   display: flex;
@@ -103,8 +102,7 @@ export const TitleConfigsContainer = styled.div`
   color: white;
   font-size: 23px;
   margin-top: 15px;
-  -webkit-text-stroke: 1.5px rgb(0 0 0);
-`
+`;
 
 export const ConfigsContainer = styled.div`
   height: 500px;
@@ -117,7 +115,7 @@ export const ConfigsContainer = styled.div`
     display: flex;
     flex-direction: column;
   }
-`
+`;
 
 export const SettingsContainer = styled.div`
   border: 1px solid white;
@@ -131,7 +129,7 @@ export const SettingsContainer = styled.div`
     width: 100%;
     height: 300px;
   }
-`
+`;
 
 export const ThemesContainer = styled.div`
   border: 1px solid white;
@@ -145,7 +143,7 @@ export const ThemesContainer = styled.div`
     width: 100%;
     height: 350px;
   }
-`
+`;
 
 export const LettersContainer = styled.div`
   border: 1px solid white;
@@ -158,7 +156,7 @@ export const LettersContainer = styled.div`
   @media only screen and (min-width: 360px) and (max-width: 767px) {
     width: 100%;
   }
-`
+`;
 
 export const Button = styled.button`
   width: 40px;
@@ -174,12 +172,12 @@ export const Button = styled.button`
   @media only screen and (max-device-width: 767px) {
     margin-left: 20px;
   }
-`
+`;
 
 export const Icon = styled.i`
   font-size: 35px;
   color: white;
-`
+`;
 
 export const CreateRoomButton = styled.button`
   width: 200px;
@@ -192,12 +190,12 @@ export const CreateRoomButton = styled.button`
   font-weight: bold;
   cursor: pointer;
   border: 2px solid black;
-  font-family: 'MyFont', sans-serif;
+  font-family: "MyFont", sans-serif;
 
   &:hover {
     opacity: 0.8;
   }
-`
+`;
 export const DefaultThemesButton = styled.button`
   padding: 0 10px;
   height: 50px;
@@ -208,9 +206,9 @@ export const DefaultThemesButton = styled.button`
   font-weight: bold;
   cursor: pointer;
   border: 2px solid black;
-  font-family: 'MyFont', sans-serif;
+  font-family: "MyFont", sans-serif;
   opacity: ${({ isClicked }) => isClicked};
-`
+`;
 export const CustomThemesButton = styled.button`
   padding: 0 10px;
   height: 50px;
@@ -221,14 +219,15 @@ export const CustomThemesButton = styled.button`
   font-weight: bold;
   cursor: pointer;
   border: 2px solid black;
-  font-family: 'MyFont', sans-serif;
+  font-family: "MyFont", sans-serif;
   opacity: ${({ isClicked }) => isClicked};
-`
+`;
 
 export const OrText = styled.h1`
   font-size: 35px;
   margin: 45px 0;
-`
+  text-shadow: none;
+`;
 
 export const BodySettingsContainer = styled.div`
   height: 90%;
@@ -238,7 +237,7 @@ export const BodySettingsContainer = styled.div`
   -webkit-box-align: center;
   align-items: center;
   flex-direction: column;
-`
+`;
 
 export const BodyThemesContainer = styled.div`
   height: 90%;
@@ -249,7 +248,7 @@ export const BodyThemesContainer = styled.div`
   color: white;
   text-shadow: black 3px 3px 0px;
   flex-direction: column;
-`
+`;
 
 export const BodyLettersContainer = styled.div`
   height: 90%;
@@ -265,7 +264,7 @@ export const BodyLettersContainer = styled.div`
   flex-flow: column wrap;
   flex-wrap: wrap;
   flex-direction: row;
-`
+`;
 
 export const SettingContainer = styled.div`
   font-size: 20px;
@@ -276,13 +275,12 @@ export const SettingContainer = styled.div`
   #select-rounds {
     width: 30%;
   }
-`
+`;
 
 export const SelectText = styled.div`
   font-size: 18px;
   color: white;
-  -webkit-text-stroke: 1.5px rgb(0 0 0);
-`
+`;
 
 export const Letter = styled.div`
   width: 40px;
@@ -332,4 +330,4 @@ export const Letter = styled.div`
       background-color: ${({ backgroundHover }) => backgroundHover};
     }
   }
-`
+`;
